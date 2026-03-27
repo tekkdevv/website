@@ -1,0 +1,19 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1200" rx="42" fill="#0B0B0D"/>
+  <rect width="1600" height="1200" rx="42" fill="url(#glow)"/>
+  <rect x="115" y="152" width="1370" height="742" rx="24" fill="#0A0A0C" stroke="#2B2D2F" stroke-width="4"/>
+  <text x="135" y="870" fill="#FFFFFF" font-size="112" font-family="Arial, Helvetica, sans-serif" font-weight="700">BUILT</text>
+  <text x="135" y="980" fill="#FFFFFF" font-size="112" font-family="Arial, Helvetica, sans-serif" font-weight="700">FOR REAL</text>
+  <text x="135" y="1090" fill="#FFFFFF" font-size="112" font-family="Arial, Helvetica, sans-serif" font-weight="700">PERFORMANCE</text>
+  <ellipse cx="1045" cy="540" rx="180" ry="235" fill="#7A5743"/>
+  <ellipse cx="1045" cy="520" rx="112" ry="146" fill="#C59671"/>
+  <path d="M925 735C985 690 1085 685 1168 725C1228 755 1272 815 1287 892H788C810 818 855 773 925 735Z" fill="#13222B"/>
+  <text x="1200" y="1080" fill="#F6F6F6" font-size="48" font-family="Arial, Helvetica, sans-serif" font-weight="700">LaunchNow</text>
+  <defs>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(920 260) rotate(68.8) scale(1142 930)">
+      <stop stop-color="#9C6E50" stop-opacity="0.28"/>
+      <stop offset="0.5" stop-color="#101114" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#0B0B0D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

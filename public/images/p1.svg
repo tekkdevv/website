@@ -1,0 +1,23 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1200" rx="42" fill="#0B0B0D"/>
+  <rect width="1600" height="1200" rx="42" fill="url(#bg)"/>
+  <rect x="110" y="140" width="1380" height="760" rx="22" fill="#0C0C0E" stroke="#2A2D2E" stroke-width="4"/>
+  <text x="130" y="290" fill="#F4F3EA" font-size="78" font-family="Arial, Helvetica, sans-serif" font-weight="700">SCALE YOUR OPERATIONS</text>
+  <text x="130" y="380" fill="#F4F3EA" font-size="78" font-family="Arial, Helvetica, sans-serif" font-weight="700">WITHOUT HIRING</text>
+  <text x="1015" y="380" fill="#D8FF3E" font-size="78" font-family="Arial, Helvetica, sans-serif" font-weight="700">[100]</text>
+  <text x="130" y="470" fill="#99A19A" font-size="28" font-family="Arial, Helvetica, sans-serif">AI systems for growth teams that need more output without more overhead.</text>
+  <rect x="130" y="540" width="420" height="42" rx="21" fill="#1B1D1E"/>
+  <rect x="130" y="540" width="300" height="42" rx="21" fill="#D8FF3E"/>
+  <text x="130" y="1085" fill="#2F3134" font-size="270" font-family="Arial, Helvetica, sans-serif" font-weight="700">KYMA</text>
+  <circle cx="1180" cy="615" r="110" fill="#101E14" stroke="#D8FF3E" stroke-width="3"/>
+  <circle cx="1180" cy="615" r="75" fill="#203628"/>
+  <text x="1210" y="1080" fill="#F4F3EA" font-size="48" font-family="Arial, Helvetica, sans-serif" font-weight="700">LaunchNow</text>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(230 130) rotate(48.6) scale(1120 939)">
+      <stop stop-color="#D8FF3E" stop-opacity="0.55"/>
+      <stop offset="0.38" stop-color="#69783A" stop-opacity="0.18"/>
+      <stop offset="0.65" stop-color="#0B0B0D" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#0B0B0D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>
