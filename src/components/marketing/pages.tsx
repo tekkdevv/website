@@ -20,34 +20,111 @@ import {
   Workflow,
 } from "lucide-react";
 import { BlurIn } from "@/components/marketing/blur-in";
+import { ContactSection } from "@/components/marketing/contact-section";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { MarketingHero } from "@/components/marketing/hero";
 import { MarketingNavigation } from "@/components/marketing/navigation";
 
 const homeStats = [
-  { icon: Target, value: "10K+", label: "Active Users" },
-  { icon: Rocket, value: "99.9%", label: "Uptime" },
-  { icon: Users, value: "500+", label: "Enterprise Clients" },
+  { icon: Target, value: "50+", label: "Projects Delivered" },
+  { icon: Rocket, value: "Fast", label: "Turnaround" },
+  { icon: Users, value: "Ongoing", label: "Reliable Support" },
 ];
 
 const homeTestimonials = [
   {
     quote:
-      "This AI platform transformed how we handle customer inquiries. We've reduced response time by 80% and our customers love it.",
+      "TekDev stepped into a messy codebase, fixed the performance issues, and got our release back on track in days.",
     author: "Sarah Johnson",
-    role: "CEO, TechCorp",
+    role: "Founder, HealthStack",
   },
   {
     quote:
-      "The automation capabilities are incredible. What used to take our team days now happens in minutes. It's been a game-changer.",
+      "They felt like a true product partner, not just a dev shop. Clear communication, strong execution, and zero drama.",
     author: "Michael Chen",
-    role: "Operations Director, DataFlow",
+    role: "COO, BrightFlow",
   },
   {
     quote:
-      "Implementation was seamless and the ROI was immediate. Their support team is exceptional and always there when we need them.",
+      "We hired TekDev for bug fixes and ended up trusting them with a full rebuild. The quality was consistently strong.",
     author: "Emily Rodriguez",
-    role: "CTO, InnovateLabs",
+    role: "CTO, Northlane",
+  },
+];
+
+const showcaseProjects = [
+  {
+    id: 1,
+    title: "KYMA",
+    description: "AI agency website and lead funnel rebuilt for faster conversion and sharper premium positioning.",
+    tech: "Next.js · TypeScript · Framer Motion",
+    result: "Increased qualified inbound by 32%",
+    image: "/images/p1.svg",
+  },
+  {
+    id: 2,
+    title: "Mugen Studio",
+    description: "Portfolio experience refined with better storytelling, motion, and a cleaner service journey.",
+    tech: "React · Tailwind · Motion Design",
+    result: "Reduced bounce rate by 27%",
+    image: "/images/p2.svg",
+  },
+  {
+    id: 3,
+    title: "Essentia",
+    description: "Ecommerce storefront optimized for performance, merchandising clarity, and mobile conversion.",
+    tech: "Next.js · Shopify · UI Engineering",
+    result: "Cut load time by 40%",
+    image: "/images/p3.svg",
+  },
+  {
+    id: 4,
+    title: "Axiom",
+    description: "High-impact landing experience for a performance brand with stronger visual hierarchy and launch polish.",
+    tech: "React · CMS Integration · Tailwind",
+    result: "Lifted engagement by 24%",
+    image: "/images/p4.svg",
+  },
+];
+
+const agencyServices = [
+  {
+    icon: Workflow,
+    title: "Bug Fixing & Debugging",
+    description: "We diagnose difficult product issues quickly and ship reliable fixes without slowing your roadmap.",
+  },
+  {
+    icon: Cloud,
+    title: "Full Project Development",
+    description: "From idea to launch, we design and build complete web products and internal tools.",
+  },
+  {
+    icon: MessageSquare,
+    title: "API Integrations",
+    description: "We connect your product with payment, CRM, analytics, AI, and third-party platforms cleanly.",
+  },
+  {
+    icon: Rocket,
+    title: "Code Optimization & Performance",
+    description: "We improve speed, reliability, and maintainability so your software performs better under real use.",
+  },
+];
+
+const processSteps = [
+  {
+    icon: MessageSquare,
+    title: "Contact us",
+    description: "Tell us what needs to be built, fixed, or improved.",
+  },
+  {
+    icon: FileSearch,
+    title: "We analyze your requirement",
+    description: "We review the scope, constraints, and best technical path forward.",
+  },
+  {
+    icon: Check,
+    title: "We deliver the solution",
+    description: "We build with speed, communicate clearly, and hand over polished work.",
   },
 ];
 
@@ -276,11 +353,127 @@ export function MarketingHomePage() {
         </div>
       </section>
 
+      <section id="work" className="border-t border-white/10 py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <BlurIn delay={0} duration={0.6}>
+            <div className="mb-14 max-w-3xl">
+              <p className="text-sm uppercase tracking-[0.22em] text-white/50">Selected Work</p>
+              <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">
+                Work that proves how we solve real business problems.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-white/75">
+                A snapshot of recent projects across product builds, redesigns,
+                performance improvements, and launch-ready client work.
+              </p>
+            </div>
+          </BlurIn>
+
+          <div className="grid gap-8 md:grid-cols-2">
+            {showcaseProjects.map((project, index) => (
+              <BlurIn key={project.id} delay={0.08 * index} duration={0.6}>
+                <Link
+                  href={`/projects/${project.id}`}
+                  className="group block overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition duration-300 hover:scale-[1.02] hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
+                >
+                  <div className="relative aspect-[1.35/1] overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                    />
+                  </div>
+                  <div className="space-y-3 p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <h3 className="text-2xl font-medium text-white">{project.title}</h3>
+                      <span className="rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-white/70">
+                        Case Study
+                      </span>
+                    </div>
+                    <p className="leading-relaxed text-white/75">{project.description}</p>
+                    <p className="text-sm text-white/55">{project.tech}</p>
+                    <p className="text-sm font-medium text-white/90">{project.result}</p>
+                  </div>
+                </Link>
+              </BlurIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="services" className="border-t border-white/10 py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <BlurIn delay={0} duration={0.6}>
+            <div className="mb-14 max-w-3xl">
+              <p className="text-sm uppercase tracking-[0.22em] text-white/50">Services</p>
+              <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">
+                What we do for teams that need dependable execution.
+              </h2>
+            </div>
+          </BlurIn>
+
+          <div className="grid gap-8 md:grid-cols-2">
+            {agencyServices.map((service, index) => (
+              <BlurIn key={service.title} delay={0.08 * index} duration={0.6}>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-8 transition duration-300 hover:scale-[1.02] hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(0,0,0,0.32)]">
+                  <service.icon className="mb-5 h-10 w-10 text-white" />
+                  <h3 className="text-2xl font-medium text-white">{service.title}</h3>
+                  <p className="mt-4 leading-relaxed text-white/75">{service.description}</p>
+                </div>
+              </BlurIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="process" className="border-t border-white/10 py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <BlurIn delay={0} duration={0.6}>
+            <div className="mb-14 max-w-3xl">
+              <p className="text-sm uppercase tracking-[0.22em] text-white/50">How It Works</p>
+              <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">
+                A straightforward process from first message to final delivery.
+              </h2>
+            </div>
+          </BlurIn>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            {processSteps.map((step, index) => (
+              <BlurIn key={step.title} delay={0.08 * index} duration={0.6}>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+                  <step.icon className="mb-5 h-10 w-10 text-white" />
+                  <p className="text-sm uppercase tracking-[0.18em] text-white/45">
+                    Step 0{index + 1}
+                  </p>
+                  <h3 className="mt-3 text-2xl font-medium text-white">{step.title}</h3>
+                  <p className="mt-4 leading-relaxed text-white/75">{step.description}</p>
+                </div>
+              </BlurIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 py-20">
+        <div className="mx-auto max-w-4xl px-6 lg:px-12">
+          <BlurIn delay={0} duration={0.6}>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-10 text-center backdrop-blur-sm">
+              <p className="text-sm uppercase tracking-[0.22em] text-white/50">About TekDev</p>
+              <p className="mt-6 text-lg leading-relaxed text-white/80 md:text-xl">
+                We&apos;re a client-focused software team that helps startups and
+                businesses ship better products, fix complex issues, and move faster with
+                confidence. We specialize in modern web builds, integrations, and
+                performance-focused engineering that clients can actually rely on.
+              </p>
+            </div>
+          </BlurIn>
+        </div>
+      </section>
+
       <section className="border-t border-white/10 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <BlurIn delay={0} duration={0.6}>
             <h2 className="mb-16 text-center text-3xl font-medium text-white md:text-4xl">
-              Trusted by Industry Leaders
+              What clients say after working with us
             </h2>
           </BlurIn>
 
@@ -306,21 +499,23 @@ export function MarketingHomePage() {
         <div className="mx-auto max-w-4xl px-6 text-center lg:px-12">
           <BlurIn delay={0} duration={0.6}>
             <h2 className="mb-6 text-3xl font-medium text-white md:text-5xl">
-              Ready to Get Started?
+              Have a project in mind? Let&apos;s build it together.
             </h2>
             <p className="mb-10 text-lg leading-relaxed text-white/80">
-              Join thousands of businesses already using AI to transform their operations.
+              Whether you need a fast fix, a new product, or a more reliable technical partner,
+              we&apos;re ready to help.
             </p>
             <Link
-              href="/book-call"
+              href="/#contact"
               className="inline-flex items-center rounded-lg bg-white px-8 py-4 font-medium text-black transition-colors hover:bg-white/90"
             >
-              Book Your Free Consultation
+              Contact Us
             </Link>
           </BlurIn>
         </div>
       </section>
 
+      <ContactSection />
       <MarketingFooter />
     </div>
   );

@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 import { Sparkles } from "lucide-react";
 
 const links = [
-  { href: "/features", label: "Features" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/learn", label: "Learn" },
+  { href: "/#work", label: "Work" },
+  { href: "/#services", label: "Services" },
+  { href: "/#process", label: "Process" },
 ];
 
 export function MarketingNavigation() {
@@ -19,7 +19,7 @@ export function MarketingNavigation() {
         <div className="flex h-20 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Sparkles className="h-6 w-6 text-white" />
-            <span className="text-xl font-medium text-white">AI Automation</span>
+            <span className="text-xl font-medium text-white">TekDev</span>
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">
@@ -28,17 +28,17 @@ export function MarketingNavigation() {
                 key={link.href}
                 href={link.href}
                 className={`transition-colors ${
-                  pathname === link.href ? "text-white" : "text-white/80 hover:text-white"
+                  pathname === "/" ? "text-white/80 hover:text-white" : "text-white/80 hover:text-white"
                 }`}
               >
                 {link.label}
               </Link>
             ))}
             <Link
-              href="/book-call"
+              href="/#contact"
               className="rounded-full bg-white px-6 py-2 font-medium text-black transition-colors hover:bg-white/90"
             >
-              Book a Call
+              Contact Us
             </Link>
           </div>
         </div>

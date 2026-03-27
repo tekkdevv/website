@@ -60,20 +60,20 @@ export function MarketingHero() {
               <BlurIn delay={0} duration={0.6}>
                 <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 px-4 py-2 backdrop-blur-sm">
                   <Sparkles className="h-3 w-3 text-white/80" />
-                  <span className="text-sm font-medium text-white/80">New AI Automation Ally</span>
+                  <span className="text-sm font-medium text-white/80">Premium software partner</span>
                 </div>
               </BlurIn>
 
               <h1 className="text-4xl font-medium leading-tight text-white md:text-5xl lg:text-6xl lg:leading-[1.2]">
-                <SplitText text="Unlock the Power of AI" delay={0} duration={0.6} className="block" />
-                <SplitText text="for Your" delay={0.24} duration={0.6} className="inline" />{" "}
-                <SplitText text="Business." delay={0.32} duration={0.6} className="inline font-serif italic" />
+                <SplitText text="We build software" delay={0} duration={0.6} className="block" />
+                <SplitText text="that delivers real" delay={0.24} duration={0.6} className="inline" />{" "}
+                <SplitText text="results." delay={0.32} duration={0.6} className="inline font-serif italic" />
               </h1>
 
               <BlurIn delay={0.4} duration={0.6}>
                 <p className="max-w-xl text-lg font-normal leading-relaxed text-white/80">
-                  Our cutting-edge AI platform automates, analyzes, and accelerates your
-                  workflows so you can focus on what really matters.
+                  We help startups and businesses build, fix, and scale their
+                  software quickly and reliably.
                 </p>
               </BlurIn>
             </div>
@@ -81,17 +81,17 @@ export function MarketingHero() {
             <BlurIn delay={0.6} duration={0.6}>
               <div className="flex flex-wrap items-center gap-4">
                 <Link
-                  href="/book-call"
+                  href="/#work"
                   className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 font-medium text-black transition-colors hover:bg-white/90"
                 >
-                  Book A Free Call
+                  View Our Work
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/learn"
+                  href="/#contact"
                   className="inline-flex items-center rounded-full bg-white/20 px-8 py-3 font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/30"
                 >
-                  Learn now
+                  Contact Us
                 </Link>
               </div>
             </BlurIn>
