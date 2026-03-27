@@ -27,8 +27,8 @@ import { MarketingNavigation } from "@/components/marketing/navigation";
 
 const homeStats = [
   { icon: Target, value: "50+", label: "Projects Delivered" },
-  { icon: Rocket, value: "Fast", label: "Turnaround" },
-  { icon: Users, value: "Ongoing", label: "Reliable Support" },
+  { icon: Rocket, value: "Fast Delivery", label: "Quick turnaround on client work" },
+  { icon: Users, value: "Ongoing Support", label: "Reliable help after launch" },
 ];
 
 const homeTestimonials = [
@@ -319,7 +319,7 @@ const pricingPlans = [
 function BackBar() {
   return (
     <nav className="border-b border-white/10">
-      <div className="mx-auto max-w-7xl px-6 py-6 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-6 lg:px-12">
         <Link href="/" className="inline-flex items-center gap-2 text-white/80 transition-colors hover:text-white">
           <ArrowLeft className="h-4 w-4" />
           Back to Home
@@ -335,17 +335,21 @@ export function MarketingHomePage() {
       <MarketingNavigation />
       <MarketingHero />
 
-      <section className="border-t border-white/10 py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
-          <div className="grid gap-12 md:grid-cols-3">
+      <section className="border-t border-white/10 py-8 sm:py-10 lg:py-14">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
+          <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3">
             {homeStats.map((stat, index) => (
               <BlurIn key={stat.label} delay={0.1 * index} duration={0.6}>
-                <div className="text-center">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-white/10">
-                    <stat.icon className="h-8 w-8 text-white" />
+                <div className="flex items-center gap-4 rounded-2xl border border-white/8 bg-white/[0.03] p-4 text-left sm:p-5 md:h-full md:flex-col md:items-start md:gap-5 lg:items-center lg:text-center">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-white/5 sm:h-14 sm:w-14">
+                    <stat.icon className="h-6 w-6 text-white sm:h-7 sm:w-7" />
                   </div>
-                  <div className="mb-2 text-4xl font-bold text-white">{stat.value}</div>
-                  <div className="text-white/70">{stat.label}</div>
+                  <div className="min-w-0">
+                    <div className="text-lg font-semibold text-white sm:text-xl lg:text-2xl">
+                      {stat.value}
+                    </div>
+                    <div className="mt-1 text-sm text-white/60">{stat.label}</div>
+                  </div>
                 </div>
               </BlurIn>
             ))}
@@ -353,27 +357,27 @@ export function MarketingHomePage() {
         </div>
       </section>
 
-      <section id="work" className="border-t border-white/10 py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <section id="work" className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <BlurIn delay={0} duration={0.6}>
-            <div className="mb-14 max-w-3xl">
-              <p className="text-sm uppercase tracking-[0.22em] text-white/50">Selected Work</p>
+            <div className="mb-10 max-w-3xl sm:mb-12 lg:mb-14">
+              <p className="text-xs uppercase tracking-[0.22em] text-white/50 sm:text-sm">Selected Work</p>
               <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">
                 Work that proves how we solve real business problems.
               </h2>
-              <p className="mt-5 text-lg leading-relaxed text-white/75">
+              <p className="mt-5 text-sm leading-relaxed text-white/75 sm:text-base lg:text-lg">
                 A snapshot of recent projects across product builds, redesigns,
                 performance improvements, and launch-ready client work.
               </p>
             </div>
           </BlurIn>
 
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
             {showcaseProjects.map((project, index) => (
               <BlurIn key={project.id} delay={0.08 * index} duration={0.6}>
                 <Link
                   href={`/projects/${project.id}`}
-                  className="group block overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition duration-300 hover:scale-[1.02] hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
+                  className="group block overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition duration-300 hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)] md:hover:scale-[1.02]"
                 >
                   <div className="relative aspect-[1.35/1] overflow-hidden">
                     <img
@@ -382,14 +386,14 @@ export function MarketingHomePage() {
                       className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
                     />
                   </div>
-                  <div className="space-y-3 p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <h3 className="text-2xl font-medium text-white">{project.title}</h3>
-                      <span className="rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-white/70">
+                  <div className="space-y-3 p-5 sm:p-6">
+                    <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:gap-4">
+                      <h3 className="text-xl font-medium text-white sm:text-2xl">{project.title}</h3>
+                      <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-white/70 sm:text-xs">
                         Case Study
                       </span>
                     </div>
-                    <p className="leading-relaxed text-white/75">{project.description}</p>
+                    <p className="text-sm leading-relaxed text-white/75 sm:text-base">{project.description}</p>
                     <p className="text-sm text-white/55">{project.tech}</p>
                     <p className="text-sm font-medium text-white/90">{project.result}</p>
                   </div>
@@ -400,24 +404,24 @@ export function MarketingHomePage() {
         </div>
       </section>
 
-      <section id="services" className="border-t border-white/10 py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <section id="services" className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <BlurIn delay={0} duration={0.6}>
-            <div className="mb-14 max-w-3xl">
-              <p className="text-sm uppercase tracking-[0.22em] text-white/50">Services</p>
+            <div className="mb-10 max-w-3xl sm:mb-12 lg:mb-14">
+              <p className="text-xs uppercase tracking-[0.22em] text-white/50 sm:text-sm">Services</p>
               <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">
                 What we do for teams that need dependable execution.
               </h2>
             </div>
           </BlurIn>
 
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-6 sm:gap-8 md:grid-cols-2 xl:grid-cols-4">
             {agencyServices.map((service, index) => (
               <BlurIn key={service.title} delay={0.08 * index} duration={0.6}>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-8 transition duration-300 hover:scale-[1.02] hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(0,0,0,0.32)]">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-300 hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(0,0,0,0.32)] md:hover:scale-[1.02] sm:p-8">
                   <service.icon className="mb-5 h-10 w-10 text-white" />
-                  <h3 className="text-2xl font-medium text-white">{service.title}</h3>
-                  <p className="mt-4 leading-relaxed text-white/75">{service.description}</p>
+                  <h3 className="text-xl font-medium text-white sm:text-2xl">{service.title}</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-white/75 sm:text-base">{service.description}</p>
                 </div>
               </BlurIn>
             ))}
@@ -425,27 +429,27 @@ export function MarketingHomePage() {
         </div>
       </section>
 
-      <section id="process" className="border-t border-white/10 py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <section id="process" className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <BlurIn delay={0} duration={0.6}>
-            <div className="mb-14 max-w-3xl">
-              <p className="text-sm uppercase tracking-[0.22em] text-white/50">How It Works</p>
+            <div className="mb-10 max-w-3xl sm:mb-12 lg:mb-14">
+              <p className="text-xs uppercase tracking-[0.22em] text-white/50 sm:text-sm">How It Works</p>
               <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">
                 A straightforward process from first message to final delivery.
               </h2>
             </div>
           </BlurIn>
 
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-6 sm:gap-8 md:grid-cols-3">
             {processSteps.map((step, index) => (
               <BlurIn key={step.title} delay={0.08 * index} duration={0.6}>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8">
                   <step.icon className="mb-5 h-10 w-10 text-white" />
-                  <p className="text-sm uppercase tracking-[0.18em] text-white/45">
+                  <p className="text-xs uppercase tracking-[0.18em] text-white/45 sm:text-sm">
                     Step 0{index + 1}
                   </p>
-                  <h3 className="mt-3 text-2xl font-medium text-white">{step.title}</h3>
-                  <p className="mt-4 leading-relaxed text-white/75">{step.description}</p>
+                  <h3 className="mt-3 text-xl font-medium text-white sm:text-2xl">{step.title}</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-white/75 sm:text-base">{step.description}</p>
                 </div>
               </BlurIn>
             ))}
@@ -453,12 +457,12 @@ export function MarketingHomePage() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 py-20">
-        <div className="mx-auto max-w-4xl px-6 lg:px-12">
+      <section className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-12">
           <BlurIn delay={0} duration={0.6}>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-10 text-center backdrop-blur-sm">
-              <p className="text-sm uppercase tracking-[0.22em] text-white/50">About TekDev</p>
-              <p className="mt-6 text-lg leading-relaxed text-white/80 md:text-xl">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm sm:p-8 lg:p-10">
+              <p className="text-xs uppercase tracking-[0.22em] text-white/50 sm:text-sm">About TekDev</p>
+              <p className="mt-6 text-sm leading-relaxed text-white/80 sm:text-base md:text-xl">
                 We&apos;re a client-focused software team that helps startups and
                 businesses ship better products, fix complex issues, and move faster with
                 confidence. We specialize in modern web builds, integrations, and
@@ -469,19 +473,19 @@ export function MarketingHomePage() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <section className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <BlurIn delay={0} duration={0.6}>
-            <h2 className="mb-16 text-center text-3xl font-medium text-white md:text-4xl">
+            <h2 className="mb-10 text-center text-3xl font-medium text-white sm:mb-12 md:text-4xl lg:mb-16">
               What clients say after working with us
             </h2>
           </BlurIn>
 
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-6 sm:gap-8 md:grid-cols-2 xl:grid-cols-3">
             {homeTestimonials.map((testimonial, index) => (
               <BlurIn key={testimonial.author} delay={0.1 * index} duration={0.6}>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
-                  <p className="mb-6 text-lg leading-relaxed text-white/80">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
+                  <p className="mb-6 text-base leading-relaxed text-white/80 sm:text-lg">
                     "{testimonial.quote}"
                   </p>
                   <div>
@@ -495,19 +499,19 @@ export function MarketingHomePage() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 py-20">
-        <div className="mx-auto max-w-4xl px-6 text-center lg:px-12">
+      <section className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-12">
           <BlurIn delay={0} duration={0.6}>
             <h2 className="mb-6 text-3xl font-medium text-white md:text-5xl">
               Have a project in mind? Let&apos;s build it together.
             </h2>
-            <p className="mb-10 text-lg leading-relaxed text-white/80">
+            <p className="mb-8 text-sm leading-relaxed text-white/80 sm:mb-10 sm:text-base lg:text-lg">
               Whether you need a fast fix, a new product, or a more reliable technical partner,
               we&apos;re ready to help.
             </p>
             <Link
               href="/#contact"
-              className="inline-flex items-center rounded-lg bg-white px-8 py-4 font-medium text-black transition-colors hover:bg-white/90"
+              className="inline-flex w-full items-center justify-center rounded-lg bg-white px-8 py-4 font-medium text-black transition-colors hover:bg-white/90 sm:w-auto"
             >
               Contact Us
             </Link>

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AI Automation",
+  title: "TekDev",
   description:
-    "AI automation platform with premium product marketing pages, feature storytelling, pricing, learning resources, and consultation booking."
+    "TekDev is a software development company that builds, fixes, and scales software quickly and reliably."
 };
 
 export default function RootLayout({

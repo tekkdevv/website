@@ -25,16 +25,16 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="border-t border-white/10 py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+    <section id="contact" className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <BlurIn delay={0} duration={0.6}>
             <div>
-              <p className="text-sm uppercase tracking-[0.22em] text-white/50">Contact</p>
+              <p className="text-xs uppercase tracking-[0.22em] text-white/50 sm:text-sm">Contact</p>
               <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">
                 Have a project in mind? Let&apos;s build it together.
               </h2>
-              <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/75 sm:text-base lg:text-lg">
                 Need a reliable team to fix issues, build new systems, or move faster
                 on delivery? Reach out and we&apos;ll help shape the right solution.
               </p>
@@ -59,7 +59,7 @@ export function ContactSection() {
           </BlurIn>
 
           <BlurIn delay={0.15} duration={0.6}>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-white/80">
@@ -113,7 +113,7 @@ export function ContactSection() {
                 </div>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-medium text-black transition-colors hover:bg-white/90"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 font-medium text-black transition-colors hover:bg-white/90 sm:w-auto"
                 >
                   Contact Us
                   <Send className="h-4 w-4" />
