@@ -22,7 +22,9 @@ import {
 import { BlurIn } from "@/components/marketing/blur-in";
 import { ContactSection } from "@/components/marketing/contact-section";
 import { MarketingFooter } from "@/components/marketing/footer";
-import { MarketingHero } from "@/components/marketing/hero";
+import { StoryHero } from "@/components/marketing/story-hero";
+import { CosmicBackground, CosmicStats, CosmicProjects, CosmicServices, CosmicProcess, CosmicTestimonials, CosmicCTA } from "./home-sections";
+
 import { MarketingNavigation } from "@/components/marketing/navigation";
 
 const homeStats = [
@@ -331,200 +333,23 @@ function BackBar() {
 
 export function MarketingHomePage() {
   return (
-    <div className="min-h-screen bg-[#070612]">
+    <div className="relative min-h-screen bg-[#080a16]">
+      <CosmicBackground />
       <MarketingNavigation />
-      <MarketingHero />
-
-      <section className="border-t border-white/10 py-8 sm:py-10 lg:py-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
-          <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-            {homeStats.map((stat, index) => (
-              <BlurIn key={stat.label} delay={0.1 * index} duration={0.6}>
-                <div className="flex items-center gap-4 rounded-2xl border border-white/8 bg-white/[0.03] p-4 text-left sm:p-5 md:h-full md:flex-col md:items-start md:gap-5 lg:items-center lg:text-center">
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-white/5 sm:h-14 sm:w-14">
-                    <stat.icon className="h-6 w-6 text-white sm:h-7 sm:w-7" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-lg font-semibold text-white sm:text-xl lg:text-2xl">
-                      {stat.value}
-                    </div>
-                    <div className="mt-1 text-sm text-white/60">{stat.label}</div>
-                  </div>
-                </div>
-              </BlurIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="work" className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
-          <BlurIn delay={0} duration={0.6}>
-            <div className="mb-10 max-w-3xl sm:mb-12 lg:mb-14">
-              <p className="text-xs uppercase tracking-[0.22em] text-white/50 sm:text-sm">Selected Work</p>
-              <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">
-                Work that proves how we solve real business problems.
-              </h2>
-              <p className="mt-5 text-sm leading-relaxed text-white/75 sm:text-base lg:text-lg">
-                A snapshot of recent projects across product builds, redesigns,
-                performance improvements, and launch-ready client work.
-              </p>
-            </div>
-          </BlurIn>
-
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
-            {showcaseProjects.map((project, index) => (
-              <BlurIn key={project.id} delay={0.08 * index} duration={0.6}>
-                <Link
-                  href={`/projects/${project.id}`}
-                  className="group block overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition duration-300 hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)] md:hover:scale-[1.02]"
-                >
-                  <div className="relative aspect-[1.35/1] overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-                    />
-                  </div>
-                  <div className="space-y-3 p-5 sm:p-6">
-                    <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:gap-4">
-                      <h3 className="text-xl font-medium text-white sm:text-2xl">{project.title}</h3>
-                      <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-white/70 sm:text-xs">
-                        Case Study
-                      </span>
-                    </div>
-                    <p className="text-sm leading-relaxed text-white/75 sm:text-base">{project.description}</p>
-                    <p className="text-sm text-white/55">{project.tech}</p>
-                    <p className="text-sm font-medium text-white/90">{project.result}</p>
-                  </div>
-                </Link>
-              </BlurIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="services" className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
-          <BlurIn delay={0} duration={0.6}>
-            <div className="mb-10 max-w-3xl sm:mb-12 lg:mb-14">
-              <p className="text-xs uppercase tracking-[0.22em] text-white/50 sm:text-sm">Services</p>
-              <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">
-                What we do for teams that need dependable execution.
-              </h2>
-            </div>
-          </BlurIn>
-
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-2 xl:grid-cols-4">
-            {agencyServices.map((service, index) => (
-              <BlurIn key={service.title} delay={0.08 * index} duration={0.6}>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-300 hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(0,0,0,0.32)] md:hover:scale-[1.02] sm:p-8">
-                  <service.icon className="mb-5 h-10 w-10 text-white" />
-                  <h3 className="text-xl font-medium text-white sm:text-2xl">{service.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-white/75 sm:text-base">{service.description}</p>
-                </div>
-              </BlurIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="process" className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
-          <BlurIn delay={0} duration={0.6}>
-            <div className="mb-10 max-w-3xl sm:mb-12 lg:mb-14">
-              <p className="text-xs uppercase tracking-[0.22em] text-white/50 sm:text-sm">How It Works</p>
-              <h2 className="mt-4 text-3xl font-medium text-white md:text-5xl">
-                A straightforward process from first message to final delivery.
-              </h2>
-            </div>
-          </BlurIn>
-
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-3">
-            {processSteps.map((step, index) => (
-              <BlurIn key={step.title} delay={0.08 * index} duration={0.6}>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8">
-                  <step.icon className="mb-5 h-10 w-10 text-white" />
-                  <p className="text-xs uppercase tracking-[0.18em] text-white/45 sm:text-sm">
-                    Step 0{index + 1}
-                  </p>
-                  <h3 className="mt-3 text-xl font-medium text-white sm:text-2xl">{step.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-white/75 sm:text-base">{step.description}</p>
-                </div>
-              </BlurIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-12">
-          <BlurIn delay={0} duration={0.6}>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm sm:p-8 lg:p-10">
-              <p className="text-xs uppercase tracking-[0.22em] text-white/50 sm:text-sm">About TekDev</p>
-              <p className="mt-6 text-sm leading-relaxed text-white/80 sm:text-base md:text-xl">
-                We&apos;re a client-focused software team that helps startups and
-                businesses ship better products, fix complex issues, and move faster with
-                confidence. We specialize in modern web builds, integrations, and
-                performance-focused engineering that clients can actually rely on.
-              </p>
-            </div>
-          </BlurIn>
-        </div>
-      </section>
-
-      <section className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
-          <BlurIn delay={0} duration={0.6}>
-            <h2 className="mb-10 text-center text-3xl font-medium text-white sm:mb-12 md:text-4xl lg:mb-16">
-              What clients say after working with us
-            </h2>
-          </BlurIn>
-
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {homeTestimonials.map((testimonial, index) => (
-              <BlurIn key={testimonial.author} delay={0.1 * index} duration={0.6}>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
-                  <p className="mb-6 text-base leading-relaxed text-white/80 sm:text-lg">
-                    "{testimonial.quote}"
-                  </p>
-                  <div>
-                    <div className="font-medium text-white">{testimonial.author}</div>
-                    <div className="text-sm text-white/60">{testimonial.role}</div>
-                  </div>
-                </div>
-              </BlurIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-white/10 py-10 sm:py-12 lg:py-20">
-        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-12">
-          <BlurIn delay={0} duration={0.6}>
-            <h2 className="mb-6 text-3xl font-medium text-white md:text-5xl">
-              Have a project in mind? Let&apos;s build it together.
-            </h2>
-            <p className="mb-8 text-sm leading-relaxed text-white/80 sm:mb-10 sm:text-base lg:text-lg">
-              Whether you need a fast fix, a new product, or a more reliable technical partner,
-              we&apos;re ready to help.
-            </p>
-            <Link
-              href="/#contact"
-              className="inline-flex w-full items-center justify-center rounded-lg bg-white px-8 py-4 font-medium text-black transition-colors hover:bg-white/90 sm:w-auto"
-            >
-              Contact Us
-            </Link>
-          </BlurIn>
-        </div>
-      </section>
-
-      <ContactSection />
-      <MarketingFooter />
+      <StoryHero />
+      <div className="relative z-10 pb-24">
+        <CosmicStats />
+        <CosmicProjects />
+        <CosmicServices />
+        <CosmicProcess />
+        <CosmicTestimonials />
+        <CosmicCTA />
+        <ContactSection />
+        <MarketingFooter />
+      </div>
     </div>
   );
 }
-
 export function FeaturesPageContent() {
   return (
     <div className="min-h-screen bg-[#070612]">
