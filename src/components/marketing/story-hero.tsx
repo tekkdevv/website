@@ -3,22 +3,34 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const chapters = [
   {
-    title: "As the times change...",
+    titleParts: [
+      { text: "Your ", muted: false },
+      { text: "vision. ", muted: true },
+      { text: "Our code.", muted: false },
+    ],
     subtitle:
-      "The old ways of building software are fading. Welcome to the new era.",
+      "We\u2019re a premium software team that builds, fixes, and ships web products for startups and businesses.",
   },
   {
-    title: "...you don't need huge teams and days to do things.",
+    titleParts: [
+      { text: "No bloated teams. ", muted: true },
+      { text: "No wasted sprints.", muted: false },
+    ],
     subtitle:
-      "We believe in lean execution and moving fast without breaking things.",
+      "Lean execution. Clean code. Fast turnaround \u2014 from bug fixes to full product builds.",
   },
   {
-    title: "It can be done very easily.",
-    subtitle: "Complex problems, solved with elegant and simple solutions.",
+    titleParts: [
+      { text: "Built to ", muted: false },
+      { text: "perform. ", muted: true },
+      { text: "Shipped to last.", muted: false },
+    ],
+    subtitle:
+      "Next.js, React, TypeScript, APIs \u2014 engineered with precision for products that actually scale.",
   },
 ];
 
@@ -31,8 +43,8 @@ export function StoryHero() {
   });
 
   // Video transforms — slow zoom as you scroll
-  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
-  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
 
   // Chapter visibility
   const chapter1Opacity = useTransform(
@@ -53,13 +65,29 @@ export function StoryHero() {
   const ctaOpacity = useTransform(scrollYProgress, [0.82, 0.92], [0, 1]);
 
   // Text Y movement
-  const chapter1Y = useTransform(scrollYProgress, [0, 0.22, 0.3], [0, 0, -30]);
-  const chapter2Y = useTransform(scrollYProgress, [0.28, 0.36, 0.52, 0.6], [40, 0, 0, -30]);
-  const chapter3Y = useTransform(scrollYProgress, [0.58, 0.66, 0.78, 0.85], [40, 0, 0, -30]);
-  const ctaY = useTransform(scrollYProgress, [0.82, 0.92], [30, 0]);
+  const chapter1Y = useTransform(
+    scrollYProgress,
+    [0, 0.22, 0.3],
+    [0, 0, -30]
+  );
+  const chapter2Y = useTransform(
+    scrollYProgress,
+    [0.28, 0.36, 0.52, 0.6],
+    [24, 0, 0, -30]
+  );
+  const chapter3Y = useTransform(
+    scrollYProgress,
+    [0.58, 0.66, 0.78, 0.85],
+    [24, 0, 0, -30]
+  );
+  const ctaY = useTransform(scrollYProgress, [0.82, 0.92], [24, 0]);
 
-  // Overlay darkens progressively
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.25, 0.4, 0.55]);
+  // Minimal overlay — darkens slightly for text readability
+  const overlayOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [0.15, 0.3, 0.45]
+  );
 
   const chapterOpacities = [chapter1Opacity, chapter2Opacity, chapter3Opacity];
   const chapterYs = [chapter1Y, chapter2Y, chapter3Y];
@@ -67,8 +95,8 @@ export function StoryHero() {
   return (
     <div ref={containerRef} className="relative h-[400vh]">
       {/* Sticky container */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#080a16]">
-        {/* Video background with Ken Burns zoom */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Video background */}
         <motion.div
           className="absolute inset-0 z-0"
           style={{ scale: videoScale, y: videoY }}
@@ -79,85 +107,95 @@ export function StoryHero() {
             muted
             playsInline
             poster="/hero/bg-3.png"
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover"
           >
             <source src="/hero/hero-video.mp4" type="video/mp4" />
           </video>
         </motion.div>
 
-        {/* Dynamic overlay */}
+        {/* Minimal overlay — let the video breathe */}
         <motion.div
-          className="absolute inset-0 z-[1] bg-[#080a16]"
+          className="absolute inset-0 z-[1] bg-black"
           style={{ opacity: overlayOpacity }}
         />
 
-        {/* Gradient overlays — cosmic feel */}
-        <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#080a16] via-[#080a16]/30 to-transparent" />
-        <div className="absolute inset-0 z-[2] bg-gradient-to-r from-[#080a16]/60 via-transparent to-transparent" />
-        {/* Subtle blue vignette */}
-        <div className="absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_center,transparent_40%,#080a16_100%)] opacity-60" />
+        {/* Bottom gradient only — for text readability */}
+        <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[hsl(201,100%,8%)] via-transparent to-transparent opacity-90" />
 
-        {/* Content layer */}
-        <div className="relative z-10 flex h-full items-end pb-20 sm:pb-28 lg:pb-32">
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-12">
+        {/* Content — centered vertically like Velorah */}
+        <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 pt-20 text-center">
+          <div className="mx-auto w-full max-w-7xl">
             {/* Badge */}
-            <motion.div
-              className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 backdrop-blur-xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-            >
-              <Sparkles className="h-3.5 w-3.5 text-blue-200/70" />
-              <span className="text-xs font-medium tracking-widest text-blue-100/80 uppercase sm:text-sm">
-                Premium standard
+            <div className="animate-fade-rise mb-8 flex justify-center">
+              <span className="liquid-glass inline-flex items-center rounded-full px-5 py-2.5 text-xs font-medium tracking-[0.2em] text-foreground/80 uppercase sm:text-sm">
+                Software Development Studio
               </span>
-            </motion.div>
+            </div>
 
-            {/* Chapters */}
-            <div className="relative min-h-[200px] sm:min-h-[240px]">
+            {/* Chapters — stacked, crossfade */}
+            <div className="relative min-h-[280px] sm:min-h-[320px] lg:min-h-[360px]">
               {chapters.map((chapter, index) => (
                 <motion.div
                   key={index}
-                  className="absolute inset-0 flex flex-col gap-4"
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-6 sm:gap-8"
                   style={{
                     opacity: chapterOpacities[index],
                     y: chapterYs[index],
                   }}
                 >
-                  <h1 className="max-w-3xl font-serif text-4xl font-medium leading-[1.1] text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                    {chapter.title}
+                  <h1
+                    className="max-w-5xl text-5xl font-normal leading-[0.95] tracking-[-2.46px] sm:text-7xl md:text-8xl"
+                    style={{ fontFamily: "'Instrument Serif', serif" }}
+                  >
+                    {chapter.titleParts.map((part, i) => (
+                      <span
+                        key={i}
+                        className={
+                          part.muted ? "text-muted-foreground" : "text-foreground"
+                        }
+                      >
+                        {part.text}
+                      </span>
+                    ))}
                   </h1>
-                  <p className="max-w-lg text-base font-light leading-relaxed text-blue-100/60 sm:text-lg">
+                  <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
                     {chapter.subtitle}
                   </p>
                 </motion.div>
               ))}
 
-              {/* CTA */}
+              {/* CTA — final chapter */}
               <motion.div
-                className="absolute inset-0 flex flex-col justify-end gap-6"
+                className="absolute inset-0 flex flex-col items-center justify-center gap-8"
                 style={{ opacity: ctaOpacity, y: ctaY }}
               >
-                <h2 className="max-w-2xl font-serif text-3xl font-medium leading-[1.15] text-white sm:text-4xl md:text-5xl lg:text-6xl">
-                  Experience true smoothness.
+                <h2
+                  className="max-w-4xl text-4xl font-normal leading-[0.95] tracking-[-2px] sm:text-5xl md:text-6xl lg:text-7xl"
+                  style={{ fontFamily: "'Instrument Serif', serif" }}
+                >
+                  <span className="text-foreground">Let&apos;s build </span>
+                  <span className="text-muted-foreground">
+                    something worth
+                  </span>
+                  <span className="text-foreground"> standing for.</span>
                 </h2>
-                <p className="max-w-lg text-base font-light leading-relaxed text-blue-100/60 sm:text-lg">
-                  Lean. Fast. Smooth. A premium partnership from the very first
-                  line of code.
+                <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+                  Whether it&apos;s a fix, a feature, or a full product &mdash;
+                  we&apos;re ready.
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                   <Link
                     href="/#work"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 font-medium text-[#080a16] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(200,210,240,0.15)] sm:w-auto"
+                    className="liquid-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-14 py-5 text-base text-foreground transition-transform hover:scale-[1.03] sm:w-auto"
                   >
-                    View Our Work
+                    See Our Work
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href="/#contact"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-8 py-3.5 font-medium text-white backdrop-blur-xl transition-all hover:scale-105 hover:bg-white/10 hover:border-white/25 sm:w-auto"
+                    className="liquid-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-14 py-5 text-base text-foreground transition-transform hover:scale-[1.03] sm:w-auto"
                   >
-                    Contact Us
+                    Start a Project
                   </Link>
                 </div>
               </motion.div>
@@ -167,19 +205,23 @@ export function StoryHero() {
 
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2"
           style={{
-            opacity: useTransform(scrollYProgress, [0, 0.08], [1, 0]),
+            opacity: useTransform(scrollYProgress, [0, 0.06], [1, 0]),
           }}
         >
           <div className="flex flex-col items-center gap-2">
-            <span className="text-[10px] font-light tracking-[0.25em] text-blue-200/40 uppercase">
-              Scroll to explore
+            <span className="text-[10px] font-medium tracking-[0.3em] text-muted-foreground/60 uppercase">
+              Scroll
             </span>
             <motion.div
-              className="h-8 w-[1px] bg-gradient-to-b from-blue-200/50 to-transparent"
-              animate={{ scaleY: [1, 0.5, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="h-8 w-[1px] bg-gradient-to-b from-foreground/40 to-transparent"
+              animate={{ scaleY: [1, 0.4, 1] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             />
           </div>
         </motion.div>

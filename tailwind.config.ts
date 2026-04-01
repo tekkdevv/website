@@ -5,37 +5,40 @@ const config: Config = {
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
-    "./src/**/*.{js,ts,jsx,tsx}"
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)'],
-        serif: ['var(--font-playfair)'],
+        body: ["var(--font-body)"],
+        sans: ["var(--font-body)"],
+        serif: ['"Instrument Serif"', "serif"],
+        display: ['"Instrument Serif"', "serif"],
+      },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        marquee: "marquee 40s linear infinite",
       },
       colors: {
-        background: "#F8FAFC",
-        foreground: "#0F172A",
-        primary: "#FF6A3D",
-        accent: "#2563EB",
-        muted: "#64748B",
-        card: "#FFFFFF",
-        border: "#E2E8F0",
-        "primary-foreground": "#FFFFFF"
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: "hsl(var(--primary))",
+        "primary-foreground": "hsl(var(--primary-foreground))",
+        secondary: "hsl(var(--secondary))",
+        muted: "hsl(var(--muted))",
+        "muted-foreground": "hsl(var(--muted-foreground))",
+        accent: "hsl(var(--accent))",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
       },
-      backgroundImage: {
-        "gradient-primary":
-          "linear-gradient(135deg, #FF6A3D 0%, #FF8A5C 100%)",
-        "gradient-card":
-          "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)"
-      },
-      boxShadow: {
-        "soft-lg": "0 20px 45px rgba(15, 23, 42, 0.08)"
-      }
-    }
+    },
   },
-  plugins: []
+  plugins: [],
 };
 
 export default config;
-

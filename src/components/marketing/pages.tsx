@@ -333,7 +333,7 @@ function BackBar() {
 
 export function MarketingHomePage() {
   return (
-    <div className="relative min-h-screen bg-[#080a16]">
+    <div className="relative min-h-screen bg-[hsl(201,100%,8%)]">
       <CosmicBackground />
       <MarketingNavigation />
       <StoryHero />
