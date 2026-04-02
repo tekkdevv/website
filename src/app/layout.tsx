@@ -9,9 +9,29 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "TekDev",
-  description:
-    "TekDev is a software development company that builds, fixes, and scales software quickly and reliably.",
+  metadataBase: new URL('https://tekdev.in'),
+  title: {
+    default: 'TekDev — Software Development Agency',
+    template: '%s | TekDev',
+  },
+  description: 'TekDev is a software development agency building full stack web apps, AI/ML systems, Android apps, HRMS portals, and Chrome extensions. Fast delivery. No AI slop. Real quality.',
+  keywords: ['software development agency', 'full stack web development', 'AI ML development', 'HRMS portal development', 'Android app development', 'Chrome extension development', 'Next.js agency', 'React development company'],
+  authors: [{ name: 'TekDev' }],
+  creator: 'TekDev',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://tekdev.in',
+    siteName: 'TekDev',
+    title: 'TekDev — Software Development Agency',
+    description: 'Full stack web apps, AI/ML, Android, HRMS portals & more. Fast. Crafted. No shortcuts.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'TekDev — Software Development Agency',
+    description: 'Full stack web apps, AI/ML, Android, HRMS portals & more. Fast. Crafted. No shortcuts.',
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

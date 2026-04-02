@@ -204,6 +204,16 @@ const showcaseProjects = [
     url: "https://www.thecyberseal.com/",
     image: "/images/project-cyberseal.jpg",
   },
+  {
+    id: 3,
+    title: "Fresh Coconuts",
+    category: "Local Vendor Web Presence",
+    description: "A clean, conversion-focused storefront for a small coconut vendor — farm-fresh branding, bulk order flow, and a warm design that turns visitors into customers.",
+    tech: ["React", "Tailwind CSS", "Vercel"],
+    result: "Live at coconut-beta.vercel.app",
+    url: "https://coconut-beta.vercel.app/",
+    image: "/images/project-coconut.jpg",
+  },
 ];
 
 /* Mobile card — simple, clean */
@@ -275,7 +285,7 @@ function ProjectsDesktop() {
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
 
   return (
-    <div ref={containerRef} className="relative w-full" style={{ height: "300vh" }}>
+    <div ref={containerRef} className="relative w-full" style={{ height: "450vh" }}>
       <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden py-24">
         {/* Header */}
         <div className="pointer-events-none absolute left-0 right-0 top-24 z-20 px-6 lg:px-12">
@@ -288,9 +298,12 @@ function ProjectsDesktop() {
                 className="text-4xl font-normal leading-[1.15] text-foreground lg:text-5xl xl:text-6xl"
                 style={{ fontFamily: "'Instrument Serif', serif" }}
               >
-                Sleek engineering.<br />
-                <span className="text-muted-foreground">Premium execution.</span>
+                Real projects.<br />
+                <span className="text-muted-foreground">Any scale. No bias.</span>
               </h2>
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground/60">
+                From local vendors to enterprise platforms — we show up the same way every time.
+              </p>
             </motion.div>
           </div>
         </div>
@@ -310,46 +323,79 @@ function ProjectsDesktop() {
                 className="absolute top-0 flex h-full w-full origin-top items-center justify-center px-6 lg:px-12"
                 style={{ y: i === 0 ? 0 : y, scale, rotateX: i === 0 ? 0 : rotateX, opacity: i === 0 ? 1 : opacity }}
               >
-                <div className="relative flex h-full max-h-[560px] w-full flex-row overflow-hidden rounded-[2rem] border border-white/[0.06] bg-black/40 backdrop-blur-2xl">
-                  <div className="relative z-10 flex w-1/2 flex-col justify-center p-10 xl:p-16">
-                    <span className="liquid-glass mb-6 inline-flex w-fit rounded-full px-3 py-1.5 text-[10px] font-medium tracking-wider text-foreground/70 uppercase">
-                      Live Project
-                    </span>
+                <div className="relative flex h-full max-h-[540px] w-full overflow-hidden rounded-[2rem] border border-white/[0.08]">
+                  {/* Full-bleed screenshot as ambient background */}
+                  <div className="absolute inset-0">
+                    <img src={project.image} alt="" className="h-full w-full object-cover object-top opacity-[0.18] blur-[1px] scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[hsl(201,100%,5%)] via-[hsl(201,100%,6%)]/90 to-[hsl(201,100%,7%)]/30" />
+                  </div>
+
+                  {/* Left: text content */}
+                  <div className="relative z-10 flex w-[44%] shrink-0 flex-col justify-center p-10 xl:p-14">
+                    <div className="mb-5 flex items-center gap-3">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                      <span className="text-[10px] font-medium tracking-[0.2em] text-emerald-400/80 uppercase">Live</span>
+                    </div>
                     <h3
-                      className="mb-3 text-4xl font-normal text-foreground xl:text-5xl"
+                      className="mb-2 text-4xl font-normal leading-[1.1] text-foreground xl:text-[2.8rem]"
                       style={{ fontFamily: "'Instrument Serif', serif" }}
                     >
                       {project.title}
                     </h3>
-                    <p className="mb-5 text-xs font-medium tracking-widest text-muted-foreground uppercase">
+                    <p className="mb-6 text-[10px] font-medium tracking-[0.2em] text-muted-foreground/60 uppercase">
                       {project.category}
                     </p>
-                    <p className="mb-7 text-base leading-relaxed text-foreground/70 lg:text-lg">{project.description}</p>
-                    <div className="mb-8 border-l border-white/[0.08] pl-5">
-                      <p className="text-sm font-normal text-muted-foreground">{project.result}</p>
-                      <div className="mt-2 flex flex-wrap gap-2 border-t border-white/[0.06] pt-2.5 text-xs text-muted-foreground/50">
-                        {project.tech.map((t) => <span key={t}>{t}</span>)}
-                      </div>
+                    <p className="mb-8 text-[0.9rem] leading-relaxed text-foreground/65 lg:text-base">
+                      {project.description}
+                    </p>
+                    <div className="mb-8 flex flex-wrap gap-2">
+                      {project.tech.map((t) => (
+                        <span key={t} className="rounded-full border border-white/[0.07] bg-white/[0.04] px-3 py-1 text-[10px] text-muted-foreground/60">
+                          {t}
+                        </span>
+                      ))}
                     </div>
                     <Link
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-flex items-center gap-2 text-sm font-medium text-foreground"
+                      className="group inline-flex w-fit items-center gap-2 text-sm font-medium text-foreground"
                     >
                       <span className="relative">
                         Visit Live Site
-                        <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-foreground transition-all group-hover:w-full" />
+                        <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-foreground transition-all duration-300 group-hover:w-full" />
                       </span>
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-2" />
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
                     </Link>
                   </div>
-                  <div className="group relative w-1/2 overflow-hidden bg-black/20">
-                    <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                    <img
-                      src={project.image} alt={project.title}
-                      className="absolute inset-0 h-full w-full scale-100 object-cover object-top transition-transform duration-1000 group-hover:scale-105"
-                    />
+
+                  {/* Right: browser chrome mockup */}
+                  <div className="relative z-10 flex flex-1 items-center justify-center p-6 pr-8 xl:pr-10">
+                    <div className="group w-full overflow-hidden rounded-xl border border-white/[0.1] shadow-[0_24px_80px_rgba(0,0,0,0.55)] transition-transform duration-700 hover:-translate-y-1">
+                      {/* Browser bar */}
+                      <div className="flex items-center gap-2 border-b border-white/[0.07] bg-white/[0.05] px-4 py-2.5 backdrop-blur-sm">
+                        <div className="flex gap-1.5">
+                          <div className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                          <div className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                          <div className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                        </div>
+                        <div className="ml-2 flex flex-1 items-center gap-1.5 rounded-md bg-white/[0.05] px-3 py-1">
+                          <div className="h-1.5 w-1.5 rounded-full bg-emerald-400/60" />
+                          <span className="text-[10px] text-white/25 truncate">
+                            {project.url.replace("https://www.", "")}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Screenshot */}
+                      <div className="overflow-hidden" style={{ height: "360px" }}>
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:translate-y-[-8%]"
+                          style={{ height: "100%" }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -374,9 +420,12 @@ export function CosmicProjects() {
             className="mt-4 text-4xl font-normal leading-[1.1] text-foreground"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
-            Sleek engineering.<br />
-            <span className="text-muted-foreground">Premium execution.</span>
+            Real projects.<br />
+            <span className="text-muted-foreground">Any scale. No bias.</span>
           </h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground/60">
+            From local vendors to enterprise platforms — we show up the same way every time.
+          </p>
         </div>
         <div className="flex flex-col gap-5">
           {showcaseProjects.map((project) => (

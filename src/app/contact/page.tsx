@@ -1,46 +1,23 @@
-"use client";
+import type { Metadata } from 'next'
+import { MarketingNavigation } from '@/components/marketing/navigation'
+import { ContactSection } from '@/components/marketing/contact-section'
+import { MarketingFooter } from '@/components/marketing/footer'
+import { CosmicBackground } from '@/components/marketing/home-sections'
 
-import { FormEvent, useState } from "react";
-import { BookCallPageContent } from "@/components/marketing/pages";
-
-const initialFormState = {
-  name: "",
-  email: "",
-  company: "",
-  phone: "",
-  date: "",
-  time: "",
-  message: "",
-};
+export const metadata: Metadata = {
+  title: 'Contact',
+  description: 'Get in touch with TekDev. Tell us what you need to build — web app, mobile, AI, HRMS, or anything else. We respond fast.',
+}
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState(initialFormState);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData(initialFormState);
-    }, 3000);
-  };
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData((current) => ({
-      ...current,
-      [event.target.name]: event.target.value,
-    }));
-  };
-
   return (
-    <BookCallPageContent
-      submitted={submitted}
-      formData={formData}
-      onSubmit={handleSubmit}
-      onChange={handleChange}
-    />
-  );
+    <div className="relative min-h-screen bg-[hsl(201,100%,8%)]">
+      <CosmicBackground />
+      <MarketingNavigation />
+      <div className="pt-24 relative z-10">
+        <ContactSection />
+      </div>
+      <MarketingFooter />
+    </div>
+  )
 }

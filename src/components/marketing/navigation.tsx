@@ -7,10 +7,11 @@ import { Menu, X } from "lucide-react";
 
 const links = [
   { href: "/", label: "Home", active: true },
-  { href: "/#work", label: "Work" },
-  { href: "/#services", label: "Services" },
+  { href: "/work", label: "Work" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
   { href: "/#process", label: "Process" },
-  { href: "/#contact", label: "Reach Us" },
+  { href: "/contact", label: "Reach Us" },
 ];
 
 export function MarketingNavigation() {
@@ -53,7 +54,7 @@ export function MarketingNavigation() {
             </Link>
           ))}
           <Link
-            href="/#contact"
+            href="/contact"
             className="liquid-glass rounded-full px-6 py-2.5 text-sm text-foreground transition-transform hover:scale-[1.03]"
           >
             Begin Journey
@@ -63,7 +64,7 @@ export function MarketingNavigation() {
         {/* Mobile */}
         <div className="flex items-center gap-3 md:hidden">
           <Link
-            href="/#contact"
+            href="/contact"
             className="liquid-glass rounded-full px-5 py-2 text-sm text-foreground"
           >
             Begin Journey
