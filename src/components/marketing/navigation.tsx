@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 const links = [
@@ -14,6 +15,14 @@ const links = [
 
 export function MarketingNavigation() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50">
@@ -21,6 +30,7 @@ export function MarketingNavigation() {
         {/* Logo */}
         <Link
           href="/"
+          onClick={handleLogoClick}
           className="text-3xl tracking-tight text-foreground"
           style={{ fontFamily: "'Instrument Serif', serif" }}
         >

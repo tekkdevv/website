@@ -23,7 +23,7 @@ import { BlurIn } from "@/components/marketing/blur-in";
 import { ContactSection } from "@/components/marketing/contact-section";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { StoryHero } from "@/components/marketing/story-hero";
-import { CosmicBackground, CosmicStats, CosmicProjects, CosmicServices, CosmicProcess, CosmicTestimonials, CosmicCTA } from "./home-sections";
+import { CosmicBackground, CosmicStats, OurStory, CosmicProjects, CosmicServices, CosmicProcess, CosmicTestimonials, CosmicCTA } from "./home-sections";
 
 import { MarketingNavigation } from "@/components/marketing/navigation";
 
@@ -339,6 +339,7 @@ export function MarketingHomePage() {
       <StoryHero />
       <div className="relative z-10 pb-24">
         <CosmicStats />
+        <OurStory />
         <CosmicProjects />
         <CosmicServices />
         <CosmicProcess />
