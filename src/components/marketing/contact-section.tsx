@@ -1,27 +1,49 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { MessageCircle, Mail, Send } from "lucide-react";
+import { MessageCircle, Mail, Send, CheckCircle, XCircle, Loader2 } from "lucide-react";
 import { BlurIn } from "@/components/marketing/blur-in";
+import emailjs from "@emailjs/browser";
 
-const initialFormState = {
-  name: "",
-  email: "",
-  message: "",
-};
+// ─── EmailJS Config ────────────────────────────────────────────────────────
+const EMAILJS_PUBLIC_KEY  = "nzbgdNdEul6OjPkr7";
+const EMAILJS_PRIVATE_KEY = "hGq7kaeQXAQX6yvHm4uyW";
+const EMAILJS_SERVICE_ID  = "service_pxi187w";
+const EMAILJS_TEMPLATE_ID = "template_3z6jb0w";
+// ───────────────────────────────────────────────────────────────────────────
+
+const initialFormState = { name: "", email: "", message: "" };
 
 export function ContactSection() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState(initialFormState);
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }, []);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
+    if (!formRef.current) return;
+
+    setStatus("sending");
+    try {
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      );
+      setStatus("success");
       setFormData(initialFormState);
-    }, 2500);
+      setTimeout(() => setStatus("idle"), 4000);
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
+    }
   };
 
   return (
@@ -72,7 +94,7 @@ export function ContactSection() {
 
           <BlurIn delay={0.15} duration={0.6}>
             <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 backdrop-blur-sm sm:p-8">
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label
                     htmlFor="contact-name"
@@ -143,16 +165,33 @@ export function ContactSection() {
                 </div>
                 <button
                   type="submit"
-                  className="liquid-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-8 py-3.5 text-sm font-medium text-foreground transition-transform hover:scale-[1.03] sm:w-auto"
+                  disabled={status === "sending"}
+                  className="liquid-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-8 py-3.5 text-sm font-medium text-foreground transition-transform hover:scale-[1.03] disabled:opacity-60 disabled:cursor-not-allowed sm:w-auto"
                 >
-                  Send Message
-                  <Send className="h-4 w-4" />
+                  {status === "sending" ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Sending…
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="h-4 w-4" />
+                    </>
+                  )}
                 </button>
-                {submitted ? (
-                  <p className="text-sm text-muted-foreground">
-                    Thanks. We&apos;ll get back to you shortly.
+                {status === "success" && (
+                  <p className="flex items-center gap-2 text-sm text-emerald-400">
+                    <CheckCircle className="h-4 w-4" />
+                    Message sent! We&apos;ll get back to you shortly.
                   </p>
-                ) : null}
+                )}
+                {status === "error" && (
+                  <p className="flex items-center gap-2 text-sm text-red-400">
+                    <XCircle className="h-4 w-4" />
+                    Something went wrong. Please try again or email us directly.
+                  </p>
+                )}
               </form>
             </div>
           </BlurIn>

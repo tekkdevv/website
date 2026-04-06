@@ -375,7 +375,7 @@ function ActiveCard({
       target="_blank"
       rel="noopener noreferrer"
       style={{ y, rotateX, scale, opacity, zIndex: n - index, transformPerspective: 900 }}
-      className="absolute inset-x-4 top-[2%] bottom-[2%] flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[hsl(201,100%,4%)] shadow-[0_0_0_1px_rgba(255,255,255,0.03)_inset,0_40px_100px_rgba(0,0,0,0.75)]"
+      className="absolute inset-x-4 top-[2%] bottom-[2%] flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[hsl(201,100%,4%)] shadow-[0_0_0_1px_rgba(255,255,255,0.03)_inset,0_40px_100px_rgba(0,0,0,0.75)] opacity-0"
     >
       {/* Screenshot */}
       <div className="relative flex-1 overflow-hidden min-h-0">

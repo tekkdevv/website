@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Hls from "hls.js";
 import { ArrowRight, Sparkles } from "lucide-react";
@@ -9,6 +9,7 @@ import { SplitText } from "@/components/marketing/split-text";
 
 export function MarketingHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     if (!videoRef.current) {
@@ -42,9 +43,11 @@ export function MarketingHero() {
         loop
         muted
         playsInline
-        className="absolute inset-0 z-0 h-full w-full object-cover lg:origin-left lg:scale-[1.2]"
+        onCanPlay={() => setVideoReady(true)}
+        className="absolute inset-0 z-0 h-full w-full object-cover lg:origin-left lg:scale-[1.2] transition-opacity duration-700"
         style={{
           marginLeft: "0px",
+          opacity: videoReady ? 1 : 0,
         }}
       />
 
