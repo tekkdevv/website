@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence, type MotionValue } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowRight, FileSearch, MessageSquare, Rocket,
@@ -279,128 +279,310 @@ function ProjectCard({ project }: { project: typeof showcaseProjects[0] }) {
   );
 }
 
-/* Desktop sticky scroll — only rendered on md+ */
-function ProjectsDesktop() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
+/* Spring config for buttery smooth scroll-driven values */
+const smoothSpring = { stiffness: 80, damping: 20, mass: 0.6 };
+
+/* ─── Folder row — appears inside the folder when its card is filed ─── */
+function FolderRow({
+  project,
+  index,
+  progress,
+}: {
+  project: typeof showcaseProjects[number];
+  index: number;
+  progress: MotionValue<number>;
+}) {
+  const n = showcaseProjects.length;
+  const seg = 1 / n;
+  const appearAt = (index + 1) * seg - seg * 0.18;
+  const rawOpacity = useTransform(progress, [appearAt, appearAt + 0.06], [0, 1]);
+  const rawY = useTransform(progress, [appearAt, appearAt + 0.06], [6, 0]);
+  const opacity = useSpring(rawOpacity, smoothSpring);
+  const y = useSpring(rawY, smoothSpring);
+
+  /* Extract domain for the subtle URL hint */
+  const domain = project.url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
   return (
-    <div ref={containerRef} className="relative w-full" style={{ height: "450vh" }}>
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden py-24">
-        {/* Header */}
-        <div className="pointer-events-none absolute left-0 right-0 top-24 z-20 px-6 lg:px-12">
-          <div className="mx-auto max-w-7xl">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <span className="mb-4 inline-block text-[10px] font-medium tracking-[0.2em] text-muted-foreground uppercase">
-                Selected Work
-              </span>
-              <h2
-                className="text-4xl font-normal leading-[1.15] text-foreground lg:text-5xl xl:text-6xl"
-                style={{ fontFamily: "'Instrument Serif', serif" }}
-              >
-                Real projects.<br />
-                <span className="text-muted-foreground">Any scale. No bias.</span>
-              </h2>
-              <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground/60">
-                From local vendors to enterprise platforms — we show up the same way every time.
-              </p>
-            </motion.div>
-          </div>
+    <motion.a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ opacity, y }}
+      className="group relative flex h-[52px] items-center gap-3 border-b border-white/[0.04] last:border-b-0 px-4 transition-colors hover:bg-white/[0.018]"
+    >
+      {/* Accent bar on hover */}
+      <span className="absolute left-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-r-full bg-amber-400/0 transition-all group-hover:bg-amber-400/40" />
+
+      {/* Icon — Radix/shadcn style: consistent 16px icon in a 28px container */}
+      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-white/[0.07] bg-white/[0.04]">
+        <Globe className="h-4 w-4 text-white/35 group-hover:text-amber-400/60 transition-colors" />
+      </div>
+
+      {/* Primary label */}
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-[13px] font-medium leading-none text-white/65 transition-colors group-hover:text-white/90">
+          {project.title}
+        </p>
+        <p className="mt-1 truncate font-mono text-[10px] leading-none text-white/20">{domain}</p>
+      </div>
+
+      {/* Category badge — shadcn Badge anatomy: border + bg + text */}
+      <span className="hidden lg:inline-flex shrink-0 items-center rounded-md border border-white/[0.06] bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium text-white/25">
+        {project.category.split(" ").slice(0, 2).join(" ")}
+      </span>
+
+      {/* Filed indicator — replaces live dot */}
+      <Check className="h-3 w-3 shrink-0 text-emerald-400/50" />
+    </motion.a>
+  );
+}
+
+/* ─── Active card — rises from below with tilt, holds, then files up into folder ─── */
+function ActiveCard({
+  project,
+  index,
+  progress,
+}: {
+  project: typeof showcaseProjects[number];
+  index: number;
+  progress: MotionValue<number>;
+}) {
+  const n = showcaseProjects.length;
+  const seg = 1 / n;
+  const s = index * seg;
+
+  const enterEnd = s + seg * 0.20;
+  const holdEnd  = s + seg * 0.52;
+  const exitEnd  = s + seg * 0.88;
+
+  /* Card rises from below (with forward tilt), holds flat, exits up into folder */
+  const rawY        = useTransform(progress, [s, enterEnd, holdEnd, exitEnd], [260, 0, 0, -440]);
+  const rawRotateX  = useTransform(progress, [s, enterEnd, holdEnd, exitEnd * 0.7, exitEnd], [18, 0, 0, -6, -12]);
+  const rawScale    = useTransform(progress, [holdEnd, exitEnd], [1, 0.72]);
+  const rawOpacity  = useTransform(progress, [s, enterEnd, holdEnd, exitEnd * 0.88, exitEnd], [0, 1, 1, 0.75, 0]);
+
+  const y        = useSpring(rawY,       smoothSpring);
+  const rotateX  = useSpring(rawRotateX, smoothSpring);
+  const scale    = useSpring(rawScale,   smoothSpring);
+  const opacity  = useSpring(rawOpacity, smoothSpring);
+
+  const num = String(index + 1).padStart(2, "0");
+
+  return (
+    <motion.a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ y, rotateX, scale, opacity, zIndex: n - index, transformPerspective: 900 }}
+      className="absolute inset-x-4 top-[2%] bottom-[2%] flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[hsl(201,100%,4%)] shadow-[0_0_0_1px_rgba(255,255,255,0.03)_inset,0_40px_100px_rgba(0,0,0,0.75)]"
+    >
+      {/* Screenshot */}
+      <div className="relative flex-1 overflow-hidden min-h-0">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="h-full w-full object-cover object-top"
+        />
+        {/* Subtle vignette */}
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/20 pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[hsl(201,100%,5%)] to-transparent pointer-events-none" />
+
+        {/* Index badge — top left — shadcn Badge: rounded-md border */}
+        <div className="absolute left-4 top-4">
+          <span className="inline-flex items-center rounded-md border border-white/[0.10] bg-black/55 px-2 py-1 font-mono text-[10px] font-medium text-white/45 backdrop-blur-md">
+            {num}&thinsp;/&thinsp;{String(n).padStart(2, "0")}
+          </span>
         </div>
 
-        {/* Stacked cards */}
-        <div className="relative mt-32 flex h-[65vh] w-full max-w-6xl items-center justify-center">
-          {showcaseProjects.map((project, i) => {
-            const targetScale = 1 - (showcaseProjects.length - i) * 0.05;
-            const scale = useTransform(scrollYProgress, [i * 0.5, 1], [1, targetScale]);
-            const y = useTransform(scrollYProgress, [i * 0.5 - 0.5, i * 0.5], [i === 0 ? 0 : 800, 0]);
-            const rotateX = useTransform(scrollYProgress, [i * 0.5 - 0.5, i * 0.5], [45, 0]);
-            const opacity = useTransform(scrollYProgress, [i * 0.5 - 0.1, i * 0.5], [0, 1]);
+        {/* Live badge — top right — shadcn Badge with status dot */}
+        <div className="absolute right-4 top-4">
+          <span className="inline-flex items-center gap-1.5 rounded-md border border-emerald-500/[0.15] bg-black/55 px-2 py-1 text-[10px] font-medium text-emerald-400/55 backdrop-blur-md">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400/75" />
+            Live
+          </span>
+        </div>
 
-            return (
-              <motion.div
-                key={project.id}
-                className="absolute top-0 flex h-full w-full origin-top items-center justify-center px-6 lg:px-12"
-                style={{ y: i === 0 ? 0 : y, scale, rotateX: i === 0 ? 0 : rotateX, opacity: i === 0 ? 1 : opacity }}
-              >
-                <div className="relative flex h-full max-h-[540px] w-full overflow-hidden rounded-[2rem] border border-white/[0.08]">
-                  {/* Full-bleed screenshot as ambient background */}
-                  <div className="absolute inset-0">
-                    <img src={project.image} alt="" className="h-full w-full object-cover object-top opacity-[0.18] blur-[1px] scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[hsl(201,100%,5%)] via-[hsl(201,100%,6%)]/90 to-[hsl(201,100%,7%)]/30" />
-                  </div>
+        {/* Hover overlay */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/25 opacity-0 transition-opacity duration-300 hover:opacity-100">
+          <span className="inline-flex items-center gap-2 rounded-lg border border-white/[0.12] bg-black/65 px-5 py-2.5 text-xs font-medium text-white/75 backdrop-blur-md">
+            Visit Site <ArrowRight className="h-3.5 w-3.5" />
+          </span>
+        </div>
+      </div>
 
-                  {/* Left: text content */}
-                  <div className="relative z-10 flex w-[44%] shrink-0 flex-col justify-center p-10 xl:p-14">
-                    <div className="mb-5 flex items-center gap-3">
-                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                      <span className="text-[10px] font-medium tracking-[0.2em] text-emerald-400/80 uppercase">Live</span>
-                    </div>
-                    <h3
-                      className="mb-2 text-4xl font-normal leading-[1.1] text-foreground xl:text-[2.8rem]"
-                      style={{ fontFamily: "'Instrument Serif', serif" }}
-                    >
-                      {project.title}
-                    </h3>
-                    <p className="mb-6 text-[10px] font-medium tracking-[0.2em] text-muted-foreground/60 uppercase">
-                      {project.category}
-                    </p>
-                    <p className="mb-8 text-[0.9rem] leading-relaxed text-foreground/65 lg:text-base">
-                      {project.description}
-                    </p>
-                    <div className="mb-8 flex flex-wrap gap-2">
-                      {project.tech.map((t) => (
-                        <span key={t} className="rounded-full border border-white/[0.07] bg-white/[0.04] px-3 py-1 text-[10px] text-muted-foreground/60">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                    <Link
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group inline-flex w-fit items-center gap-2 text-sm font-medium text-foreground"
-                    >
-                      <span className="relative">
-                        Visit Live Site
-                        <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-foreground transition-all duration-300 group-hover:w-full" />
-                      </span>
-                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
-                    </Link>
-                  </div>
+      {/* Info bar — shadcn Card footer pattern */}
+      <div className="flex items-center gap-4 border-t border-white/[0.06] bg-white/[0.012] px-5 py-3.5">
+        {/* Icon container */}
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.04]">
+          <Globe className="h-4 w-4 text-white/40" />
+        </div>
 
-                  {/* Right: browser chrome mockup */}
-                  <div className="relative z-10 flex flex-1 items-center justify-center p-6 pr-8 xl:pr-10">
-                    <div className="group w-full overflow-hidden rounded-xl border border-white/[0.1] shadow-[0_24px_80px_rgba(0,0,0,0.55)] transition-transform duration-700 hover:-translate-y-1">
-                      {/* Browser bar */}
-                      <div className="flex items-center gap-2 border-b border-white/[0.07] bg-white/[0.05] px-4 py-2.5 backdrop-blur-sm">
-                        <div className="flex gap-1.5">
-                          <div className="h-2.5 w-2.5 rounded-full bg-white/15" />
-                          <div className="h-2.5 w-2.5 rounded-full bg-white/15" />
-                          <div className="h-2.5 w-2.5 rounded-full bg-white/15" />
-                        </div>
-                        <div className="ml-2 flex flex-1 items-center gap-1.5 rounded-md bg-white/[0.05] px-3 py-1">
-                          <div className="h-1.5 w-1.5 rounded-full bg-emerald-400/60" />
-                          <span className="text-[10px] text-white/25 truncate">
-                            {project.url.replace("https://www.", "")}
-                          </span>
-                        </div>
-                      </div>
-                      {/* Screenshot */}
-                      <div className="overflow-hidden" style={{ height: "360px" }}>
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:translate-y-[-8%]"
-                          style={{ height: "100%" }}
-                        />
-                      </div>
-                    </div>
+        {/* Title + category */}
+        <div className="flex-1 min-w-0">
+          <p className="text-[15px] font-semibold leading-none text-white/88 tracking-tight truncate">
+            {project.title}
+          </p>
+          <p className="mt-1.5 text-[11px] leading-none text-white/30 truncate">{project.category}</p>
+        </div>
+
+        {/* Tech badges — shadcn Badge: rounded-md border px-2.5 py-0.5 text-xs */}
+        <div className="hidden lg:flex items-center gap-1.5 shrink-0">
+          {project.tech.map((t) => (
+            <span key={t} className="inline-flex items-center rounded-md border border-white/[0.07] bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium text-white/30">
+              {t}
+            </span>
+          ))}
+        </div>
+
+        {/* Arrow hint */}
+        <ArrowRight className="h-3.5 w-3.5 shrink-0 text-white/20" />
+      </div>
+    </motion.a>
+  );
+}
+
+/* ─── Progress counter driven by scroll ─── */
+function FilingCounter({ progress }: { progress: MotionValue<number> }) {
+  const n = showcaseProjects.length;
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    return progress.on("change", (v) => {
+      const filed = Math.min(Math.floor(v * n + 0.15), n);
+      setCurrent(filed);
+    });
+  }, [progress, n]);
+
+  /* shadcn Badge style: rounded-md border px-2 py-0.5 text-xs */
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-md border border-white/[0.06] bg-white/[0.025] px-2 py-0.5 font-mono text-[10px] text-white/30 tabular-nums">
+      <span className="h-1.5 w-1.5 rounded-full bg-amber-400/50" />
+      {String(current).padStart(2, "0")}&thinsp;/&thinsp;{String(n).padStart(2, "0")}
+    </span>
+  );
+}
+
+/* ─── Scroll hint that fades once user starts scrolling ─── */
+function ScrollHint({ progress }: { progress: MotionValue<number> }) {
+  const rawOpacity = useTransform(progress, [0, 0.07], [1, 0]);
+  const opacity = useSpring(rawOpacity, { stiffness: 60, damping: 20 });
+  return (
+    <motion.div
+      style={{ opacity }}
+      className="pointer-events-none absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+    >
+      {/* shadcn muted label */}
+      <span className="text-[9px] font-medium tracking-[0.3em] uppercase text-white/18">scroll to explore</span>
+      {/* Animated chevron stack */}
+      <div className="flex flex-col items-center gap-0.5">
+        {[0, 1].map((i) => (
+          <motion.div
+            key={i}
+            animate={{ opacity: [0.15, 0.45, 0.15], y: [0, 3, 0] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
+            className="h-[5px] w-[9px] border-b border-r border-white/25"
+            style={{ transform: "rotate(45deg)" }}
+          />
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+/* ─── Desktop: open folder at top, cards rise from below into it ─── */
+function ProjectsDesktop() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  return (
+    <div ref={containerRef} className="relative" style={{ height: `${showcaseProjects.length * 150}vh` }}>
+      <div className="sticky top-0 flex h-screen flex-col items-center px-6 lg:px-12 pt-5 pb-6">
+
+        {/* ── Open folder at top ── */}
+        <div className="w-full max-w-3xl">
+
+          {/* Folder tab + counter row */}
+          <div className="flex items-end justify-between px-0.5">
+            {/* Tab — Radix Tabs trigger style */}
+            <div className="ml-5 inline-flex h-7 items-center gap-2 rounded-t-md border border-b-0 border-white/[0.08] bg-white/[0.03] px-3 backdrop-blur-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-400/50" />
+              <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-white/35">Projects</span>
+            </div>
+            {/* Counter badge */}
+            <div className="mb-0.5">
+              <FilingCounter progress={scrollYProgress} />
+            </div>
+          </div>
+
+          {/* Folder back panel — shadcn Card style */}
+          <div
+            className="relative overflow-hidden rounded-xl rounded-tl-none border border-white/[0.07] bg-[hsl(201,70%,3.5%)]"
+            style={{ boxShadow: "0 0 0 1px rgba(255,255,255,0.02) inset, 0 1px 0 rgba(255,255,255,0.04) inset" }}
+          >
+            {/* Ghost placeholder rows — refined skeleton */}
+            <div className="relative divide-y divide-white/[0.035]">
+              {showcaseProjects.map((_, i) => (
+                <div key={i} className="flex h-[52px] items-center gap-3 px-4">
+                  {/* Skeleton icon */}
+                  <div className="h-7 w-7 shrink-0 rounded-md border border-white/[0.04] bg-white/[0.02]" />
+                  {/* Skeleton text lines */}
+                  <div className="flex flex-1 flex-col gap-2">
+                    <div className="h-[7px] w-28 rounded-full bg-white/[0.04]" />
+                    <div className="h-[6px] w-36 rounded-full bg-white/[0.025]" />
                   </div>
+                  {/* Skeleton badge */}
+                  <div className="hidden lg:block h-5 w-20 rounded-md border border-white/[0.03] bg-white/[0.015]" />
+                  {/* Skeleton check */}
+                  <div className="h-3 w-3 rounded-sm bg-white/[0.02]" />
                 </div>
-              </motion.div>
-            );
-          })}
+              ))}
+
+              {/* Real rows overlay */}
+              <div className="absolute inset-0 divide-y divide-white/[0.035]">
+                {showcaseProjects.map((project, i) => (
+                  <FolderRow key={project.id} project={project} index={i} progress={scrollYProgress} />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Folder front lip — angled open, mouth facing down */}
+          <div
+            className="relative -mt-px h-8 overflow-hidden rounded-b-xl"
+            style={{
+              background: "linear-gradient(180deg, hsl(201,40%,10%) 0%, hsl(201,38%,8%) 100%)",
+              transform: "perspective(800px) rotateX(7deg)",
+              transformOrigin: "top center",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -2px 10px rgba(0,0,0,0.5), 0 10px 40px rgba(0,0,0,0.45)",
+              border: "1px solid rgba(255,255,255,0.05)",
+              borderTop: "none",
+            }}
+          >
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+            <div className="absolute inset-x-0 top-3 h-px bg-white/[0.02]" />
+            <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-black/25 to-transparent" />
+          </div>
+
+          {/* Mouth glow — where cards enter the folder */}
+          <div className="relative h-5 overflow-hidden">
+            <div className="absolute inset-x-16 top-0 h-[1px] animate-pulse bg-gradient-to-r from-transparent via-amber-400/30 to-transparent" />
+            <div className="absolute inset-x-24 -top-1 h-4 bg-gradient-to-b from-amber-400/[0.06] to-transparent blur-sm" />
+          </div>
+
+          {/* Trajectory fade */}
+          <div className="h-4 bg-gradient-to-b from-amber-400/[0.015] to-transparent" />
+        </div>
+
+        {/* ── Card area — overflow-hidden clips cards as they fly up ── */}
+        <div className="relative w-full max-w-3xl flex-1 min-h-0 overflow-hidden">
+          {showcaseProjects.map((project, i) => (
+            <ActiveCard key={project.id} project={project} index={i} progress={scrollYProgress} />
+          ))}
+          <ScrollHint progress={scrollYProgress} />
         </div>
       </div>
     </div>
@@ -410,23 +592,32 @@ function ProjectsDesktop() {
 export function CosmicProjects() {
   return (
     <section id="work" className="relative z-10 w-full">
-      {/* Mobile: simple cards */}
-      <div className="md:hidden px-5 py-20 sm:px-6">
-        <div className="mb-12">
-          <span className="mb-4 inline-block text-[10px] font-medium tracking-[0.2em] text-muted-foreground uppercase">
+      {/* Section heading */}
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12 py-20 sm:py-32">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <span className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] text-foreground/70 uppercase">
             Selected Work
           </span>
           <h2
-            className="mt-4 text-4xl font-normal leading-[1.1] text-foreground"
+            className="mt-5 text-4xl font-normal leading-[1.1] text-foreground sm:text-5xl md:text-6xl"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
             Real projects.<br />
             <span className="text-muted-foreground">Any scale. No bias.</span>
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground/60">
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground/60">
             From local vendors to enterprise platforms — we show up the same way every time.
           </p>
-        </div>
+        </motion.div>
+      </div>
+
+      {/* Mobile: simple cards */}
+      <div className="md:hidden px-5 sm:px-6 pb-20">
         <div className="flex flex-col gap-5">
           {showcaseProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
@@ -434,7 +625,7 @@ export function CosmicProjects() {
         </div>
       </div>
 
-      {/* Desktop: sticky scroll */}
+      {/* Desktop: scroll-driven folder filing */}
       <div className="hidden md:block">
         <ProjectsDesktop />
       </div>
