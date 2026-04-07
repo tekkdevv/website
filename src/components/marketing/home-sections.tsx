@@ -6,87 +6,63 @@ import Link from "next/link";
 import {
   ArrowRight, FileSearch, MessageSquare, Rocket,
   Sparkles, Check, Globe, Brain, Smartphone, Users,
-  ChevronLeft, ChevronRight,
+  ChevronLeft, ChevronRight, ExternalLink,
+  FileText, Shield, Clock, ChevronDown, Zap, Code2,
+  RefreshCw, Package, IndianRupee, BarChart3, Cpu, Wrench,
 } from "lucide-react";
+import { ScrollSplitText } from "@/components/marketing/scroll-split-text";
 
 /* ─────────────── Cosmic Background ─────────────── */
 export function CosmicBackground() {
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[hsl(201,100%,8%)]">
-      <div className="absolute -left-[20%] top-[30%] h-[600px] w-[600px] rounded-full bg-blue-900/20 blur-[200px] sm:h-[800px] sm:w-[800px]" />
-      <div className="absolute right-[-10%] bottom-[20%] h-[400px] w-[400px] rounded-full bg-indigo-900/15 blur-[180px] sm:h-[600px] sm:w-[600px]" />
-    </div>
-  );
-}
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#030208]">
+      {/* Horizontal Atmospheric Glow (Sync with Hero Video exit) */}
+      <div className="absolute top-0 left-0 right-0 h-[30vh] bg-gradient-to-b from-blue-900/15 to-transparent opacity-50" />
+      
+      {/* Dynamic Starfield Overlay (Subtle Noise/Grain) */}
+      <div 
+        className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+      />
+      
+      {/* Floating Nebula Glows */}
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.15, 0.25, 0.15],
+          x: [0, 40, 0],
+          y: [0, -30, 0]
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute -left-[10%] top-[20%] h-[600px] w-[600px] rounded-full bg-blue-600/20 blur-[140px] sm:h-[800px] sm:w-[800px]" 
+      />
+      
+      <motion.div 
+        animate={{ 
+          scale: [1.2, 1, 1.2],
+          opacity: [0.1, 0.2, 0.1],
+          x: [0, -50, 0],
+          y: [0, 40, 0]
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute right-[-5%] bottom-[10%] h-[500px] w-[500px] rounded-full bg-indigo-500/15 blur-[160px] sm:h-[700px] sm:w-[700px]" 
+      />
 
-/* ─────────────── Animated Number ─────────────── */
-function AnimatedNumber({ value }: { value: string }) {
-  const numericMatch = value.match(/\d+/);
-  const numericPart = numericMatch ? parseInt(numericMatch[0]) : 0;
-  const suffix = value.replace(numericPart.toString(), "");
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        const end = numericPart;
-        const duration = 2000;
-        const startTime = performance.now();
-        const update = (currentTime: number) => {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const easeOut = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-          setCount(Math.floor(end * easeOut));
-          if (progress < 1) requestAnimationFrame(update);
-        };
-        requestAnimationFrame(update);
-        observer.disconnect();
-      }
-    });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [numericPart]);
-
-  return <span ref={ref}>{count}{suffix}</span>;
-}
-
-/* ─────────────── Stats ─────────────── */
-const homeStats = [
-  { value: "50+", label: "Projects Delivered", description: "Successfully shipped across multiple industries." },
-  { value: "8x", label: "Faster Delivery", description: "Lean execution without the agency bloat." },
-  { value: "24/7", label: "Reliable Support", description: "A technical partner you can actually reach." },
-];
-
-export function CosmicStats() {
-  return (
-    <section className="relative z-10 w-full py-20 sm:py-32">
-      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
-        <div className="grid grid-cols-1 gap-0 divide-y divide-white/[0.06] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          {homeStats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7, delay: i * 0.15, ease: "easeOut" }}
-              className={`flex flex-col items-center py-10 text-center sm:items-start sm:text-left ${i > 0 ? "sm:pl-12" : ""}`}
-            >
-              <div
-                className="mb-3 text-5xl font-normal tracking-tight text-foreground sm:text-6xl md:text-7xl"
-                style={{ fontFamily: "'Instrument Serif', serif" }}
-              >
-                <AnimatedNumber value={stat.value} />
-              </div>
-              <div className="mb-1.5 text-base font-medium text-foreground/80 sm:text-lg">{stat.label}</div>
-              <p className="max-w-[240px] text-sm leading-relaxed text-muted-foreground sm:max-w-[260px] sm:text-base">
-                {stat.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+      {/* Subtle Star Points */}
+      <div className="absolute inset-0 opacity-[0.4]">
+         {[...Array(20)].map((_, i) => (
+           <div 
+             key={i}
+             className="absolute h-px w-px bg-white rounded-full"
+             style={{
+               top: `${Math.random() * 100}%`,
+               left: `${Math.random() * 100}%`,
+               opacity: Math.random() * 0.5 + 0.1
+             }}
+           />
+         ))}
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -118,23 +94,25 @@ export function OurStory() {
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-16 sm:mb-24"
-        >
-          <span className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] text-foreground/70 uppercase sm:mb-6">
+        <div className="mb-16 sm:mb-24">
+          <motion.span 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] text-foreground/70 uppercase sm:mb-6"
+          >
             Our Story
-          </span>
+          </motion.span>
           <h2
             className="mt-5 max-w-3xl text-4xl font-normal leading-[1.05] text-foreground sm:text-5xl md:text-6xl"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
-            From freelancers <em className="not-italic text-muted-foreground">who got tired</em> of the wait.
+            <ScrollSplitText text="From freelancers who got tired" delay={0} />{" "}
+            <em className="not-italic text-muted-foreground inline-block">
+              <ScrollSplitText text="of the wait." delay={0.4} />
+            </em>
           </h2>
-        </motion.div>
+        </div>
 
         {/* Story beats grid */}
         <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2">
@@ -216,91 +194,10 @@ const showcaseProjects = [
   },
 ];
 
-/* Mobile card — simple, clean */
-function ProjectCard({ project }: { project: typeof showcaseProjects[0] }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      className="overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.015] backdrop-blur-sm"
-    >
-      {/* Image */}
-      <div className="relative aspect-[16/9] overflow-hidden bg-black/20">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="h-full w-full object-cover object-top"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-      </div>
-      {/* Content */}
-      <div className="p-6 sm:p-8">
-        <div className="mb-4 flex items-start justify-between gap-3">
-          <div>
-            <h3
-              className="text-2xl font-normal text-foreground sm:text-3xl"
-              style={{ fontFamily: "'Instrument Serif', serif" }}
-            >
-              {project.title}
-            </h3>
-            <p className="mt-1 text-xs font-medium tracking-widest text-muted-foreground uppercase">
-              {project.category}
-            </p>
-          </div>
-          <span className="liquid-glass shrink-0 rounded-full px-3 py-1.5 text-[9px] font-medium tracking-wider text-foreground/70 uppercase">
-            Live Project
-          </span>
-        </div>
-        <p className="mb-5 text-sm leading-relaxed text-foreground/65 sm:text-base">{project.description}</p>
-        <div className="mb-5 border-l border-white/[0.08] pl-4">
-          <p className="text-xs font-medium text-foreground/70 uppercase tracking-wide">
-            <span className="font-normal normal-case text-muted-foreground">{project.result}</span>
-          </p>
-          <div className="mt-2 flex flex-wrap gap-2 text-[10px] text-muted-foreground/50">
-            {project.tech.map((t) => <span key={t}>{t}</span>)}
-          </div>
-        </div>
-        <Link
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2 text-sm font-medium text-foreground"
-        >
-          <span className="relative">
-            Visit Live Site
-            <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-foreground transition-all group-hover:w-full" />
-          </span>
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </Link>
-      </div>
-    </motion.div>
-  );
-}
-
-/* Spring config for buttery smooth scroll-driven values */
-const smoothSpring = { stiffness: 80, damping: 20, mass: 0.6 };
-
-/* ─── Folder row — appears inside the folder when its card is filed ─── */
-function FolderRow({
-  project,
-  index,
-  progress,
-}: {
-  project: typeof showcaseProjects[number];
-  index: number;
-  progress: MotionValue<number>;
-}) {
+/* Mobile/tablet card — matches desktop visual language */
+function ProjectCard({ project, index }: { project: typeof showcaseProjects[0]; index: number }) {
+  const num = String(index + 1).padStart(2, "0");
   const n = showcaseProjects.length;
-  const seg = 1 / n;
-  const appearAt = (index + 1) * seg - seg * 0.18;
-  const rawOpacity = useTransform(progress, [appearAt, appearAt + 0.06], [0, 1]);
-  const rawY = useTransform(progress, [appearAt, appearAt + 0.06], [6, 0]);
-  const opacity = useSpring(rawOpacity, smoothSpring);
-  const y = useSpring(rawY, smoothSpring);
-
-  /* Extract domain for the subtle URL hint */
   const domain = project.url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
   return (
@@ -308,380 +205,427 @@ function FolderRow({
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      style={{ opacity, y }}
-      className="group relative flex h-[52px] items-center gap-3 border-b border-white/[0.04] last:border-b-0 px-4 transition-colors hover:bg-white/[0.018]"
-    >
-      {/* Accent bar on hover */}
-      <span className="absolute left-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-r-full bg-amber-400/0 transition-all group-hover:bg-amber-400/40" />
-
-      {/* Icon — Radix/shadcn style: consistent 16px icon in a 28px container */}
-      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-white/[0.07] bg-white/[0.04]">
-        <Globe className="h-4 w-4 text-white/35 group-hover:text-amber-400/60 transition-colors" />
-      </div>
-
-      {/* Primary label */}
-      <div className="min-w-0 flex-1">
-        <p className="truncate text-[13px] font-medium leading-none text-white/65 transition-colors group-hover:text-white/90">
-          {project.title}
-        </p>
-        <p className="mt-1 truncate font-mono text-[10px] leading-none text-white/20">{domain}</p>
-      </div>
-
-      {/* Category badge — shadcn Badge anatomy: border + bg + text */}
-      <span className="hidden lg:inline-flex shrink-0 items-center rounded-md border border-white/[0.06] bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium text-white/25">
-        {project.category.split(" ").slice(0, 2).join(" ")}
-      </span>
-
-      {/* Filed indicator — replaces live dot */}
-      <Check className="h-3 w-3 shrink-0 text-emerald-400/50" />
-    </motion.a>
-  );
-}
-
-/* ─── Active card — rises from below with tilt, holds, then files up into folder ─── */
-function ActiveCard({
-  project,
-  index,
-  progress,
-}: {
-  project: typeof showcaseProjects[number];
-  index: number;
-  progress: MotionValue<number>;
-}) {
-  const n = showcaseProjects.length;
-  const seg = 1 / n;
-  const s = index * seg;
-
-  const enterEnd = s + seg * 0.20;
-  const holdEnd  = s + seg * 0.52;
-  const exitEnd  = s + seg * 0.88;
-
-  /* Card rises from below (with forward tilt), holds flat, exits up into folder */
-  const rawY        = useTransform(progress, [s, enterEnd, holdEnd, exitEnd], [260, 0, 0, -440]);
-  const rawRotateX  = useTransform(progress, [s, enterEnd, holdEnd, exitEnd * 0.7, exitEnd], [18, 0, 0, -6, -12]);
-  const rawScale    = useTransform(progress, [holdEnd, exitEnd], [1, 0.72]);
-  const rawOpacity  = useTransform(progress, [s, enterEnd, holdEnd, exitEnd * 0.88, exitEnd], [0, 1, 1, 0.75, 0]);
-
-  const y        = useSpring(rawY,       smoothSpring);
-  const rotateX  = useSpring(rawRotateX, smoothSpring);
-  const scale    = useSpring(rawScale,   smoothSpring);
-  const opacity  = useSpring(rawOpacity, smoothSpring);
-
-  const num = String(index + 1).padStart(2, "0");
-
-  return (
-    <motion.a
-      href={project.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ y, rotateX, scale, opacity, zIndex: n - index, transformPerspective: 900 }}
-      className="absolute inset-x-4 top-[2%] bottom-[2%] flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[hsl(201,100%,4%)] shadow-[0_0_0_1px_rgba(255,255,255,0.03)_inset,0_40px_100px_rgba(0,0,0,0.75)] opacity-0"
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="group block overflow-hidden rounded-none border border-white/[0.07] bg-[hsl(201,100%,4%)] shadow-[0_0_0_1px_rgba(255,255,255,0.02)_inset,0_20px_60px_rgba(0,0,0,0.5)]"
     >
       {/* Screenshot */}
-      <div className="relative flex-1 overflow-hidden min-h-0">
+      <div className="relative aspect-[16/10] overflow-hidden bg-black/30">
         <img
           src={project.image}
           alt={project.title}
-          className="h-full w-full object-cover object-top"
+          className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
         />
-        {/* Subtle vignette */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/20 pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[hsl(201,100%,5%)] to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[hsl(201,100%,4%)] to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/15 pointer-events-none" />
 
-        {/* Index badge — top left — shadcn Badge: rounded-md border */}
         <div className="absolute left-4 top-4">
-          <span className="inline-flex items-center rounded-md border border-white/[0.10] bg-black/55 px-2 py-1 font-mono text-[10px] font-medium text-white/45 backdrop-blur-md">
+          <span className="inline-flex items-center border border-white/[0.10] bg-black/55 px-2 py-1 font-mono text-[10px] font-medium text-white/45 backdrop-blur-md">
             {num}&thinsp;/&thinsp;{String(n).padStart(2, "0")}
           </span>
         </div>
 
-        {/* Live badge — top right — shadcn Badge with status dot */}
         <div className="absolute right-4 top-4">
-          <span className="inline-flex items-center gap-1.5 rounded-md border border-emerald-500/[0.15] bg-black/55 px-2 py-1 text-[10px] font-medium text-emerald-400/55 backdrop-blur-md">
+          <span className="inline-flex items-center gap-1.5 border border-emerald-500/[0.15] bg-black/55 px-2 py-1 text-[10px] font-medium text-emerald-400/55 backdrop-blur-md">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400/75" />
             Live
           </span>
         </div>
-
-        {/* Hover overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/25 opacity-0 transition-opacity duration-300 hover:opacity-100">
-          <span className="inline-flex items-center gap-2 rounded-lg border border-white/[0.12] bg-black/65 px-5 py-2.5 text-xs font-medium text-white/75 backdrop-blur-md">
-            Visit Site <ArrowRight className="h-3.5 w-3.5" />
-          </span>
-        </div>
       </div>
 
-      {/* Info bar — shadcn Card footer pattern */}
-      <div className="flex items-center gap-4 border-t border-white/[0.06] bg-white/[0.012] px-5 py-3.5">
-        {/* Icon container */}
+      <div className="flex items-center gap-4 border-t border-white/[0.06] bg-white/[0.012] px-5 py-4">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.04]">
           <Globe className="h-4 w-4 text-white/40" />
         </div>
-
-        {/* Title + category */}
         <div className="flex-1 min-w-0">
           <p className="text-[15px] font-semibold leading-none text-white/88 tracking-tight truncate">
             {project.title}
           </p>
-          <p className="mt-1.5 text-[11px] leading-none text-white/30 truncate">{project.category}</p>
+          <p className="mt-1.5 font-mono text-[11px] leading-none text-white/25 truncate">{domain}</p>
         </div>
+        <ArrowRight className="h-4 w-4 shrink-0 text-white/20 transition-all group-hover:translate-x-0.5 group-hover:text-white/50" />
+      </div>
 
-        {/* Tech badges — shadcn Badge: rounded-md border px-2.5 py-0.5 text-xs */}
-        <div className="hidden lg:flex items-center gap-1.5 shrink-0">
+      <div className="px-5 pb-5 pt-3">
+        <p className="text-[13px] leading-relaxed text-white/40 line-clamp-2">{project.description}</p>
+        <div className="mt-3 flex flex-wrap gap-1.5">
           {project.tech.map((t) => (
             <span key={t} className="inline-flex items-center rounded-md border border-white/[0.07] bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium text-white/30">
               {t}
             </span>
           ))}
         </div>
-
-        {/* Arrow hint */}
-        <ArrowRight className="h-3.5 w-3.5 shrink-0 text-white/20" />
       </div>
     </motion.a>
   );
 }
 
-/* ─── Progress counter driven by scroll ─── */
-function FilingCounter({ progress }: { progress: MotionValue<number> }) {
-  const n = showcaseProjects.length;
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    return progress.on("change", (v) => {
-      const filed = Math.min(Math.floor(v * n + 0.15), n);
-      setCurrent(filed);
-    });
-  }, [progress, n]);
-
-  /* shadcn Badge style: rounded-md border px-2 py-0.5 text-xs */
-  return (
-    <span className="inline-flex items-center gap-1.5 rounded-md border border-white/[0.06] bg-white/[0.025] px-2 py-0.5 font-mono text-[10px] text-white/30 tabular-nums">
-      <span className="h-1.5 w-1.5 rounded-full bg-amber-400/50" />
-      {String(current).padStart(2, "0")}&thinsp;/&thinsp;{String(n).padStart(2, "0")}
-    </span>
-  );
-}
-
-/* ─── Scroll hint that fades once user starts scrolling ─── */
-function ScrollHint({ progress }: { progress: MotionValue<number> }) {
-  const rawOpacity = useTransform(progress, [0, 0.07], [1, 0]);
-  const opacity = useSpring(rawOpacity, { stiffness: 60, damping: 20 });
-  return (
-    <motion.div
-      style={{ opacity }}
-      className="pointer-events-none absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-    >
-      {/* shadcn muted label */}
-      <span className="text-[9px] font-medium tracking-[0.3em] uppercase text-white/18">scroll to explore</span>
-      {/* Animated chevron stack */}
-      <div className="flex flex-col items-center gap-0.5">
-        {[0, 1].map((i) => (
-          <motion.div
-            key={i}
-            animate={{ opacity: [0.15, 0.45, 0.15], y: [0, 3, 0] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
-            className="h-[5px] w-[9px] border-b border-r border-white/25"
-            style={{ transform: "rotate(45deg)" }}
-          />
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-/* ─── Desktop: open folder at top, cards rise from below into it ─── */
-function ProjectsDesktop() {
+/* ─────────────── 3D Sticky Stack Card ─────────────── */
+export function CosmicProjects() {
   const containerRef = useRef<HTMLDivElement>(null);
+  /* Added an extra 'n' to the scroll length to let the last card breathe and transition out */
+  const n = showcaseProjects.length;
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"],
+    offset: ["start start", "end end"]
   });
 
   return (
-    <div ref={containerRef} className="relative" style={{ height: `${showcaseProjects.length * 150}vh` }}>
-      <div className="sticky top-0 flex h-screen flex-col items-center px-6 lg:px-12 pt-5 pb-6">
-
-        {/* ── Open folder at top ── */}
-        <div className="w-full max-w-3xl">
-
-          {/* Folder tab + counter row */}
-          <div className="flex items-end justify-between px-0.5">
-            {/* Tab — Radix Tabs trigger style */}
-            <div className="ml-5 inline-flex h-7 items-center gap-2 rounded-t-md border border-b-0 border-white/[0.08] bg-white/[0.03] px-3 backdrop-blur-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-400/50" />
-              <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-white/35">Projects</span>
-            </div>
-            {/* Counter badge */}
-            <div className="mb-0.5">
-              <FilingCounter progress={scrollYProgress} />
-            </div>
+    <section id="work" className="relative z-10 w-full" ref={containerRef}>
+      {/* Container height is now total projects + 1 extra 'page' for the intro and 1 for the exit */}
+      <div className="relative" style={{ height: `${(n + 1.2) * 100}vh` }}>
+        
+        {/* Section Heading — stays sticky for the first 'scene' */}
+        <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6 lg:px-12 pointer-events-none overflow-hidden">
+          <div className="absolute inset-0 z-0 opacity-10">
+            <div className="absolute left-[10%] top-[20%] h-[400px] w-[400px] rounded-full bg-blue-500 blur-[150px]" />
           </div>
 
-          {/* Folder back panel — shadcn Card style */}
-          <div
-            className="relative overflow-hidden rounded-xl rounded-tl-none border border-white/[0.07] bg-[hsl(201,70%,3.5%)]"
-            style={{ boxShadow: "0 0 0 1px rgba(255,255,255,0.02) inset, 0 1px 0 rgba(255,255,255,0.04) inset" }}
-          >
-            {/* Ghost placeholder rows — refined skeleton */}
-            <div className="relative divide-y divide-white/[0.035]">
-              {showcaseProjects.map((_, i) => (
-                <div key={i} className="flex h-[52px] items-center gap-3 px-4">
-                  {/* Skeleton icon */}
-                  <div className="h-7 w-7 shrink-0 rounded-md border border-white/[0.04] bg-white/[0.02]" />
-                  {/* Skeleton text lines */}
-                  <div className="flex flex-1 flex-col gap-2">
-                    <div className="h-[7px] w-28 rounded-full bg-white/[0.04]" />
-                    <div className="h-[6px] w-36 rounded-full bg-white/[0.025]" />
-                  </div>
-                  {/* Skeleton badge */}
-                  <div className="hidden lg:block h-5 w-20 rounded-md border border-white/[0.03] bg-white/[0.015]" />
-                  {/* Skeleton check */}
-                  <div className="h-3 w-3 rounded-sm bg-white/[0.02]" />
-                </div>
-              ))}
-
-              {/* Real rows overlay */}
-              <div className="absolute inset-0 divide-y divide-white/[0.035]">
-                {showcaseProjects.map((project, i) => (
-                  <FolderRow key={project.id} project={project} index={i} progress={scrollYProgress} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Folder front lip — angled open, mouth facing down */}
-          <div
-            className="relative -mt-px h-8 overflow-hidden rounded-b-xl"
+          <motion.div
             style={{
-              background: "linear-gradient(180deg, hsl(201,40%,10%) 0%, hsl(201,38%,8%) 100%)",
-              transform: "perspective(800px) rotateX(7deg)",
-              transformOrigin: "top center",
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -2px 10px rgba(0,0,0,0.5), 0 10px 40px rgba(0,0,0,0.45)",
-              border: "1px solid rgba(255,255,255,0.05)",
-              borderTop: "none",
+              opacity: useTransform(scrollYProgress, [0, 0.12], [1, 0]),
+              y: useTransform(scrollYProgress, [0, 0.12], [0, -80]),
+              scale: useTransform(scrollYProgress, [0, 0.12], [1, 0.9]),
             }}
+            className="relative z-10 text-center max-w-4xl"
           >
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-            <div className="absolute inset-x-0 top-3 h-px bg-white/[0.02]" />
-            <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-black/25 to-transparent" />
-          </div>
-
-          {/* Mouth glow — where cards enter the folder */}
-          <div className="relative h-5 overflow-hidden">
-            <div className="absolute inset-x-16 top-0 h-[1px] animate-pulse bg-gradient-to-r from-transparent via-amber-400/30 to-transparent" />
-            <div className="absolute inset-x-24 -top-1 h-4 bg-gradient-to-b from-amber-400/[0.06] to-transparent blur-sm" />
-          </div>
-
-          {/* Trajectory fade */}
-          <div className="h-4 bg-gradient-to-b from-amber-400/[0.015] to-transparent" />
+            <span className="liquid-glass mb-8 inline-flex rounded-full px-5 py-2 text-[10px] font-medium tracking-[0.25em] text-foreground/70 uppercase">
+              The Portfolio
+            </span>
+            <h2
+              className="mb-8 text-5xl font-normal leading-[0.95] text-foreground sm:text-7xl md:text-8xl"
+              style={{ fontFamily: "'Instrument Serif', serif" }}
+            >
+              Building the<br />
+              <em className="not-italic text-muted-foreground">Digital Future.</em>
+            </h2>
+            <p className="mx-auto max-w-lg text-base leading-relaxed text-muted-foreground/60 sm:text-lg">
+              Scroll down to explore our selected projects. Each one is a unique 
+              blend of custom craft and high-performance engineering.
+            </p>
+            <div className="mt-12 flex flex-col items-center gap-4">
+               <motion.span 
+                 animate={{ opacity: [0.2, 0.5, 0.2] }}
+                 transition={{ duration: 2, repeat: Infinity }}
+                 className="text-[10px] font-medium tracking-[0.5em] uppercase text-white/20"
+               >
+                 Scroll to Explore
+               </motion.span>
+               <motion.div 
+                 animate={{ scaleY: [0.5, 1, 0.5], originY: 0 }}
+                 transition={{ duration: 2, repeat: Infinity }}
+                 className="h-12 w-[1px] bg-gradient-to-b from-white/20 to-transparent" 
+               />
+            </div>
+          </motion.div>
         </div>
 
-        {/* ── Card area — overflow-hidden clips cards as they fly up ── */}
-        <div className="relative w-full max-w-3xl flex-1 min-h-0 overflow-hidden">
-          {showcaseProjects.map((project, i) => (
-            <ActiveCard key={project.id} project={project} index={i} progress={scrollYProgress} />
-          ))}
-          <ScrollHint progress={scrollYProgress} />
+        {/* The Stacked Cards */}
+        <div className="relative">
+          {showcaseProjects.map((project, i) => {
+            // Adjust start/end to account for the intro and exit padding
+            const cardStart = (i + 1) / (n + 1.2);
+            const cardEnd = (i + 2) / (n + 1.2);
+            
+            return (
+              <StickyStackCard 
+                key={project.id} 
+                project={project} 
+                index={i} 
+                progress={scrollYProgress}
+                customRange={[cardStart, cardEnd]}
+              />
+            );
+          })}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
-export function CosmicProjects() {
-  return (
-    <section id="work" className="relative z-10 w-full">
-      {/* Section heading */}
-      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12 py-20 sm:py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] text-foreground/70 uppercase">
-            Selected Work
-          </span>
-          <h2
-            className="mt-5 text-4xl font-normal leading-[1.1] text-foreground sm:text-5xl md:text-6xl"
-            style={{ fontFamily: "'Instrument Serif', serif" }}
-          >
-            Real projects.<br />
-            <span className="text-muted-foreground">Any scale. No bias.</span>
-          </h2>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground/60">
-            From local vendors to enterprise platforms — we show up the same way every time.
-          </p>
-        </motion.div>
-      </div>
+/* ─── Modified StickyStackCard to accept custom ranges ─── */
+function StickyStackCard({ 
+  project, 
+  index, 
+  progress,
+  customRange 
+}: { 
+  project: typeof showcaseProjects[number], 
+  index: number, 
+  progress: MotionValue<number>,
+  customRange: [number, number]
+}) {
+  const [startAt, endAt] = customRange;
 
-      {/* Mobile: simple cards */}
-      <div className="md:hidden px-5 sm:px-6 pb-20">
-        <div className="flex flex-col gap-5">
-          {showcaseProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+  /* Card sliding up and sticky holding */
+  const y = useTransform(progress, [startAt - 0.1, startAt], ["100vh", "0vh"]);
+  
+  /* Stacking effects: card that is already there recedes and blurs as next one comes over */
+  const scale = useTransform(progress, [endAt, endAt + 0.1], [1, 0.9]);
+  const opacity = useTransform(progress, [endAt, endAt + 0.1], [1, 0]);
+  const rotateX = useTransform(progress, [endAt, endAt + 0.1], [0, -15]);
+  const blur = useTransform(progress, [endAt, endAt + 0.1], [0, 12]);
+  
+  const springConfig = { stiffness: 45, damping: 22, mass: 0.8 };
+  const smoothY = useSpring(y, springConfig);
+  const smoothScale = useSpring(scale, springConfig);
+  const smoothOpacity = useSpring(opacity, springConfig);
+  const smoothRotateX = useSpring(rotateX, springConfig);
+  const smoothBlur = useSpring(blur, springConfig);
+
+  const num = String(index + 1).padStart(2, "0");
+
+  return (
+    <motion.div
+      style={{ 
+        y: smoothY, 
+        scale: smoothScale, 
+        opacity: smoothOpacity, 
+        rotateX: smoothRotateX,
+        filter: useTransform(smoothBlur, v => `blur(${v}px)`),
+        zIndex: index + 10 
+      }}
+      className="sticky top-0 h-screen w-full flex items-center justify-center perspective-2000"
+    >
+      <div className="relative w-full max-w-5xl aspect-[16/9] bg-[hsl(201,100%,3%)] rounded-none border border-white/[0.08] shadow-[0_40px_100px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.02)_inset] overflow-hidden">
+        {/* Background Project Image */}
+        <div className="absolute inset-0">
+          <motion.img 
+            src={project.image} 
+            alt={project.title} 
+            style={{
+              scale: useTransform(progress, [startAt, endAt], [1.1, 1])
+            }}
+            className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/20" />
+        </div>
+
+        {/* Content Overlay */}
+        <div className="relative z-10 h-full w-full flex flex-col justify-end p-8 sm:p-12 lg:p-16">
+          <div className="flex flex-col gap-6 max-w-2xl">
+            <div className="flex items-center gap-4">
+               <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                 <Globe className="h-6 w-6 text-white/50" />
+               </span>
+               <div className="flex flex-col">
+                 <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/30">Project {num}</span>
+                 <h3 className="text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-5xl" style={{ fontFamily: "'Instrument Serif', serif" }}>
+                    {project.title}
+                 </h3>
+               </div>
+            </div>
+
+            <p className="text-sm font-light leading-relaxed text-white/60 sm:text-base md:text-lg lg:text-xl">
+              {project.description}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3">
+              {project.tech.map(t => (
+                <span key={t} className="rounded-full border border-white/5 bg-white/5 px-4 py-1.5 text-[10px] font-medium text-white/40 backdrop-blur-md">
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-4 flex items-center gap-6">
+              <Link 
+                href={project.url}
+                target="_blank"
+                className="group flex items-center gap-3 rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-black transition-all hover:bg-white/90 active:scale-95"
+              >
+                Launch Live Site <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <div className="flex items-center gap-2 text-white/30 font-mono text-[10px] uppercase tracking-widest">
+                <ExternalLink className="h-3 w-3" />
+                {project.url.replace(/^https?:\/\/(www\.)?/, "").split('/')[0]}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Decorative dynamic dots */}
+        <div className="absolute right-8 top-8 flex flex-col gap-2 opacity-20">
+          {[...Array(5)].map((_, i) => (
+             <div key={i} className="h-1 w-1 rounded-full bg-white" />
           ))}
         </div>
       </div>
-
-      {/* Desktop: scroll-driven folder filing */}
-      <div className="hidden md:block">
-        <ProjectsDesktop />
-      </div>
-    </section>
+    </motion.div>
   );
 }
 
 /* ─────────────── Services ─────────────── */
 const agencyServices = [
   {
-    title: "Full Stack Web Apps",
-    description: "Next.js, React, TypeScript — end to end. From landing pages to complex SaaS platforms. Built fast, built properly.",
+    title: "Websites & Landing Pages",
+    description: "Responsive, fast, SEO-ready websites. From single landing pages to multi-page business sites — built with Next.js, React, or whatever your project needs.",
     icon: Globe,
-    colSpan: "md:col-span-2",
+    from: "₹5,000",
+    timeline: "2–20 days",
+    tags: ["Next.js", "React", "SEO"],
+    features: [
+      "Fully responsive across all devices",
+      "SEO-optimised with fast load times",
+      "Contact form + WhatsApp integration",
+      "Free deployment to Vercel / Netlify",
+    ],
   },
   {
-    title: "AI / ML Projects",
-    description: "Custom models, integrations, intelligent features — we build AI into products that actually need it.",
-    icon: Brain,
-    colSpan: "md:col-span-1",
+    title: "Web Apps & Admin Panels",
+    description: "Full-featured web applications with dashboards, authentication, databases, and role-based access. Built to scale from day one.",
+    icon: Code2,
+    from: "₹8,000",
+    timeline: "5–45 days",
+    tags: ["Auth", "Database", "CRUD"],
+    features: [
+      "User authentication (email + social login)",
+      "Admin dashboard with full CRUD",
+      "Database design and schema setup",
+      "REST API for all core features",
+    ],
   },
   {
-    title: "Android Applications",
-    description: "Native and cross-platform mobile apps that are smooth, performant, and user-tested.",
-    icon: Smartphone,
-    colSpan: "md:col-span-1",
-  },
-  {
-    title: "HRMS & Portals",
-    description: "Employee management systems, admin dashboards, internal tools — we build complex portals that teams actually love using.",
-    icon: Users,
-    colSpan: "md:col-span-2",
-  },
-  {
-    title: "Bug Fixing & Optimization",
-    description: "Inherited a mess? We triage fast, fix clean, and hand it back better than we found it.",
+    title: "Full-Stack SaaS & Platforms",
+    description: "End-to-end products — from MVP to scale-ready SaaS. Payments, multi-tenancy, APIs, CI/CD, and everything in between.",
     icon: Rocket,
-    colSpan: "md:col-span-1",
+    from: "₹18,000",
+    timeline: "15–60+ days",
+    tags: ["SaaS", "API", "Payments"],
+    features: [
+      "Auth + roles + billing integration",
+      "Core feature set built to spec",
+      "Admin panel + analytics dashboard",
+      "Deployed with CI/CD pipeline",
+    ],
   },
   {
-    title: "API & Complex Integrations",
-    description: "Stripe, CRMs, third-party APIs, AI models — connected gracefully into your existing stack.",
-    icon: Sparkles,
-    colSpan: "md:col-span-1",
+    title: "Mobile Apps",
+    description: "Android and cross-platform apps built with React Native. Play Store deployment, push notifications, and a backend that holds up.",
+    icon: Smartphone,
+    from: "₹25,000",
+    timeline: "20–60+ days",
+    tags: ["Android", "React Native", "Play Store"],
+    features: [
+      "4–6 core screens with polished UI",
+      "User auth + local storage",
+      "REST API backend included",
+      "Google Play Store submission",
+    ],
   },
   {
     title: "Chrome Extensions",
-    description: "Custom browser extensions that fit into users' daily workflows — productivity tools, scrapers, AI assistants, whatever you need.",
-    icon: FileSearch,
-    colSpan: "md:col-span-1",
+    description: "Custom browser extensions for productivity, automation, AI assistance, scraping, or team tooling. We handle everything including Chrome Web Store submission.",
+    icon: Zap,
+    from: "₹5,000",
+    timeline: "2–30 days",
+    tags: ["Manifest V3", "Content Scripts", "OAuth"],
+    features: [
+      "Manifest V3 compliant build",
+      "Popup UI + background workers",
+      "Chrome Web Store submission included",
+      "Settings page + persistent storage",
+    ],
   },
   {
-    title: "Domain & Deployment Help",
-    description: "We help you buy the right domain, configure DNS, set up hosting, and get your product live — end to end, no confusion.",
-    icon: Globe,
-    colSpan: "md:col-span-1",
+    title: "AI / ML Projects",
+    description: "Chatbots, RAG pipelines, LLM integrations, custom model workflows — real AI that does something useful, not just a GPT wrapper.",
+    icon: Brain,
+    from: "₹8,000",
+    timeline: "3–60+ days",
+    tags: ["OpenAI", "Claude", "LangChain"],
+    features: [
+      "ChatGPT / Claude API integration",
+      "Custom prompt engineering",
+      "RAG pipeline with your data (if needed)",
+      "Deployed and integrated into your app",
+    ],
+  },
+  {
+    title: "HRMS, Payroll & Portals",
+    description: "Employee management systems, payroll with tax compliance, leave tracking, attendance, reporting — built to your exact internal workflow.",
+    icon: Users,
+    from: "₹25,000",
+    timeline: "15–75 days",
+    tags: ["Multi-role", "Payroll", "Reports"],
+    features: [
+      "Employee directory + leave management",
+      "Attendance tracking + basic payroll",
+      "Multi-role access (HR, admin, employee)",
+      "PDF report generation",
+    ],
+  },
+  {
+    title: "Data Tracking & Analytics",
+    description: "Custom dashboards, real-time analytics, data ingestion pipelines, and reporting platforms — unified visibility for your operations.",
+    icon: BarChart3,
+    from: "₹30,000",
+    timeline: "12–40 days",
+    tags: ["Dashboards", "Real-time", "Exports"],
+    features: [
+      "Custom dashboard with key metrics",
+      "Data ingestion from your sources",
+      "CSV / Excel export support",
+      "Real-time updates + alerts",
+    ],
+  },
+  {
+    title: "Bug Fixing & Optimization",
+    description: "Inherited a broken codebase? We triage, fix, and optimize. Performance issues, crashes, tech debt — we'll hand it back better than we found it.",
+    icon: Wrench,
+    from: "₹2,000",
+    timeline: "1–10 days",
+    tags: ["Debug", "Performance", "Refactor"],
+    features: [
+      "Root-cause analysis + documented fix",
+      "Performance profiling included",
+      "Regression test for the fix",
+      "Written explanation of what we changed",
+    ],
+  },
+  {
+    title: "API & Integrations",
+    description: "Stripe, Razorpay, CRMs, third-party services, AI APIs — connected cleanly into your existing or new stack.",
+    icon: Cpu,
+    from: "₹10,000",
+    timeline: "5–20 days",
+    tags: ["REST", "Webhooks", "Stripe"],
+    features: [
+      "Auth handled (OAuth, API keys, JWT)",
+      "Error handling + retry logic",
+      "Webhook listeners where needed",
+      "Integration documentation included",
+    ],
+  },
+  {
+    title: "Migrations",
+    description: "Moving from WordPress to Next.js, legacy PHP to modern stack, or consolidating services — we've done it before. Clean, zero data loss.",
+    icon: RefreshCw,
+    from: "₹10,000",
+    timeline: "5–20 days",
+    tags: ["WordPress", "Next.js", "DB Migration"],
+    features: [
+      "Full codebase + data audit first",
+      "Zero data loss, verified post-migration",
+      "SEO redirect map for site migrations",
+      "2-week post-migration support",
+    ],
+  },
+  {
+    title: "Domain, Hosting & Deployment",
+    description: "DNS setup, hosting config, SSL, CI/CD pipelines, Vercel, AWS — we get your product live and keep it running.",
+    icon: Package,
+    from: "₹2,000",
+    timeline: "1–3 days",
+    tags: ["Vercel", "AWS", "CI/CD"],
+    features: [
+      "Domain DNS + SSL configuration",
+      "Hosting setup on Vercel, AWS, or your choice",
+      "CI/CD pipeline for automatic deploys",
+      "Environment variables + secrets managed",
+    ],
   },
 ];
 
@@ -689,52 +633,112 @@ export function CosmicServices() {
   return (
     <section id="services" className="relative z-10 w-full py-24 sm:py-40">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8 }}
-          className="mb-14 sm:mb-20"
-        >
-          <span className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] text-foreground/70 uppercase sm:mb-6">
+        <div className="mb-14 sm:mb-20">
+          <motion.span
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] text-foreground/70 uppercase sm:mb-6"
+          >
             What We Build
-          </span>
+          </motion.span>
           <h2
             className="mt-5 text-4xl font-normal leading-[1.0] text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
-            We make your <em className="not-italic text-muted-foreground">dream ideas</em> real.
+            <ScrollSplitText text="We make your" delay={0} />{" "}
+            <em className="not-italic text-muted-foreground inline-block">
+              <ScrollSplitText text="dream ideas real." delay={0.3} />
+            </em>
           </h2>
-          <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base"
+          >
             Full stack. AI. Mobile. Portals. Extensions. Even your domain setup — we cover it all.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-3 md:gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
           {agencyServices.map((service, index) => (
             <motion.div
               key={service.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.07, ease: "easeOut" }}
-              className={`group rounded-2xl border border-white/[0.06] bg-white/[0.01] p-6 transition-all duration-300 hover:border-white/[0.1] hover:bg-white/[0.03] sm:rounded-[1.5rem] sm:p-8 ${service.colSpan}`}
+              transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
+              className="group flex flex-col rounded-2xl border border-white/[0.06] bg-white/[0.01] p-6 transition-all duration-300 hover:border-white/[0.1] hover:bg-white/[0.025]"
             >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] transition-transform duration-500 group-hover:-translate-y-1 sm:h-14 sm:w-14 sm:rounded-2xl">
-                <service.icon className="h-5 w-5 text-foreground/60 transition-colors group-hover:text-foreground sm:h-6 sm:w-6" />
+              {/* Icon + price row */}
+              <div className="mb-5 flex items-start justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025] transition-transform duration-500 group-hover:-translate-y-0.5">
+                  <service.icon className="h-5 w-5 text-foreground/55 transition-colors group-hover:text-foreground/90" />
+                </div>
+                <div className="text-right">
+                  <p className="text-[9px] font-medium tracking-[0.15em] uppercase text-white/25">starting from</p>
+                  <p className="font-mono text-base font-semibold text-white/80">{service.from}</p>
+                </div>
               </div>
+
+              {/* Title */}
               <h3
-                className="mb-3 text-xl font-normal text-foreground sm:text-2xl"
+                className="mb-2 text-lg font-medium text-foreground/90 sm:text-xl"
                 style={{ fontFamily: "'Instrument Serif', serif" }}
               >
                 {service.title}
               </h3>
-              <p className="text-sm font-light leading-relaxed text-muted-foreground sm:text-base">
+
+              {/* Description */}
+              <p className="mb-4 text-[13px] leading-relaxed text-muted-foreground/70">
                 {service.description}
               </p>
+
+              {/* What's included */}
+              <ul className="mb-5 flex flex-col gap-2 border-t border-white/[0.05] pt-4">
+                {service.features.map((feat) => (
+                  <li key={feat} className="flex items-start gap-2 text-[12px] leading-snug text-white/40">
+                    <Check className="mt-0.5 h-3 w-3 shrink-0 text-emerald-400/60" />
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Footer: tags + timeline + CTA */}
+              <div className="mt-auto flex flex-col gap-3">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex flex-wrap gap-1.5">
+                    {service.tags.map((tag) => (
+                      <span key={tag} className="rounded-md border border-white/[0.06] bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium text-white/30">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <span className="shrink-0 text-[10px] font-mono text-white/20">{service.timeline}</span>
+                </div>
+                <Link
+                  href="/#contact"
+                  className="flex w-full items-center justify-center gap-1.5 rounded-xl border border-white/[0.07] bg-white/[0.03] py-2.5 text-[12px] font-medium text-white/50 transition-all hover:border-white/[0.15] hover:bg-white/[0.07] hover:text-white/80"
+                >
+                  Get a Quote <ArrowRight className="h-3 w-3" />
+                </Link>
+              </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Bottom note */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="mt-10 text-center text-xs text-white/20"
+        >
+          All prices are starting points. Final quote depends on scope, complexity, and timeline. Every project gets a written estimate before work begins.
+        </motion.p>
       </div>
     </section>
   );
@@ -744,28 +748,43 @@ export function CosmicServices() {
 const processSteps = [
   {
     icon: MessageSquare,
-    title: "Just reach out",
-    desc: "No lengthy forms, no discovery questionnaires. Send us a message telling us what you're building. That's it — we'll take it from there.",
+    title: "Share your idea",
+    desc: "Send us a message, voice note, or rough doc — anything that gets the idea across. No lengthy forms, no jargon. We'll figure out the rest together.",
   },
   {
     icon: FileSearch,
-    title: "We scope it together",
-    desc: "We listen, ask the right questions, and figure out the cleanest path forward. You get a clear plan — no vague estimates, no jargon.",
+    title: "We dig into requirements",
+    desc: "We ask the right questions, map out what you need, and clarify what's in and out of scope. No vague estimates — just a clear picture before anything starts.",
   },
   {
-    icon: Check,
-    title: "You're always in the loop",
-    desc: "We share progress regularly. No disappearing for weeks. If something changes, you hear it from us first — not when it's too late.",
+    icon: FileText,
+    title: "Everything locked in writing",
+    desc: "Scope, features, timeline, and pricing are all confirmed in a written document before work begins. You sign off on the deliverables. No surprises, no disputes.",
   },
   {
-    icon: Sparkles,
-    title: "We refine until it's right",
-    desc: "Feedback is part of the process. We iterate, polish, and don't consider it done until you're genuinely satisfied with what you're seeing.",
+    icon: IndianRupee,
+    title: "Advance & kickoff",
+    desc: "Work starts after the advance payment is settled. Once that's done, we move fast. Larger projects use milestone-based payments tied to delivery stages.",
+  },
+  {
+    icon: Clock,
+    title: "Build with regular check-ins",
+    desc: "We share progress at every stage. You're never in the dark for weeks. If anything shifts on our end, you hear it from us first.",
+  },
+  {
+    icon: Shield,
+    title: "Changes get documented first",
+    desc: "If you want something added mid-project, we document it, adjust the quote, and wait for your sign-off before building it. No scope creep, no bill shock.",
   },
   {
     icon: Rocket,
-    title: "We launch & stay with you",
-    desc: "From domain setup to deployment — we handle the go-live. And we don't vanish after. You have a team you can actually reach whenever you need.",
+    title: "Clean delivery & handoff",
+    desc: "We hand over everything — source code, credentials, documentation, and deployment. Domain setup to go-live, we handle it all cleanly.",
+  },
+  {
+    icon: Sparkles,
+    title: "Post-launch support included",
+    desc: "We stay on for roughly 2 months after delivery. Any bugs, errors, or failures that come up are on us — fixed at no extra charge.",
   },
 ];
 
@@ -791,10 +810,10 @@ export function CosmicProcess() {
             className="mt-5 text-4xl font-normal text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
-            We make it <em className="not-italic text-muted-foreground">effortless</em> for you.
+            How we work — <em className="not-italic text-muted-foreground">no surprises.</em>
           </h2>
           <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            From first message to live product — clear communication, zero guesswork, and a team that actually shows up.
+            Every project starts with documentation, ends with clean delivery, and comes with post-launch support. Here&apos;s exactly what to expect.
           </p>
         </motion.div>
 
@@ -814,7 +833,7 @@ export function CosmicProcess() {
               </div>
               <div>
                 <p className="mb-1 text-[10px] font-medium tracking-[0.18em] text-muted-foreground/50 uppercase">
-                  Step 0{i + 1}
+                  Step {String(i + 1).padStart(2, "0")}
                 </p>
                 <h3
                   className="mb-2 text-xl font-normal text-foreground"
@@ -857,19 +876,20 @@ export function CosmicProcess() {
                       transition={{ duration: 0.7, ease: "easeOut" }}
                     >
                       <p className="mb-2 text-[10px] font-medium tracking-[0.18em] text-muted-foreground/50 uppercase">
-                        Step 0{index + 1}
+                        Step {String(index + 1).padStart(2, "0")}
                       </p>
                       <h3
-                        className="mb-3 text-2xl font-normal text-foreground lg:text-3xl"
+                        className="mb-4 text-2xl font-normal text-foreground group-hover:text-foreground/80 md:text-3xl"
                         style={{ fontFamily: "'Instrument Serif', serif" }}
                       >
                         {step.title}
                       </h3>
-                      <p className="text-base font-light leading-relaxed text-muted-foreground">
+                      <p className="text-sm font-light leading-relaxed text-muted-foreground/80 md:text-base lg:text-lg">
                         {step.desc}
                       </p>
                     </motion.div>
                   </div>
+                  <div className="w-1/2" />
                 </div>
               );
             })}
@@ -879,123 +899,400 @@ export function CosmicProcess() {
     </section>
   );
 }
+/* ─────────────── FAQ ─────────────── */
+const faqItems = [
+  {
+    q: "Do you require documentation before starting a project?",
+    a: "Yes — always. Before any work begins, we send you a project brief template covering scope, features, timeline, and pricing. You review it, we align on every deliverable, and both sides sign off in writing. This protects you and us both.",
+  },
+  {
+    q: "What happens if I want to add something mid-project?",
+    a: "Any change to the agreed scope gets documented first. We write up what's being added, how it affects the timeline, and the revised cost — then wait for your written sign-off before building it. No surprise charges, no scope creep.",
+  },
+  {
+    q: "How does payment work?",
+    a: "We take an advance payment to kick off work. For smaller projects (under ₹15,000), it's typically the full amount upfront. Larger projects are split into milestones tied to delivery stages — you pay as work gets done and reviewed.",
+  },
+  {
+    q: "What's covered in post-launch support?",
+    a: "After we deliver and you go live, we stay on for roughly 2 months. Any bugs, errors, crashes, or unexpected failures that show up are fixed at no extra charge. This doesn't cover new features — just fixing what we built.",
+  },
+  {
+    q: "Do you sign NDAs?",
+    a: "Absolutely. If your project involves sensitive data, proprietary processes, or anything you want kept confidential, we sign an NDA before any details are shared. Just ask and we'll send one.",
+  },
+  {
+    q: "What tech stack do you work with?",
+    a: "Primarily Next.js, React, Node.js, TypeScript, and Tailwind for web. React Native or Flutter for mobile. Python for AI/ML. PostgreSQL or MongoDB for databases. We choose the stack that fits the project — not the one we're comfortable with by default.",
+  },
+  {
+    q: "Can you take over a project someone else started?",
+    a: "Yes. We regularly pick up codebases mid-stream — whether it's a freelancer handoff, an abandoned project, or a mess that needs untangling. We'll audit it first, document what we find, and give you an honest scope before touching anything.",
+  },
+  {
+    q: "Do you offer maintenance after the support period?",
+    a: "Yes. Once the 2-month free support window ends, we offer paid monthly maintenance plans starting from ₹2,000/month. This covers updates, small changes, hosting issues, and general upkeep. Ongoing work outside that is billed by scope.",
+  },
+  {
+    q: "How long does a typical project take?",
+    a: "It depends on scope. A landing page takes 2–4 days. A business website 5–10 days. A full-stack app with admin panel could be 15–35 days. We give you a timeline in the written agreement — and we stick to it.",
+  },
+  {
+    q: "What if I only have a rough idea, no spec?",
+    a: "That's fine — most clients start there. We'll have a discovery conversation, ask the right questions, and help you shape it into a concrete spec. The documentation step is part of our process, not your job to figure out alone.",
+  },
+];
+
+export function CosmicFAQ() {
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <section id="faq" className="relative z-10 w-full py-24 sm:py-40">
+      <div className="mx-auto max-w-3xl px-5 sm:px-6 lg:px-8">
+        <div className="mb-14 sm:mb-20">
+          <motion.span
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] text-foreground/70 uppercase sm:mb-6"
+          >
+            FAQ
+          </motion.span>
+          <h2
+            className="mt-5 text-4xl font-normal leading-[1.0] text-foreground sm:text-5xl md:text-6xl"
+            style={{ fontFamily: "'Instrument Serif', serif" }}
+          >
+            Questions we <em className="not-italic text-muted-foreground">always get asked.</em>
+          </h2>
+          <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            Straight answers. No corporate speak.
+          </p>
+        </div>
+
+        <div className="flex flex-col divide-y divide-white/[0.05]">
+          {faqItems.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: i * 0.04 }}
+            >
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                className="flex w-full items-start justify-between gap-6 py-6 text-left"
+              >
+                <span className="text-base font-medium text-foreground/85 sm:text-lg">
+                  {item.q}
+                </span>
+                <ChevronDown
+                  className={`mt-1 h-4 w-4 shrink-0 text-white/30 transition-transform duration-300 ${open === i ? "rotate-180 text-white/60" : ""}`}
+                />
+              </button>
+              <AnimatePresence initial={false}>
+                {open === i && (
+                  <motion.div
+                    key="answer"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <p className="pb-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                      {item.a}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /* ─────────────── Testimonials ─────────────── */
 const testimonials = [
-  { text: "TekDev stepped into a messy codebase, fixed the performance issues, and got our release back on track in days.", author: "Sarah J.", role: "HealthStack" },
-  { text: "They felt like a true product partner, not just a dev shop. Clear communication, strong execution, and zero drama.", author: "Michael C.", role: "BrightFlow" },
-  { text: "We hired TekDev for bug fixes and ended up trusting them with a full rebuild. The quality was consistently strong.", author: "Emily R.", role: "Northlane" },
+  {
+    quote: "TekDev stepped into a messy codebase, fixed the performance issues, and got our release back on track in days.",
+    author: "Sarah Johnson",
+    role: "Founder, HealthStack",
+    avatar: "S"
+  },
+  {
+    quote: "They felt like a true product partner, not just a dev shop. Clear communication, strong execution, and zero drama.",
+    author: "Michael Chen",
+    role: "COO, BrightFlow",
+    avatar: "M"
+  },
+  {
+    quote: "We hired TekDev for bug fixes and ended up trusting them with a full rebuild. The quality was consistently strong.",
+    author: "Emily Rodriguez",
+    role: "CTO, Northlane",
+    avatar: "E"
+  },
 ];
 
 export function CosmicTestimonials() {
-  const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
-
-  const paginate = (newDirection: number) => {
-    setDirection(newDirection);
-    setIndex((prev) => (prev + newDirection + testimonials.length) % testimonials.length);
-  };
-
-  useEffect(() => {
-    const timer = setInterval(() => paginate(1), 6000);
-    return () => clearInterval(timer);
-  }, [index]);
-
-  const variants = {
-    enter: (d: number) => ({ x: d > 0 ? 300 : -300, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (d: number) => ({ x: d < 0 ? 300 : -300, opacity: 0 }),
-  };
-
   return (
-    <section className="relative z-10 w-full overflow-hidden py-24 sm:py-40">
+    <section className="relative z-10 w-full py-24 sm:py-40">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-12 sm:mb-20"
-        >
-          <span className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] text-foreground/70 uppercase">
-            Testimonials
-          </span>
+        <div className="mb-16 text-center">
+          <motion.span
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] text-foreground/70 uppercase"
+          >
+            Client Perspective
+          </motion.span>
           <h2
             className="mt-5 text-4xl font-normal text-foreground sm:text-5xl md:text-6xl"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
-            Client <em className="not-italic text-muted-foreground">Reflections.</em>
+            What founders <em className="text-muted-foreground not-italic">say about us.</em>
           </h2>
-        </motion.div>
-
-        {/* Slider */}
-        <div className="relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.015] sm:rounded-[2rem]">
-          <div className="relative h-[280px] sm:h-[320px]">
-            <AnimatePresence initial={false} custom={direction}>
-              <motion.div
-                key={index}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.3}
-                onDragEnd={(_, { offset, velocity }) => {
-                  if (Math.abs(offset.x) * Math.abs(velocity.x) > 8000) {
-                    paginate(offset.x < 0 ? 1 : -1);
-                  }
-                }}
-                className="absolute inset-0 flex flex-col justify-center p-7 sm:p-12 md:p-16"
-              >
-                <div
-                  className="mb-5 text-lg leading-relaxed text-foreground/85 sm:mb-8 sm:text-2xl md:text-3xl"
-                  style={{ fontFamily: "'Instrument Serif', serif" }}
-                >
-                  &ldquo;{testimonials[index].text}&rdquo;
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.04] text-sm font-medium text-foreground sm:h-11 sm:w-11">
-                    {testimonials[index].author.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground sm:text-base">{testimonials[index].author}</p>
-                    <p className="text-[10px] tracking-[0.18em] text-muted-foreground uppercase sm:text-xs">{testimonials[index].role}</p>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Controls */}
-          <div className="flex items-center justify-between border-t border-white/[0.06] px-6 py-4 sm:px-10 sm:py-5">
-            <div className="flex gap-2">
-              {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => { setDirection(i > index ? 1 : -1); setIndex(i); }}
-                  className={`h-1.5 rounded-full transition-all duration-500 ${i === index ? "w-6 bg-foreground sm:w-8" : "w-1.5 bg-white/[0.12]"}`}
-                />
-              ))}
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => paginate(-1)}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] transition-all hover:bg-white/[0.05] sm:h-10 sm:w-10"
-              >
-                <ChevronLeft className="h-4 w-4 text-foreground/60" />
-              </button>
-              <button
-                onClick={() => paginate(1)}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] transition-all hover:bg-white/[0.05] sm:h-10 sm:w-10"
-              >
-                <ChevronRight className="h-4 w-4 text-foreground/60" />
-              </button>
-            </div>
-          </div>
         </div>
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {testimonials.map((t, i) => (
+            <motion.div
+              key={t.author}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: i * 0.1 }}
+              className="relative rounded-[2rem] border border-white/[0.08] bg-white/[0.01] p-8 backdrop-blur-md transition-colors hover:bg-white/[0.03]"
+            >
+              <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-[10px] font-bold text-white/40 border border-white/5">
+                {t.avatar}
+              </div>
+              <p className="mb-8 text-lg font-light leading-relaxed text-white/80">
+                &ldquo;{t.quote}&rdquo;
+              </p>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-white">{t.author}</span>
+                <span className="text-xs text-white/30 uppercase tracking-widest mt-1 font-mono">{t.role}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────── Home Services Teaser ─────────────── */
+const homeServiceCards = [
+  { icon: Globe,       title: "Websites & Landing Pages",   from: "₹5,000",  tags: ["Next.js","React","SEO"],           desc: "Fast, responsive, SEO-ready sites — from a single landing page to a full business website." },
+  { icon: Code2,       title: "Web Apps & Admin Panels",    from: "₹8,000",  tags: ["Auth","Database","CRUD"],          desc: "Dashboards, portals, and full web apps with authentication, roles, and database." },
+  { icon: Rocket,      title: "Full-Stack SaaS & Platforms",from: "₹18,000", tags: ["SaaS","API","Payments"],           desc: "End-to-end products — MVP to production-ready. Payments, multi-tenancy, CI/CD." },
+  { icon: Smartphone,  title: "Mobile Apps",                from: "₹25,000", tags: ["Android","React Native","Play Store"], desc: "Cross-platform apps with auth, API backend, push notifications, and Play Store deployment." },
+  { icon: Brain,       title: "AI / ML Projects",           from: "₹8,000",  tags: ["OpenAI","Claude","RAG"],           desc: "Real AI — chatbots, RAG pipelines, LLM integrations. Not just a GPT wrapper." },
+  { icon: Zap,         title: "Chrome Extensions",          from: "₹5,000",  tags: ["Manifest V3","Content Scripts"],   desc: "Productivity, automation, or AI browser tools — Web Store submission included." },
+];
+
+export function HomeServices() {
+  return (
+    <section id="services" className="relative z-10 w-full py-24 sm:py-40">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
+        <div className="mb-14 flex flex-col gap-4 sm:mb-20 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <motion.span
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] text-foreground/70 uppercase sm:mb-6"
+            >
+              What We Build
+            </motion.span>
+            <h2
+              className="mt-5 text-4xl font-normal leading-[1.05] text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
+              style={{ fontFamily: "'Instrument Serif', serif" }}
+            >
+              <ScrollSplitText text="We make your" delay={0} />{" "}
+              <em className="not-italic text-muted-foreground inline-block">
+                <ScrollSplitText text="dream ideas real." delay={0.3} />
+              </em>
+            </h2>
+          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="shrink-0"
+          >
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-5 py-2.5 text-sm text-white/50 transition-all hover:border-white/[0.15] hover:text-white/80"
+            >
+              See all services & pricing <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </motion.div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+          {homeServiceCards.map((service, index) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: index * 0.06, ease: "easeOut" }}
+              className="group flex flex-col rounded-2xl border border-white/[0.06] bg-white/[0.01] p-6 transition-all duration-300 hover:border-white/[0.1] hover:bg-white/[0.025]"
+            >
+              <div className="mb-5 flex items-start justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025] transition-transform duration-500 group-hover:-translate-y-0.5">
+                  <service.icon className="h-5 w-5 text-foreground/55 transition-colors group-hover:text-foreground/90" />
+                </div>
+                <div className="text-right">
+                  <p className="text-[9px] font-medium tracking-[0.15em] uppercase text-white/25">from</p>
+                  <p className="font-mono text-base font-semibold text-white/80">{service.from}</p>
+                </div>
+              </div>
+              <h3 className="mb-2 text-lg font-medium text-foreground/90 sm:text-xl" style={{ fontFamily: "'Instrument Serif', serif" }}>
+                {service.title}
+              </h3>
+              <p className="mb-5 flex-1 text-[13px] leading-relaxed text-muted-foreground/70">{service.desc}</p>
+              <div className="mt-auto flex items-center justify-between gap-2">
+                <div className="flex flex-wrap gap-1.5">
+                  {service.tags.map((tag) => (
+                    <span key={tag} className="rounded-md border border-white/[0.06] bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium text-white/30">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <Link href="/pricing" className="shrink-0 text-[11px] text-white/25 transition-colors hover:text-white/60">
+                  See pricing →
+                </Link>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-6"
+        >
+          <p className="text-xs text-white/20">
+            +6 more services including HRMS, data tracking, migrations, API integrations & deployment.
+          </p>
+          <Link
+            href="/pricing"
+            className="text-xs font-medium text-white/35 underline-offset-2 transition-colors hover:text-white/60 hover:underline"
+          >
+            View full pricing →
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────── Home Process Teaser ─────────────── */
+const homeProcessHighlights = [
+  {
+    icon: FileText,
+    step: "01",
+    title: "Everything documented first",
+    desc: "Scope, features, timeline, and price — all confirmed in writing before a single line of code. You sign off on the deliverables. No surprises.",
+  },
+  {
+    icon: Clock,
+    step: "02",
+    title: "Regular check-ins, no ghosting",
+    desc: "We share progress at every stage. If something changes on our end, you hear it first. Any scope additions need written sign-off before we build.",
+  },
+  {
+    icon: Sparkles,
+    step: "03",
+    title: "Clean delivery + 2 months support",
+    desc: "We hand over everything cleanly — code, credentials, deployment. Then stay on for ~2 months fixing any bugs or errors at no extra charge.",
+  },
+];
+
+export function HomeProcess() {
+  return (
+    <section id="process" className="relative z-10 w-full py-24 sm:py-40">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
+        <div className="mb-14 flex flex-col gap-4 sm:mb-20 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <motion.span
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] text-foreground/70 uppercase sm:mb-6"
+            >
+              How It Works
+            </motion.span>
+            <h2
+              className="mt-5 text-4xl font-normal text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
+              style={{ fontFamily: "'Instrument Serif', serif" }}
+            >
+              How we work —{" "}
+              <em className="not-italic text-muted-foreground">no surprises.</em>
+            </h2>
+          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="shrink-0"
+          >
+            <Link
+              href="/process"
+              className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-5 py-2.5 text-sm text-white/50 transition-all hover:border-white/[0.15] hover:text-white/80"
+            >
+              Full process & FAQ <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </motion.div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6">
+          {homeProcessHighlights.map((item, i) => (
+            <motion.div
+              key={item.step}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="flex flex-col rounded-2xl border border-white/[0.06] bg-white/[0.01] p-7"
+            >
+              <div className="mb-6 flex items-center justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025]">
+                  <item.icon className="h-5 w-5 text-foreground/55" />
+                </div>
+                <span className="font-mono text-3xl font-light text-white/[0.06]">{item.step}</span>
+              </div>
+              <h3 className="mb-3 text-xl font-medium text-foreground/90" style={{ fontFamily: "'Instrument Serif', serif" }}>
+                {item.title}
+              </h3>
+              <p className="text-[13px] leading-relaxed text-muted-foreground/70">{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="mt-10 text-center"
+        >
+          <Link
+            href="/process"
+            className="text-sm text-white/30 underline-offset-2 transition-colors hover:text-white/60 hover:underline"
+          >
+            See all 8 steps + full FAQ →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
@@ -1004,41 +1301,45 @@ export function CosmicTestimonials() {
 /* ─────────────── CTA ─────────────── */
 export function CosmicCTA() {
   return (
-    <section className="relative z-10 w-full overflow-hidden py-24 sm:py-48">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(100,130,200,0.04)_0%,transparent_60%)]" />
-      <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-6 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+    <section className="relative z-10 w-full py-24 sm:py-40">
+      <div className="mx-auto max-w-5xl px-5 sm:px-6 lg:px-12">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="relative overflow-hidden rounded-[3rem] border border-white/[0.1] bg-gradient-to-br from-white/[0.05] to-transparent p-12 text-center sm:p-20"
         >
-          <h2
-            className="mb-6 text-4xl font-normal leading-[1.0] text-foreground sm:mb-8 sm:text-6xl md:text-7xl lg:text-8xl"
-            style={{ fontFamily: "'Instrument Serif', serif" }}
-          >
-            Let&apos;s build<br />
-            <em className="not-italic text-muted-foreground">something worth it.</em>
-          </h2>
-          <p className="mx-auto mb-3 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-lg sm:max-w-xl">
-            Whether you need a fast fix, a full product, or an AI-powered system — we&apos;re the team that builds it right, and fast.
-          </p>
-          <p className="mx-auto mb-10 max-w-md text-xs leading-relaxed text-muted-foreground/50 sm:mb-14 sm:text-sm">
-            Just reach out. We&apos;ll take care of the rest — from first message to live product, with you every step.
-          </p>
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:justify-center sm:gap-4">
-            <Link
-              href="/#contact"
-              className="liquid-glass inline-flex w-full items-center justify-center rounded-full px-10 py-4 text-sm font-medium text-foreground transition-transform hover:scale-[1.03] sm:w-auto sm:px-14 sm:py-5 sm:text-base"
+          {/* Background effects */}
+          <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-blue-500/10 blur-[100px]" />
+          <div className="absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-[100px]" />
+
+          <div className="relative z-10">
+            <h2
+              className="mb-8 text-5xl font-normal leading-tight text-white sm:text-7xl"
+              style={{ fontFamily: "'Instrument Serif', serif" }}
             >
-              Start Your Project
-            </Link>
-            <Link
-              href="/#work"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/[0.06] px-10 py-4 text-sm font-medium text-muted-foreground transition-all hover:border-white/[0.1] hover:text-foreground sm:w-auto sm:px-14 sm:py-5 sm:text-base"
-            >
-              See Our Work
-            </Link>
+              Ready to bring your <br />
+              <em className="text-muted-foreground not-italic">vision to life?</em>
+            </h2>
+            <p className="mx-auto mb-12 max-w-xl text-lg text-white/50 leading-relaxed">
+              We&apos;re currently accepting new projects. Whether you have a full spec or just a rough idea, 
+              let&apos;s talk and see how we can help you build something remarkable.
+            </p>
+            <div className="flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-8">
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-3 rounded-full bg-white px-10 py-5 text-sm font-bold text-black transition-all hover:scale-105 active:scale-95"
+              >
+                Start Your Journey <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="#work"
+                className="text-sm font-medium text-white/40 transition-colors hover:text-white"
+              >
+                View our selected work
+              </Link>
+            </div>
           </div>
         </motion.div>
       </div>

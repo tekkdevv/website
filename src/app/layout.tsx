@@ -47,6 +47,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { CursorGlow } from "@/components/marketing/cursor-glow";
+
 export default function RootLayout({
   children,
 }: {
@@ -69,6 +71,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground font-body antialiased selection:bg-blue-400/20">
         <OrganizationJsonLd />
         <WebSiteJsonLd />
+        <CursorGlow />
         <main className="relative min-h-screen">{children}</main>
       </body>
     </html>

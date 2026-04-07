@@ -6,10 +6,30 @@ import Hls from "hls.js";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { BlurIn } from "@/components/marketing/blur-in";
 import { SplitText } from "@/components/marketing/split-text";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { Magnetic } from "@/components/marketing/magnetic";
 
 export function MarketingHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const smoothScrollY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Parallax transformations
+  const videoY = useTransform(smoothScrollY, [0, 1], ["0%", "20%"]);
+  const videoScale = useTransform(smoothScrollY, [0, 1], [1.2, 1.3]);
+  const textY = useTransform(smoothScrollY, [0, 1], ["0%", "-30%"]);
+  const textOpacity = useTransform(smoothScrollY, [0, 0.5], [1, 0]);
 
   useEffect(() => {
     if (!videoRef.current) {
@@ -36,25 +56,29 @@ export function MarketingHero() {
   }, []);
 
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden bg-[#070612]">
-      <video
+    <section ref={containerRef} className="relative min-h-[100svh] w-full overflow-hidden bg-[#070612]">
+      <motion.video
         ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
         onCanPlay={() => setVideoReady(true)}
-        className="absolute inset-0 z-0 h-full w-full object-cover lg:origin-left lg:scale-[1.2] transition-opacity duration-700"
         style={{
-          marginLeft: "0px",
+          y: videoY,
+          scale: videoScale,
           opacity: videoReady ? 1 : 0,
         }}
+        className="absolute inset-0 z-0 h-full w-full object-cover lg:origin-left transition-opacity duration-700"
       />
 
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,6,18,0.78)_0%,rgba(7,6,18,0.56)_18%,rgba(7,6,18,0.72)_100%),radial-gradient(circle_at_75%_40%,rgba(255,255,255,0.14),transparent_22%),linear-gradient(90deg,rgba(7,6,18,0.96)_0%,rgba(7,6,18,0.82)_38%,rgba(7,6,18,0.4)_68%,rgba(7,6,18,0.85)_100%)] sm:bg-[radial-gradient(circle_at_75%_40%,rgba(255,255,255,0.14),transparent_22%),linear-gradient(90deg,rgba(7,6,18,0.96)_0%,rgba(7,6,18,0.82)_38%,rgba(7,6,18,0.4)_68%,rgba(7,6,18,0.85)_100%)]" />
       <div className="absolute bottom-0 left-0 right-0 z-10 h-24 bg-gradient-to-t from-[#070612] to-transparent sm:h-40" />
 
-      <div className="relative z-20 flex min-h-[100svh] items-center pt-20 sm:pt-24">
+      <motion.div 
+        style={{ y: textY, opacity: textOpacity }}
+        className="relative z-20 flex min-h-[100svh] items-center pt-20 sm:pt-24"
+      >
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-12">
           <div className="flex flex-col gap-8 sm:gap-10 lg:gap-12">
             <div className="flex flex-col gap-4 sm:gap-5 lg:gap-6">
@@ -81,24 +105,28 @@ export function MarketingHero() {
 
             <BlurIn delay={0.6} duration={0.6}>
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-                <Link
-                  href="/#work"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 font-medium text-black transition-colors hover:bg-white/90 sm:w-auto"
-                >
-                  View Our Work
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href="/#contact"
-                  className="inline-flex w-full items-center justify-center rounded-full bg-white/20 px-8 py-3 font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/30 sm:w-auto"
-                >
-                  Contact Us
-                </Link>
+                <Magnetic>
+                  <Link
+                    href="/#work"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 font-medium text-black transition-colors hover:bg-white/90 sm:w-auto"
+                  >
+                    View Our Work
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Magnetic>
+                <Magnetic>
+                  <Link
+                    href="/#contact"
+                    className="inline-flex w-full items-center justify-center rounded-full bg-white/20 px-8 py-3 font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/30 sm:w-auto"
+                  >
+                    Contact Us
+                  </Link>
+                </Magnetic>
               </div>
             </BlurIn>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

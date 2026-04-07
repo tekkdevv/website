@@ -73,8 +73,8 @@ export function StoryHero() {
         </motion.div>
 
         {/* Overlay */}
-        <motion.div className="absolute inset-0 z-[1] bg-black" style={{ opacity: overlayOpacity }} />
-        <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[hsl(201,100%,8%)] via-[hsl(201,100%,8%)]/20 to-transparent" />
+        <motion.div className="absolute inset-0 z-[1] bg-[#030208]" style={{ opacity: overlayOpacity }} />
+        <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#030208] via-[#030208]/40 to-transparent" />
 
         {/* Content — centered */}
         <div className="relative z-10 flex h-full flex-col items-center justify-center px-5 pt-20 text-center sm:px-8">
