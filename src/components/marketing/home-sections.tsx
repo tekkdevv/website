@@ -14,6 +14,13 @@ import { ScrollSplitText } from "@/components/marketing/scroll-split-text";
 
 /* ─────────────── Cosmic Background ─────────────── */
 export function CosmicBackground() {
+  const { scrollYProgress } = useScroll();
+  
+  // Parallax translations
+  const yNebula1 = useTransform(scrollYProgress, [0, 1], [0, 500]);
+  const yNebula2 = useTransform(scrollYProgress, [0, 1], [0, -400]);
+  const yStars = useTransform(scrollYProgress, [0, 1], [0, 300]);
+
   return (
     <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#030208]">
       {/* Horizontal Atmospheric Glow (Sync with Hero Video exit) */}
@@ -25,32 +32,34 @@ export function CosmicBackground() {
         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
       />
       
-      {/* Floating Nebula Glows */}
-      <motion.div 
-        animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.15, 0.25, 0.15],
-          x: [0, 40, 0],
-          y: [0, -30, 0]
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        className="absolute -left-[10%] top-[20%] h-[600px] w-[600px] rounded-full bg-blue-600/20 blur-[140px] sm:h-[800px] sm:w-[800px]" 
-      />
+      {/* Floating Nebula Glows with Scroll Parallax */}
+      <motion.div style={{ y: yNebula1 }} className="absolute -left-[10%] top-[10%] sm:top-[20%] h-[600px] w-[600px] sm:h-[800px] sm:w-[800px]">
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.15, 0.25, 0.15],
+            x: [0, 40, 0],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="h-full w-full rounded-full bg-blue-600/20 blur-[140px]" 
+        />
+      </motion.div>
       
-      <motion.div 
-        animate={{ 
-          scale: [1.2, 1, 1.2],
-          opacity: [0.1, 0.2, 0.1],
-          x: [0, -50, 0],
-          y: [0, 40, 0]
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute right-[-5%] bottom-[10%] h-[500px] w-[500px] rounded-full bg-indigo-500/15 blur-[160px] sm:h-[700px] sm:w-[700px]" 
-      />
+      <motion.div style={{ y: yNebula2 }} className="absolute right-[-5%] top-[60%] sm:bottom-[10%] h-[500px] w-[500px] sm:h-[700px] sm:w-[700px]">
+        <motion.div 
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            opacity: [0.1, 0.2, 0.1],
+            x: [0, -50, 0],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="h-full w-full rounded-full bg-indigo-500/15 blur-[160px]" 
+        />
+      </motion.div>
 
-      {/* Subtle Star Points */}
-      <div className="absolute inset-0 opacity-[0.4]">
-         {[...Array(20)].map((_, i) => (
+      {/* Subtle Star Points with Scroll Parallax */}
+      <motion.div style={{ y: yStars }} className="absolute -inset-[50%] sm:-inset-[100%] opacity-[0.4]">
+         {[...Array(40)].map((_, i) => (
            <div 
              key={i}
              className="absolute h-px w-px bg-white rounded-full"
@@ -61,7 +70,7 @@ export function CosmicBackground() {
              }}
            />
          ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -387,9 +396,9 @@ function StickyStackCard({
         filter: useTransform(smoothBlur, v => `blur(${v}px)`),
         zIndex: index + 10 
       }}
-      className="sticky top-0 h-screen w-full flex items-center justify-center perspective-2000"
+      className="sticky top-0 h-screen w-full flex items-center justify-center perspective-2000 p-4 sm:p-0"
     >
-      <div className="relative w-full max-w-5xl aspect-[16/9] bg-[hsl(201,100%,3%)] rounded-none border border-white/[0.08] shadow-[0_40px_100px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.02)_inset] overflow-hidden">
+      <div className="relative w-full max-w-5xl aspect-[3/4] sm:aspect-[16/9] max-h-[85vh] bg-[hsl(201,100%,3%)] rounded-[1.5rem] sm:rounded-none border border-white/[0.08] shadow-[0_40px_100px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.02)_inset] overflow-hidden">
         {/* Background Project Image */}
         <div className="absolute inset-0">
           <motion.img 
@@ -398,56 +407,56 @@ function StickyStackCard({
             style={{
               scale: useTransform(progress, [startAt, endAt], [1.1, 1])
             }}
-            className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105" 
+            className="h-full w-full object-cover sm:object-center transition-transform duration-1000 group-hover:scale-105" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/80 sm:via-black/40 to-black/40 sm:to-black/20" />
         </div>
 
         {/* Content Overlay */}
-        <div className="relative z-10 h-full w-full flex flex-col justify-end p-8 sm:p-12 lg:p-16">
-          <div className="flex flex-col gap-6 max-w-2xl">
-            <div className="flex items-center gap-4">
-               <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl">
-                 <Globe className="h-6 w-6 text-white/50" />
+        <div className="relative z-10 h-full w-full flex flex-col justify-end p-6 sm:p-12 lg:p-16">
+          <div className="flex flex-col gap-4 sm:gap-6 max-w-2xl">
+            <div className="flex items-center gap-3 sm:gap-4">
+               <span className="inline-flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                 <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-white/50" />
                </span>
                <div className="flex flex-col">
-                 <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/30">Project {num}</span>
-                 <h3 className="text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-5xl" style={{ fontFamily: "'Instrument Serif', serif" }}>
+                 <span className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] uppercase text-white/30">Project {num}</span>
+                 <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-white lg:text-5xl" style={{ fontFamily: "'Instrument Serif', serif" }}>
                     {project.title}
                  </h3>
                </div>
             </div>
 
-            <p className="text-sm font-light leading-relaxed text-white/60 sm:text-base md:text-lg lg:text-xl">
+            <p className="text-[13px] sm:text-sm font-light leading-relaxed text-white/60 sm:text-base md:text-lg lg:text-xl line-clamp-3 sm:line-clamp-none">
               {project.description}
             </p>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               {project.tech.map(t => (
-                <span key={t} className="rounded-full border border-white/5 bg-white/5 px-4 py-1.5 text-[10px] font-medium text-white/40 backdrop-blur-md">
+                <span key={t} className="rounded-full border border-white/5 bg-white/5 px-3 sm:px-4 py-1 sm:py-1.5 text-[9px] sm:text-[10px] font-medium text-white/40 backdrop-blur-md">
                   {t}
                 </span>
               ))}
             </div>
 
-            <div className="mt-4 flex items-center gap-6">
+            <div className="mt-2 sm:mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
               <Link 
                 href={project.url}
                 target="_blank"
-                className="group flex items-center gap-3 rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-black transition-all hover:bg-white/90 active:scale-95"
+                className="group flex w-full sm:w-auto justify-center items-center gap-3 rounded-full bg-white px-6 sm:px-8 py-3 sm:py-3.5 text-[13px] sm:text-sm font-semibold text-black transition-all hover:bg-white/90 active:scale-95 shrink-0"
               >
                 Launch Live Site <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <div className="flex items-center gap-2 text-white/30 font-mono text-[10px] uppercase tracking-widest">
-                <ExternalLink className="h-3 w-3" />
-                {project.url.replace(/^https?:\/\/(www\.)?/, "").split('/')[0]}
+              <div className="flex items-center gap-2 text-white/30 font-mono text-[10px] uppercase tracking-widest pl-2 sm:pl-0">
+                <ExternalLink className="h-3 w-3 shrink-0" />
+                <span className="truncate">{project.url.replace(/^https?:\/\/(www\.)?/, "").split('/')[0]}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Decorative dynamic dots */}
-        <div className="absolute right-8 top-8 flex flex-col gap-2 opacity-20">
+        <div className="absolute right-4 top-4 sm:right-8 sm:top-8 flex flex-col gap-1.5 sm:gap-2 opacity-20">
           {[...Array(5)].map((_, i) => (
              <div key={i} className="h-1 w-1 rounded-full bg-white" />
           ))}
@@ -656,7 +665,7 @@ export function CosmicServices() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base"
+            className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base transform-gpu"
           >
             Full stack. AI. Mobile. Portals. Extensions. Even your domain setup — we cover it all.
           </motion.p>
@@ -669,13 +678,13 @@ export function CosmicServices() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
-              className="group flex flex-col rounded-2xl border border-white/[0.06] bg-white/[0.01] p-6 transition-all duration-300 hover:border-white/[0.1] hover:bg-white/[0.025]"
+              transition={{ duration: 0.5, delay: (index % 3) * 0.1, ease: "easeOut" }}
+              className="group flex flex-col rounded-2xl border border-white/[0.06] bg-white/[0.01] p-6 transition-colors duration-300 md:hover:border-white/[0.1] md:hover:bg-white/[0.025] transform-gpu will-change-[transform,opacity]"
             >
               {/* Icon + price row */}
               <div className="mb-5 flex items-start justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025] transition-transform duration-500 group-hover:-translate-y-0.5">
-                  <service.icon className="h-5 w-5 text-foreground/55 transition-colors group-hover:text-foreground/90" />
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025] transition-transform duration-500 md:group-hover:-translate-y-0.5 transform-gpu">
+                  <service.icon className="h-5 w-5 text-foreground/55 transition-colors md:group-hover:text-foreground/90" />
                 </div>
                 <div className="text-right">
                   <p className="text-[9px] font-medium tracking-[0.15em] uppercase text-white/25">starting from</p>
@@ -720,7 +729,7 @@ export function CosmicServices() {
                 </div>
                 <Link
                   href="/#contact"
-                  className="flex w-full items-center justify-center gap-1.5 rounded-xl border border-white/[0.07] bg-white/[0.03] py-2.5 text-[12px] font-medium text-white/50 transition-all hover:border-white/[0.15] hover:bg-white/[0.07] hover:text-white/80"
+                  className="flex w-full items-center justify-center gap-1.5 rounded-xl border border-white/[0.07] bg-white/[0.03] py-2.5 text-[12px] font-medium text-white/50 transition-colors active:bg-white/[0.05] md:hover:border-white/[0.15] md:hover:bg-white/[0.07] md:hover:text-white/80"
                 >
                   Get a Quote <ArrowRight className="h-3 w-3" />
                 </Link>
@@ -735,7 +744,7 @@ export function CosmicServices() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="mt-10 text-center text-xs text-white/20"
+          className="mt-10 text-center text-xs text-white/20 transform-gpu"
         >
           All prices are starting points. Final quote depends on scope, complexity, and timeline. Every project gets a written estimate before work begins.
         </motion.p>

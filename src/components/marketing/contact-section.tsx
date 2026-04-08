@@ -57,7 +57,7 @@ export function ContactSection() {
           <BlurIn delay={0} duration={0.6}>
             <div className="sticky top-32">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium tracking-[0.2em] text-white/50 uppercase">
-                <Sparkles className="h-3 w-3" /> Get in touch
+                Get in touch
               </span>
               <h2
                 className="mt-6 text-4xl font-normal leading-[1.1] text-foreground sm:text-5xl md:text-6xl"
@@ -92,7 +92,7 @@ export function ContactSection() {
           </BlurIn>
 
           <BlurIn delay={0.15} duration={0.6}>
-            <div className="relative min-h-[500px] rounded-none border border-white/[0.08] bg-white/[0.015] p-8 backdrop-blur-2xl sm:p-12 overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
+            <div className="relative min-h-[500px] rounded-[2rem] border border-white/[0.08] bg-white/[0.015] p-8 backdrop-blur-2xl sm:p-12 overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
               {/* Decorative gradient */}
               <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-500/5 blur-[100px]" />
               
@@ -195,7 +195,7 @@ export function ContactSection() {
                       <button
                         type="submit"
                         disabled={status === "sending"}
-                        className="group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-none bg-white px-10 py-4 text-sm font-bold text-black transition-all hover:bg-white/90 active:scale-95 disabled:opacity-50 sm:w-auto"
+                        className="group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full bg-white px-10 py-4 text-sm font-bold text-black transition-all hover:bg-white/90 active:scale-95 disabled:opacity-50 sm:w-auto"
                       >
                         {status === "sending" ? (
                           <>

@@ -38,21 +38,56 @@ export function MarketingNavigation() {
 
   return (
     <>
+      {/* --- Mobile Floating Nav --- */}
+      <nav className="fixed inset-x-4 top-4 z-50 flex h-14 items-center justify-between rounded-full border border-white/[0.1] bg-[#030208]/80 px-2 backdrop-blur-xl shadow-2xl lg:hidden">
+        {/* Left: Logo */}
+        <Link
+          href="/"
+          onClick={handleLogoClick}
+          className="pl-3 text-xl tracking-tight text-white"
+          style={{ fontFamily: "'Instrument Serif', serif" }}
+        >
+          TekDev<sup className="text-[8px] opacity-70">&reg;</sup>
+        </Link>
+
+        {/* Center: Menu Button */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <button
+            type="button"
+            onClick={() => setOpen((c) => !c)}
+            className="rounded-full border border-white/[0.08] bg-white/[0.04] px-4 py-1.5 text-[13px] font-medium text-white/80 transition-all hover:bg-white/[0.08] active:scale-95"
+          >
+            {open ? "Close" : "Menu"}
+          </button>
+        </div>
+
+        {/* Right: Contact CTA */}
+        <Link
+          href="/contact"
+          className="flex items-center gap-1.5 rounded-full border border-white/[0.1] bg-white/[0.08] pl-4 pr-1.5 py-1.5 text-[13px] font-medium text-white transition-all hover:bg-white/[0.12] hover:text-white active:scale-95"
+        >
+          Contact
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.15]">
+            <ArrowRight className="h-3.5 w-3.5 text-white" />
+          </div>
+        </Link>
+      </nav>
+
+      {/* --- Desktop Nav --- */}
       <nav
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        className={`hidden lg:block fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "border-b border-white/[0.05] bg-[hsl(201,100%,5%)]/80 backdrop-blur-xl"
+            ? "border-b border-white/[0.05] bg-[#030208]/80 backdrop-blur-xl"
             : "bg-transparent"
         }`}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
-
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-12">
           {/* Logo */}
           <Magnetic>
             <Link
               href="/"
               onClick={handleLogoClick}
-              className="text-2xl tracking-tight text-foreground sm:text-3xl"
+              className="text-3xl tracking-tight text-foreground"
               style={{ fontFamily: "'Instrument Serif', serif" }}
             >
               TekDev<sup className="text-[10px]">&reg;</sup>
@@ -60,7 +95,7 @@ export function MarketingNavigation() {
           </Magnetic>
 
           {/* Desktop: centered pill */}
-          <div className="hidden items-center gap-1 rounded-full border border-white/[0.09] bg-white/[0.04] px-2 py-2 backdrop-blur-sm lg:flex">
+          <div className="flex items-center gap-1 rounded-full border border-white/[0.09] bg-white/[0.04] px-2 py-2 backdrop-blur-sm">
             {links.map((link) => {
               const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
               return (
@@ -80,7 +115,7 @@ export function MarketingNavigation() {
           </div>
 
           {/* Desktop: CTA */}
-          <div className="hidden lg:block">
+          <div>
             <Magnetic>
               <Link
                 href="/contact"
@@ -90,36 +125,6 @@ export function MarketingNavigation() {
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </Magnetic>
-          </div>
-
-          {/* Mobile / tablet */}
-          <div className="flex items-center gap-2.5 lg:hidden">
-            <Link
-              href="/contact"
-              className="hidden rounded-full border border-white/[0.08] bg-white/[0.05] px-4 py-2 text-sm text-white/80 sm:block"
-            >
-              Start a Project
-            </Link>
-            <button
-              type="button"
-              aria-label={open ? "Close menu" : "Open menu"}
-              onClick={() => setOpen((c) => !c)}
-              className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.04]"
-            >
-              <span
-                className={`absolute flex h-[14px] w-[14px] flex-col items-start justify-center gap-[4.5px] transition-all duration-300 ${
-                  open ? "opacity-0 scale-75" : "opacity-100 scale-100"
-                }`}
-              >
-                <span className="h-[1.5px] w-full rounded-full bg-white/70" />
-                <span className="h-[1.5px] w-[10px] rounded-full bg-white/50" />
-              </span>
-              <X
-                className={`absolute h-4 w-4 text-white/70 transition-all duration-300 ${
-                  open ? "opacity-100 scale-100" : "opacity-0 scale-75"
-                }`}
-              />
-            </button>
           </div>
         </div>
       </nav>

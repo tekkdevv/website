@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { Magnetic } from "@/components/marketing/magnetic";
 
 const chapters = [
   {
@@ -133,18 +134,22 @@ export function StoryHero() {
                   Whether it&apos;s a fix, a feature, or a full product — we&apos;re ready.
                 </p>
                 <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-4">
-                  <Link
-                    href="/#work"
-                    className="liquid-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-medium text-foreground transition-transform hover:scale-[1.03] sm:w-auto sm:px-12 sm:py-5 sm:text-base"
-                  >
-                    See Our Work <ArrowRight className="h-4 w-4" />
-                  </Link>
-                  <Link
-                    href="/#contact"
-                    className="liquid-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-medium text-foreground transition-transform hover:scale-[1.03] sm:w-auto sm:px-12 sm:py-5 sm:text-base"
-                  >
-                    Start a Project
-                  </Link>
+                  <Magnetic>
+                    <Link
+                      href="/#work"
+                      className="liquid-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-medium text-foreground transition-transform hover:scale-[1.03] sm:w-auto sm:px-12 sm:py-5 sm:text-base"
+                    >
+                      See Our Work <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Magnetic>
+                  <Magnetic>
+                    <Link
+                      href="/#contact"
+                      className="liquid-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-medium text-foreground transition-transform hover:scale-[1.03] sm:w-auto sm:px-12 sm:py-5 sm:text-base"
+                    >
+                      Start a Project
+                    </Link>
+                  </Magnetic>
                 </div>
               </motion.div>
             </div>
