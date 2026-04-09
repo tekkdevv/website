@@ -14,170 +14,170 @@ import { CosmicBackground } from "@/components/marketing/home-sections";
 const pricingServices = [
   {
     title: "Websites & Landing Pages",
-    description: "Responsive, SEO-ready websites — from a single landing page to a full multi-page business site.",
+    description: "Responsive, search-engine-ready websites — from a single landing page to a full multi-page business site.",
     icon: Globe,
+    accentColor: "#3b82f6",
     from: "₹5,000",
     timeline: "2–20 days",
-    tags: ["Next.js", "React", "SEO"],
     features: [
-      "Fully responsive across all devices",
-      "SEO-optimised with fast load times",
-      "Contact form + WhatsApp integration",
-      "Free deployment to Vercel / Netlify",
+      "Fully responsive across all screen sizes",
+      "Search-engine optimised with fast load times",
+      "Contact form and WhatsApp chat integration",
+      "Free deployment to Vercel or Netlify",
     ],
   },
   {
-    title: "Web Apps & Admin Panels",
-    description: "Full-featured web applications with dashboards, authentication, databases, and role-based access.",
+    title: "Web Applications and Admin Panels",
+    description: "Full-featured web applications with dashboards, user login, databases, and role-based access control.",
     icon: Code2,
+    accentColor: "#6366f1",
     from: "₹8,000",
     timeline: "5–45 days",
-    tags: ["Auth", "Database", "CRUD"],
     features: [
-      "User authentication (email + social login)",
-      "Admin dashboard with full CRUD",
+      "User login with email and social sign-in",
+      "Admin dashboard with full data management",
       "Database design and schema setup",
-      "REST API for all core features",
+      "Web Application Programming Interface for all core features",
     ],
   },
   {
-    title: "Full-Stack SaaS & Platforms",
-    description: "End-to-end products — from MVP to scale-ready SaaS. Payments, multi-tenancy, APIs, CI/CD.",
+    title: "Full-Stack Software Platforms",
+    description: "End-to-end products — from first working version to production-ready software platform. Payments, multi-tenancy, and automated deployment.",
     icon: Rocket,
+    accentColor: "#8b5cf6",
     from: "₹18,000",
     timeline: "15–60+ days",
-    tags: ["SaaS", "API", "Payments"],
     features: [
-      "Auth + roles + billing integration",
-      "Core feature set built to spec",
-      "Admin panel + analytics dashboard",
-      "Deployed with CI/CD pipeline",
+      "Login system, user roles, and billing integration",
+      "Core feature set built to your specification",
+      "Admin panel and analytics dashboard",
+      "Deployed with automated continuous deployment pipeline",
     ],
   },
   {
-    title: "Mobile Apps",
-    description: "Android and cross-platform apps built with React Native. Play Store deployment + backend included.",
+    title: "Mobile Applications",
+    description: "Android and cross-platform apps built with React Native. Google Play Store deployment and backend server included.",
     icon: Smartphone,
+    accentColor: "#a855f7",
     from: "₹25,000",
     timeline: "20–60+ days",
-    tags: ["Android", "React Native", "Play Store"],
     features: [
-      "4–6 core screens with polished UI",
-      "User auth + local storage",
-      "REST API backend included",
-      "Google Play Store submission",
+      "Four to six core screens with polished user interface",
+      "User login and local device storage",
+      "Backend server and database included",
+      "Google Play Store submission and listing",
     ],
   },
   {
-    title: "Chrome Extensions",
-    description: "Custom browser extensions for productivity, AI, automation, or team tooling — including Web Store submission.",
+    title: "Chrome Browser Extensions",
+    description: "Custom browser extensions for productivity, artificial intelligence, automation, or team tooling — Chrome Web Store submission included.",
     icon: Zap,
+    accentColor: "#06b6d4",
     from: "₹5,000",
     timeline: "2–30 days",
-    tags: ["Manifest V3", "Content Scripts", "OAuth"],
     features: [
-      "Manifest V3 compliant build",
-      "Popup UI + background workers",
-      "Chrome Web Store submission included",
-      "Settings page + persistent storage",
+      "Chrome Manifest Version 3 compliant build",
+      "Popup user interface and background service workers",
+      "Chrome Web Store submission and review handling",
+      "Settings page and persistent local storage",
     ],
   },
   {
-    title: "AI / ML Projects",
-    description: "Chatbots, RAG pipelines, LLM integrations — real AI that does something useful, not just a GPT wrapper.",
+    title: "Artificial Intelligence and Machine Learning Projects",
+    description: "Chatbots, data retrieval pipelines, large language model integrations — real artificial intelligence that does something useful, not just a wrapper.",
     icon: Brain,
+    accentColor: "#10b981",
     from: "₹8,000",
     timeline: "3–60+ days",
-    tags: ["OpenAI", "Claude", "LangChain"],
     features: [
-      "ChatGPT / Claude API integration",
-      "Custom prompt engineering",
-      "RAG pipeline with your data (if needed)",
-      "Deployed and integrated into your app",
+      "OpenAI ChatGPT or Anthropic Claude integration",
+      "Custom prompt engineering and optimisation",
+      "Retrieval-augmented generation pipeline with your data",
+      "Deployed and integrated into your existing application",
     ],
   },
   {
-    title: "HRMS, Payroll & Portals",
-    description: "Employee management, payroll with tax compliance, leave tracking, attendance — built to your workflow.",
+    title: "HR Management Systems, Payroll, and Portals",
+    description: "Employee management, payroll with tax compliance, leave tracking, and attendance — built exactly to your internal workflow.",
     icon: Users,
+    accentColor: "#f59e0b",
     from: "₹25,000",
     timeline: "15–75 days",
-    tags: ["Multi-role", "Payroll", "Reports"],
     features: [
-      "Employee directory + leave management",
-      "Attendance tracking + basic payroll",
-      "Multi-role access (HR, admin, employee)",
-      "PDF report generation",
+      "Employee directory and leave management",
+      "Attendance tracking and basic payroll processing",
+      "Multi-role access for HR managers, admins, and employees",
+      "Printable and downloadable report generation",
     ],
   },
   {
-    title: "Data Tracking & Analytics",
-    description: "Custom dashboards, real-time analytics, data pipelines — unified visibility for your operations.",
+    title: "Data Tracking and Analytics",
+    description: "Custom dashboards, real-time analytics, data ingestion pipelines — unified visibility for your business operations.",
     icon: BarChart3,
+    accentColor: "#f97316",
     from: "₹30,000",
     timeline: "12–40 days",
-    tags: ["Dashboards", "Real-time", "Exports"],
     features: [
-      "Custom dashboard with key metrics",
-      "Data ingestion from your sources",
-      "CSV / Excel export support",
-      "Real-time updates + alerts",
+      "Custom dashboard with your key performance metrics",
+      "Data ingestion from your existing sources",
+      "Comma-separated values and Excel export support",
+      "Real-time live updates and alert notifications",
     ],
   },
   {
-    title: "Bug Fixing & Optimization",
-    description: "We triage, fix, and optimize broken or slow codebases — and hand it back better than we found it.",
+    title: "Bug Fixing and Performance Optimisation",
+    description: "We triage, fix, and optimise broken or slow codebases — and hand it back in better shape than we found it.",
     icon: Wrench,
+    accentColor: "#f43f5e",
     from: "₹2,000",
     timeline: "1–10 days",
-    tags: ["Debug", "Performance", "Refactor"],
     features: [
-      "Root-cause analysis + documented fix",
-      "Performance profiling included",
-      "Regression test for the fix",
-      "Written explanation of what changed",
+      "Root-cause analysis with a documented fix report",
+      "Performance profiling and bottleneck identification",
+      "Regression testing to verify the fix holds",
+      "Written explanation of every change made",
     ],
   },
   {
-    title: "API & Integrations",
-    description: "Stripe, Razorpay, CRMs, AI APIs — connected cleanly into your existing or new stack.",
+    title: "Third-Party Connections and Integrations",
+    description: "Stripe, Razorpay, customer management systems, artificial intelligence interfaces — connected cleanly into your existing or new stack.",
     icon: Cpu,
+    accentColor: "#14b8a6",
     from: "₹10,000",
     timeline: "5–20 days",
-    tags: ["REST", "Webhooks", "Stripe"],
     features: [
-      "Auth handled (OAuth, API keys, JWT)",
-      "Error handling + retry logic",
-      "Webhook listeners where needed",
-      "Integration documentation included",
+      "Authentication handled via standard protocols and key pairs",
+      "Error handling and automatic retry logic",
+      "Webhook listeners and event processing where needed",
+      "Full integration documentation included",
     ],
   },
   {
-    title: "Migrations",
-    description: "Moving platforms or modernising a legacy stack — clean, zero data loss, with post-migration support.",
+    title: "Platform and Database Migrations",
+    description: "Moving platforms or modernising a legacy technology stack — clean transition, zero data loss, with post-migration support included.",
     icon: RefreshCw,
+    accentColor: "#0ea5e9",
     from: "₹10,000",
     timeline: "5–20 days",
-    tags: ["WordPress", "Next.js", "DB Migration"],
     features: [
-      "Full codebase + data audit first",
-      "Zero data loss, verified post-migration",
-      "SEO redirect map for site migrations",
-      "2-week post-migration support",
+      "Full codebase and data audit before work begins",
+      "Zero data loss — verified with checksums post-migration",
+      "Search-engine redirect map for all moved pages",
+      "Two-week post-migration support included",
     ],
   },
   {
-    title: "Domain, Hosting & Deployment",
-    description: "DNS, SSL, CI/CD, Vercel, AWS — we get your product live and keep it stable.",
+    title: "Domain Setup, Hosting, and Deployment",
+    description: "Name server configuration, security certificates, automated deployment pipelines, Vercel, Amazon Web Services — we get your product live and keep it stable.",
     icon: Package,
+    accentColor: "#64748b",
     from: "₹2,000",
     timeline: "1–3 days",
-    tags: ["Vercel", "AWS", "CI/CD"],
     features: [
-      "Domain DNS + SSL configuration",
-      "Hosting setup on Vercel, AWS, or your choice",
-      "CI/CD pipeline for automatic deploys",
-      "Environment variables + secrets managed",
+      "Domain name server and security certificate configuration",
+      "Hosting setup on Vercel, Amazon Web Services, or your choice",
+      "Automated deployment pipeline for every code push",
+      "Environment variables and application secrets managed securely",
     ],
   },
 ];
@@ -244,69 +244,78 @@ export function PricingPageContent() {
         {/* Pricing grid */}
         <section className="pb-24 sm:pb-40">
           <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {pricingServices.map((service, index) => (
                 <motion.div
                   key={service.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
-                  className="group flex flex-col rounded-2xl border border-white/[0.06] bg-white/[0.01] p-6 transition-all duration-300 hover:border-white/[0.1] hover:bg-white/[0.025]"
+                  transition={{ duration: 0.6, delay: (index % 3) * 0.08, ease: "easeOut" }}
+                  className="relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.015] p-6 transition-all duration-300 hover:bg-white/[0.03] group"
                 >
+                  {/* Colored top accent line */}
+                  <div
+                    className="absolute inset-x-0 top-0 h-[2px]"
+                    style={{
+                      background: `linear-gradient(90deg, ${service.accentColor}65, transparent)`,
+                    }}
+                  />
+
                   {/* Icon + price */}
-                  <div className="mb-5 flex items-start justify-between">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025] transition-transform duration-500 group-hover:-translate-y-0.5">
-                      <service.icon className="h-5 w-5 text-foreground/55 transition-colors group-hover:text-foreground/90" />
+                  <div className="mb-5 flex items-start justify-between gap-3">
+                    <div
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border"
+                      style={{
+                        backgroundColor: `${service.accentColor}14`,
+                        borderColor: `${service.accentColor}28`,
+                      }}
+                    >
+                      <service.icon
+                        className="h-5 w-5"
+                        style={{ color: `${service.accentColor}cc` }}
+                      />
                     </div>
                     <div className="text-right">
-                      <p className="text-[9px] font-medium tracking-[0.15em] uppercase text-white/25">starting from</p>
-                      <p className="font-mono text-base font-semibold text-white/80">{service.from}</p>
+                      <p className="text-[9px] font-mono uppercase tracking-widest text-white/20">from</p>
+                      <p className="font-mono text-base font-semibold text-white/75">{service.from}</p>
+                      <p className="mt-0.5 font-mono text-[10px] text-white/20">{service.timeline}</p>
                     </div>
                   </div>
 
                   {/* Title */}
                   <h3
-                    className="mb-2 text-lg font-medium text-foreground/90 sm:text-xl"
+                    className="mb-2 text-lg font-normal text-foreground sm:text-[1.2rem]"
                     style={{ fontFamily: "'Instrument Serif', serif" }}
                   >
                     {service.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="mb-4 text-[13px] leading-relaxed text-muted-foreground/70">
+                  <p className="mb-5 text-[13px] leading-relaxed text-muted-foreground/75">
                     {service.description}
                   </p>
 
                   {/* Features */}
-                  <ul className="mb-5 flex flex-col gap-2 border-t border-white/[0.05] pt-4">
+                  <ul className="mb-6 flex flex-col gap-2.5 flex-1">
                     {service.features.map((feat) => (
-                      <li key={feat} className="flex items-start gap-2 text-[12px] leading-snug text-white/40">
-                        <Check className="mt-0.5 h-3 w-3 shrink-0 text-emerald-400/60" />
+                      <li key={feat} className="flex items-start gap-2 text-[12px] leading-snug text-white/45">
+                        <div
+                          className="mt-1.5 h-1 w-1 rounded-full flex-shrink-0"
+                          style={{ backgroundColor: `${service.accentColor}70` }}
+                        />
                         {feat}
                       </li>
                     ))}
                   </ul>
 
-                  {/* Footer */}
-                  <div className="mt-auto flex flex-col gap-3">
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex flex-wrap gap-1.5">
-                        {service.tags.map((tag) => (
-                          <span key={tag} className="rounded-md border border-white/[0.06] bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium text-white/30">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      <span className="shrink-0 text-[10px] font-mono text-white/20">{service.timeline}</span>
-                    </div>
-                    <Link
-                      href="/contact"
-                      className="flex w-full items-center justify-center gap-1.5 rounded-xl border border-white/[0.07] bg-white/[0.03] py-2.5 text-[12px] font-medium text-white/50 transition-all hover:border-white/[0.15] hover:bg-white/[0.07] hover:text-white/80"
-                    >
-                      Get a Quote <ArrowRight className="h-3 w-3" />
-                    </Link>
-                  </div>
+                  {/* CTA */}
+                  <Link
+                    href="/contact"
+                    className="mt-auto flex w-full items-center justify-center gap-1.5 rounded-xl border border-white/[0.07] bg-white/[0.03] py-2.5 text-[12px] font-medium text-white/50 transition-all hover:border-white/[0.15] hover:bg-white/[0.06] hover:text-white/80"
+                  >
+                    Get a Quote <ArrowRight className="h-3 w-3" />
+                  </Link>
                 </motion.div>
               ))}
             </div>

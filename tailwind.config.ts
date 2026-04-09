@@ -20,9 +20,14 @@ const config: Config = {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        shimmer: {
+          "0%": { left: "-100%" },
+          "100%": { left: "100%" },
+        },
       },
       animation: {
         marquee: "marquee 40s linear infinite",
+        shimmer: "shimmer 2s infinite",
       },
       colors: {
         background: "hsl(var(--background))",

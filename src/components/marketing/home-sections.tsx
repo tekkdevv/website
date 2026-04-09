@@ -11,88 +11,100 @@ import {
   RefreshCw, Package, IndianRupee, BarChart3, Cpu, Wrench,
 } from "lucide-react";
 import { ScrollSplitText } from "@/components/marketing/scroll-split-text";
+import { Magnetic } from "@/components/marketing/magnetic";
 
 /* ─────────────── Cosmic Background ─────────────── */
-export function CosmicBackground() {
-  const { scrollYProgress } = useScroll();
-  
-  // Parallax translations
-  const yNebula1 = useTransform(scrollYProgress, [0, 1], [0, 500]);
-  const yNebula2 = useTransform(scrollYProgress, [0, 1], [0, -400]);
-  const yStars = useTransform(scrollYProgress, [0, 1], [0, 300]);
+// Static star positions — fixed at module level so they never re-render
+const STARS = [
+  { top: "8%",  left: "12%", opacity: 0.5 }, { top: "15%", left: "78%", opacity: 0.3 },
+  { top: "22%", left: "45%", opacity: 0.4 }, { top: "31%", left: "91%", opacity: 0.2 },
+  { top: "42%", left: "6%",  opacity: 0.5 }, { top: "55%", left: "33%", opacity: 0.3 },
+  { top: "63%", left: "67%", opacity: 0.4 }, { top: "71%", left: "19%", opacity: 0.2 },
+  { top: "79%", left: "84%", opacity: 0.5 }, { top: "87%", left: "52%", opacity: 0.3 },
+  { top: "94%", left: "28%", opacity: 0.4 }, { top: "5%",  left: "60%", opacity: 0.2 },
+];
 
+export function CosmicBackground() {
   return (
     <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#030208]">
-      {/* Horizontal Atmospheric Glow (Sync with Hero Video exit) */}
+      {/* Atmospheric top glow */}
       <div className="absolute top-0 left-0 right-0 h-[30vh] bg-gradient-to-b from-blue-900/15 to-transparent opacity-50" />
-      
-      {/* Dynamic Starfield Overlay (Subtle Noise/Grain) */}
-      <div 
-        className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
-        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
-      />
-      
-      {/* Floating Nebula Glows with Scroll Parallax */}
-      <motion.div style={{ y: yNebula1 }} className="absolute -left-[10%] top-[10%] sm:top-[20%] h-[600px] w-[600px] sm:h-[800px] sm:w-[800px]">
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.15, 0.25, 0.15],
-            x: [0, 40, 0],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="h-full w-full rounded-full bg-blue-600/20 blur-[140px]" 
-        />
-      </motion.div>
-      
-      <motion.div style={{ y: yNebula2 }} className="absolute right-[-5%] top-[60%] sm:bottom-[10%] h-[500px] w-[500px] sm:h-[700px] sm:w-[700px]">
-        <motion.div 
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            opacity: [0.1, 0.2, 0.1],
-            x: [0, -50, 0],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="h-full w-full rounded-full bg-indigo-500/15 blur-[160px]" 
-        />
-      </motion.div>
 
-      {/* Subtle Star Points with Scroll Parallax */}
-      <motion.div style={{ y: yStars }} className="absolute -inset-[50%] sm:-inset-[100%] opacity-[0.4]">
-         {[...Array(40)].map((_, i) => (
-           <div 
-             key={i}
-             className="absolute h-px w-px bg-white rounded-full"
-             style={{
-               top: `${Math.random() * 100}%`,
-               left: `${Math.random() * 100}%`,
-               opacity: Math.random() * 0.5 + 0.1
-             }}
-           />
-         ))}
-      </motion.div>
+      {/* Static nebula glows */}
+      <div className="absolute -left-[10%] top-[20%] h-[600px] w-[600px] rounded-full bg-blue-600/18 blur-[140px] sm:h-[800px] sm:w-[800px]" />
+      <div className="absolute right-[-5%] bottom-[10%] h-[500px] w-[500px] rounded-full bg-indigo-500/12 blur-[160px] sm:h-[700px] sm:w-[700px]" />
+
+      {/* Noise/Grain Overlay */}
+      <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" 
+           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} 
+      />
+
+      {/* 12 static star points */}
+      <div className="absolute inset-0 opacity-40">
+        {STARS.map((s, i) => (
+          <div
+            key={i}
+            className="absolute h-px w-px rounded-full bg-white"
+            style={{ top: s.top, left: s.left, opacity: s.opacity }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
+
+
+/* ─────────────── Trust Strip ─────────────── */
+const trustItems = [
+  { label: "Written Scope on Every Project", detail: "No work starts without sign-off" },
+  { label: "Starting from ₹5,000", detail: "Transparent, no hidden fees" },
+  { label: "2 Months Post-Launch Support", detail: "Free bug fixes after delivery" },
+  { label: "Fast Turnaround", detail: "2 days to 60 days depending on scope" },
+  { label: "No Outsourcing", detail: "Built in-house, start to finish" },
+];
+
+export function TrustStrip() {
+  return (
+    <section className="relative z-10 border-y border-white/[0.05] bg-white/[0.01] py-5 sm:py-6">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 sm:gap-x-10">
+          {trustItems.map((item, i) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.07 }}
+              className="flex items-center gap-2.5"
+            >
+              <div className="h-1 w-1 rounded-full bg-emerald-400/50 shrink-0" />
+              <div>
+                <span className="text-[11px] font-medium text-white/55 sm:text-xs">{item.label}</span>
+                <span className="ml-1.5 hidden text-[10px] text-white/20 sm:inline">— {item.detail}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 /* ─────────────── Our Story ─────────────── */
 export function OurStory() {
   const storyBeats = [
     {
       label: "Where it started",
-      text: "We started out doing freelance projects — writing clean code, shipping on time, building things that actually worked. It was going well. But something kept nagging at us.",
+      text: "We started out doing freelance projects — writing clean code, shipping on time, building things that actually worked. But something kept nagging at us.",
     },
     {
       label: "The problem we saw",
-      text: "Why do people wait days — sometimes weeks — just to get a website or an app built? And when it finally arrives, it's either bloated, slow, or clearly AI-generated slop with no soul. The market had a gap.",
+      text: "Why do people wait weeks just to get a website built? And when it finally arrives, it's bloated, slow, or clearly AI-generated slop. The market had a gap — and we stepped into it.",
     },
     {
-      label: "What we decided",
-      text: "We wanted to reach more people. Not just the ones who found us by luck, but anyone who had a real idea and needed a real team. So we stopped freelancing and started TekDev — built around one obsession: finding the right balance between speed and craft.",
-    },
-    {
-      label: "Our standard",
-      text: "Fast doesn't mean careless. We move fast because we're experienced — not because we're cutting corners. Every project we touch has to genuinely satisfy the user. That's the only bar we hold ourselves to.",
+      label: "Why TekDev?",
+      text: "We stopped freelancing and built a team that obsesses over craft. Fast means experienced — not careless. Every project we touch has to genuinely work for the user. That's the only bar we know.",
     },
   ];
 
@@ -301,18 +313,17 @@ export function CosmicProjects() {
             className="relative z-10 text-center max-w-4xl"
           >
             <span className="liquid-glass mb-8 inline-flex rounded-full px-5 py-2 text-[10px] font-medium tracking-[0.25em] text-foreground/70 uppercase">
-              The Portfolio
+              Our Work
             </span>
             <h2
               className="mb-8 text-5xl font-normal leading-[0.95] text-foreground sm:text-7xl md:text-8xl"
               style={{ fontFamily: "'Instrument Serif', serif" }}
             >
-              Building the<br />
-              <em className="not-italic text-muted-foreground">Digital Future.</em>
+              Work we&apos;ve<br />
+              <em className="not-italic text-muted-foreground">shipped.</em>
             </h2>
             <p className="mx-auto max-w-lg text-base leading-relaxed text-muted-foreground/60 sm:text-lg">
-              Scroll down to explore our selected projects. Each one is a unique 
-              blend of custom craft and high-performance engineering.
+              Real clients, real results. Scroll through what we&apos;ve built.
             </p>
             <div className="mt-12 flex flex-col items-center gap-4">
                <motion.span 
@@ -354,117 +365,137 @@ export function CosmicProjects() {
   );
 }
 
-/* ─── Modified StickyStackCard to accept custom ranges ─── */
-function StickyStackCard({ 
-  project, 
-  index, 
+/* ─── Redesigned StickyStackCard — full-bleed image, no browser chrome ─── */
+function StickyStackCard({
+  project,
+  index,
   progress,
-  customRange 
-}: { 
-  project: typeof showcaseProjects[number], 
-  index: number, 
+  customRange
+}: {
+  project: typeof showcaseProjects[number],
+  index: number,
   progress: MotionValue<number>,
   customRange: [number, number]
 }) {
   const [startAt, endAt] = customRange;
+  const n = showcaseProjects.length;
 
-  /* Card sliding up and sticky holding */
   const y = useTransform(progress, [startAt - 0.1, startAt], ["100vh", "0vh"]);
-  
-  /* Stacking effects: card that is already there recedes and blurs as next one comes over */
-  const scale = useTransform(progress, [endAt, endAt + 0.1], [1, 0.9]);
+  const scale = useTransform(progress, [endAt, endAt + 0.1], [1, 0.94]);
   const opacity = useTransform(progress, [endAt, endAt + 0.1], [1, 0]);
-  const rotateX = useTransform(progress, [endAt, endAt + 0.1], [0, -15]);
-  const blur = useTransform(progress, [endAt, endAt + 0.1], [0, 12]);
-  
-  const springConfig = { stiffness: 45, damping: 22, mass: 0.8 };
+  const imgScale = useTransform(progress, [startAt, endAt], [1.07, 1.0]);
+
+  const springConfig = { stiffness: 50, damping: 25, mass: 1 };
   const smoothY = useSpring(y, springConfig);
   const smoothScale = useSpring(scale, springConfig);
   const smoothOpacity = useSpring(opacity, springConfig);
-  const smoothRotateX = useSpring(rotateX, springConfig);
-  const smoothBlur = useSpring(blur, springConfig);
 
   const num = String(index + 1).padStart(2, "0");
+  const domain = project.url.replace(/^https?:\/\/(www\.)?/, "").split('/')[0];
 
   return (
     <motion.div
-      style={{ 
-        y: smoothY, 
-        scale: smoothScale, 
-        opacity: smoothOpacity, 
-        rotateX: smoothRotateX,
-        filter: useTransform(smoothBlur, v => `blur(${v}px)`),
-        zIndex: index + 10 
-      }}
-      className="sticky top-0 h-screen w-full flex items-center justify-center perspective-2000 p-4 sm:p-0"
+      style={{ y: smoothY, scale: smoothScale, opacity: smoothOpacity, zIndex: index + 10 }}
+      className="sticky top-0 h-screen w-full flex items-center justify-center px-4 sm:px-6 lg:px-12"
     >
-      <div className="relative w-full max-w-5xl aspect-[3/4] sm:aspect-[16/9] max-h-[85vh] bg-[hsl(201,100%,3%)] rounded-[1.5rem] sm:rounded-none border border-white/[0.08] shadow-[0_40px_100px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.02)_inset] overflow-hidden">
-        {/* Background Project Image */}
-        <div className="absolute inset-0">
-          <motion.img 
-            src={project.image} 
-            alt={project.title} 
-            style={{
-              scale: useTransform(progress, [startAt, endAt], [1.1, 1])
-            }}
-            className="h-full w-full object-cover sm:object-center transition-transform duration-1000 group-hover:scale-105" 
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/80 sm:via-black/40 to-black/40 sm:to-black/20" />
-        </div>
+      <div
+        className="group relative w-full max-w-6xl overflow-hidden rounded-3xl border border-white/[0.08] bg-[#09090e] shadow-[0_40px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.025)_inset]"
+        style={{ height: "clamp(460px, 74vh, 680px)" }}
+      >
+        <div className="flex h-full flex-col lg:flex-row">
 
-        {/* Content Overlay */}
-        <div className="relative z-10 h-full w-full flex flex-col justify-end p-6 sm:p-12 lg:p-16">
-          <div className="flex flex-col gap-4 sm:gap-6 max-w-2xl">
-            <div className="flex items-center gap-3 sm:gap-4">
-               <span className="inline-flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl">
-                 <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-white/50" />
-               </span>
-               <div className="flex flex-col">
-                 <span className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] uppercase text-white/30">Project {num}</span>
-                 <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-white lg:text-5xl" style={{ fontFamily: "'Instrument Serif', serif" }}>
-                    {project.title}
-                 </h3>
-               </div>
-            </div>
+          {/* ── Left: Content ── */}
+          <div className="relative z-10 flex flex-col justify-between p-7 sm:p-10 lg:w-[44%] lg:p-14">
 
-            <p className="text-[13px] sm:text-sm font-light leading-relaxed text-white/60 sm:text-base md:text-lg lg:text-xl line-clamp-3 sm:line-clamp-none">
-              {project.description}
-            </p>
-
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-              {project.tech.map(t => (
-                <span key={t} className="rounded-full border border-white/5 bg-white/5 px-3 sm:px-4 py-1 sm:py-1.5 text-[9px] sm:text-[10px] font-medium text-white/40 backdrop-blur-md">
-                  {t}
+            {/* Counter + live badge */}
+            <div>
+              <div className="mb-7 flex items-center justify-between">
+                <span className="font-mono text-[11px] tracking-[0.22em] text-white/15">
+                  {num}&thinsp;/&thinsp;{String(n).padStart(2, "0")}
                 </span>
-              ))}
-            </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80 animate-pulse" />
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-400/50">Live</span>
+                </div>
+              </div>
 
-            <div className="mt-2 sm:mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-              <Link 
-                href={project.url}
-                target="_blank"
-                className="group flex w-full sm:w-auto justify-center items-center gap-3 rounded-full bg-white px-6 sm:px-8 py-3 sm:py-3.5 text-[13px] sm:text-sm font-semibold text-black transition-all hover:bg-white/90 active:scale-95 shrink-0"
+              {/* Category pill */}
+              <span className="mb-5 inline-flex rounded-full border border-white/[0.07] bg-white/[0.03] px-3.5 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-white/40">
+                {project.category}
+              </span>
+
+              {/* Title */}
+              <h3
+                className="mb-5 mt-4 text-3xl font-normal leading-tight text-white sm:text-4xl lg:text-[2.5rem] xl:text-5xl"
+                style={{ fontFamily: "'Instrument Serif', serif" }}
               >
-                Launch Live Site <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <div className="flex items-center gap-2 text-white/30 font-mono text-[10px] uppercase tracking-widest pl-2 sm:pl-0">
-                <ExternalLink className="h-3 w-3 shrink-0" />
-                <span className="truncate">{project.url.replace(/^https?:\/\/(www\.)?/, "").split('/')[0]}</span>
+                {project.title}
+              </h3>
+
+              {/* Description */}
+              <p className="mb-7 max-w-sm text-sm leading-relaxed text-white/42 sm:text-[15px]">
+                {project.description}
+              </p>
+
+              {/* Tech tags */}
+              <div className="flex flex-wrap gap-2">
+                {project.tech.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-white/[0.07] bg-white/[0.03] px-3 py-1 text-[11px] text-white/30 transition-colors hover:border-white/15 hover:text-white/55"
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Decorative dynamic dots */}
-        <div className="absolute right-4 top-4 sm:right-8 sm:top-8 flex flex-col gap-1.5 sm:gap-2 opacity-20">
-          {[...Array(5)].map((_, i) => (
-             <div key={i} className="h-1 w-1 rounded-full bg-white" />
-          ))}
+            {/* CTA row */}
+            <div className="flex items-center gap-4 pt-8">
+              <Magnetic>
+                <Link
+                  href={project.url}
+                  target="_blank"
+                  className="relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition-all hover:bg-white/90 active:scale-95"
+                >
+                  <div className="absolute -inset-full top-0 h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer" />
+                  <span className="relative">Visit Live Site</span>
+                  <ExternalLink className="relative h-3.5 w-3.5" />
+                </Link>
+              </Magnetic>
+              <span className="max-w-[160px] truncate font-mono text-[10px] uppercase tracking-widest text-white/18">
+                {domain}
+              </span>
+            </div>
+          </div>
+
+          {/* ── Right: Full-bleed screenshot — desktop only ── */}
+          <div className="hidden lg:flex relative flex-1 overflow-hidden lg:border-l">
+            {/* Left blend: content panel fades into image */}
+            <div className="absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[#09090e] to-transparent pointer-events-none" />
+            {/* Top vignette */}
+            <div className="absolute inset-x-0 top-0 z-10 h-10 bg-gradient-to-b from-[#09090e] to-transparent pointer-events-none" />
+            {/* Bottom vignette */}
+            <div className="absolute inset-x-0 bottom-0 z-10 h-10 bg-gradient-to-t from-[#09090e] to-transparent pointer-events-none" />
+            {/* Right edge */}
+            <div className="absolute inset-y-0 right-0 z-10 w-4 bg-gradient-to-l from-[#09090e] to-transparent pointer-events-none" />
+
+            <motion.img
+              src={project.image}
+              alt={project.title}
+              loading="lazy"
+              decoding="async"
+              style={{ scale: imgScale }}
+              className="h-full w-full object-cover object-top"
+            />
+          </div>
+
         </div>
       </div>
     </motion.div>
   );
 }
+
 
 /* ─────────────── Services ─────────────── */
 const agencyServices = [
@@ -1095,12 +1126,54 @@ export function CosmicTestimonials() {
 
 /* ─────────────── Home Services Teaser ─────────────── */
 const homeServiceCards = [
-  { icon: Globe,       title: "Websites & Landing Pages",   from: "₹5,000",  tags: ["Next.js","React","SEO"],           desc: "Fast, responsive, SEO-ready sites — from a single landing page to a full business website." },
-  { icon: Code2,       title: "Web Apps & Admin Panels",    from: "₹8,000",  tags: ["Auth","Database","CRUD"],          desc: "Dashboards, portals, and full web apps with authentication, roles, and database." },
-  { icon: Rocket,      title: "Full-Stack SaaS & Platforms",from: "₹18,000", tags: ["SaaS","API","Payments"],           desc: "End-to-end products — MVP to production-ready. Payments, multi-tenancy, CI/CD." },
-  { icon: Smartphone,  title: "Mobile Apps",                from: "₹25,000", tags: ["Android","React Native","Play Store"], desc: "Cross-platform apps with auth, API backend, push notifications, and Play Store deployment." },
-  { icon: Brain,       title: "AI / ML Projects",           from: "₹8,000",  tags: ["OpenAI","Claude","RAG"],           desc: "Real AI — chatbots, RAG pipelines, LLM integrations. Not just a GPT wrapper." },
-  { icon: Zap,         title: "Chrome Extensions",          from: "₹5,000",  tags: ["Manifest V3","Content Scripts"],   desc: "Productivity, automation, or AI browser tools — Web Store submission included." },
+  {
+    icon: Globe,
+    title: "Websites & Landing Pages",
+    from: "₹5,000",
+    tags: ["Next.js", "React", "Search Optimised"],
+    desc: "Fast, responsive, search-engine-ready sites — from a single landing page to a full business website.",
+    accentColor: "#3b82f6",
+  },
+  {
+    icon: Code2,
+    title: "Web Apps & Admin Panels",
+    from: "₹8,000",
+    tags: ["Login System", "Database", "Data Management"],
+    desc: "Dashboards, portals, and full web apps with user authentication, roles, and database.",
+    accentColor: "#6366f1",
+  },
+  {
+    icon: Rocket,
+    title: "Full-Stack Software Platforms",
+    from: "₹18,000",
+    tags: ["Software Platform", "Integrations", "Payments"],
+    desc: "End-to-end products — first version to production-ready. Payments, multi-tenancy, automated deployment.",
+    accentColor: "#8b5cf6",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile Applications",
+    from: "₹25,000",
+    tags: ["Android", "React Native", "Play Store"],
+    desc: "Cross-platform apps with login, backend, push notifications, and Google Play Store deployment.",
+    accentColor: "#a855f7",
+  },
+  {
+    icon: Brain,
+    title: "Artificial Intelligence Projects",
+    from: "₹8,000",
+    tags: ["OpenAI", "Claude", "Retrieval Pipeline"],
+    desc: "Real AI — chatbots, data retrieval pipelines, language model integrations. Not just a wrapper.",
+    accentColor: "#10b981",
+  },
+  {
+    icon: Zap,
+    title: "Chrome Browser Extensions",
+    from: "₹5,000",
+    tags: ["Chrome Standard", "Content Scripts"],
+    desc: "Productivity, automation, or AI browser tools — Chrome Web Store submission included.",
+    accentColor: "#06b6d4",
+  },
 ];
 
 export function HomeServices() {
@@ -1138,44 +1211,73 @@ export function HomeServices() {
               href="/pricing"
               className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-5 py-2.5 text-sm text-white/50 transition-all hover:border-white/[0.15] hover:text-white/80"
             >
-              See all services & pricing <ArrowRight className="h-3.5 w-3.5" />
+              See all services and pricing <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+        {/* Horizontal list layout */}
+        <div className="rounded-2xl border border-white/[0.07] overflow-hidden">
           {homeServiceCards.map((service, index) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.06, ease: "easeOut" }}
-              className="group flex flex-col rounded-2xl border border-white/[0.06] bg-white/[0.01] p-6 transition-all duration-300 hover:border-white/[0.1] hover:bg-white/[0.025]"
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
+              className="group relative flex items-center gap-4 sm:gap-6 border-b border-white/[0.05] last:border-0 bg-white/[0.01] px-5 sm:px-7 py-5 sm:py-6 transition-colors hover:bg-white/[0.03]"
             >
-              <div className="mb-5 flex items-start justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025] transition-transform duration-500 group-hover:-translate-y-0.5">
-                  <service.icon className="h-5 w-5 text-foreground/55 transition-colors group-hover:text-foreground/90" />
-                </div>
-                <div className="text-right">
-                  <p className="text-[9px] font-medium tracking-[0.15em] uppercase text-white/25">from</p>
-                  <p className="font-mono text-base font-semibold text-white/80">{service.from}</p>
-                </div>
+              {/* Left accent line on hover */}
+              <div
+                className="absolute left-0 top-0 h-full w-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: `linear-gradient(180deg, ${service.accentColor}80, transparent)` }}
+              />
+
+              {/* Index */}
+              <span className="shrink-0 hidden sm:block font-mono text-[11px] text-white/15 w-5 select-none">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              {/* Icon */}
+              <div
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:-translate-y-0.5"
+                style={{
+                  backgroundColor: `${service.accentColor}14`,
+                  borderColor: `${service.accentColor}28`,
+                }}
+              >
+                <service.icon
+                  className="h-4 w-4"
+                  style={{ color: `${service.accentColor}cc` }}
+                />
               </div>
-              <h3 className="mb-2 text-lg font-medium text-foreground/90 sm:text-xl" style={{ fontFamily: "'Instrument Serif', serif" }}>
-                {service.title}
-              </h3>
-              <p className="mb-5 flex-1 text-[13px] leading-relaxed text-muted-foreground/70">{service.desc}</p>
-              <div className="mt-auto flex items-center justify-between gap-2">
-                <div className="flex flex-wrap gap-1.5">
+
+              {/* Content */}
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors sm:text-base">
+                  {service.title}
+                </h3>
+                <p className="mt-0.5 text-xs text-white/30 sm:text-[13px] line-clamp-1">{service.desc}</p>
+                <div className="mt-2 hidden sm:flex gap-1.5 flex-wrap">
                   {service.tags.map((tag) => (
-                    <span key={tag} className="rounded-md border border-white/[0.06] bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium text-white/30">
+                    <span key={tag} className="rounded-full border border-white/[0.05] bg-white/[0.02] px-2.5 py-0.5 text-[10px] text-white/25">
                       {tag}
                     </span>
                   ))}
                 </div>
-                <Link href="/pricing" className="shrink-0 text-[11px] text-white/25 transition-colors hover:text-white/60">
-                  See pricing →
+              </div>
+
+              {/* Price + CTA */}
+              <div className="shrink-0 flex items-center gap-3 sm:gap-5">
+                <div className="text-right hidden sm:block">
+                  <p className="text-[9px] font-mono uppercase tracking-widest text-white/20">from</p>
+                  <p className="font-mono text-sm font-semibold text-white/60">{service.from}</p>
+                </div>
+                <Link
+                  href="/pricing"
+                  className="rounded-lg border border-white/[0.07] bg-white/[0.02] px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs text-white/30 transition-all hover:border-white/[0.15] hover:bg-white/[0.04] hover:text-white/70 whitespace-nowrap"
+                >
+                  View pricing
                 </Link>
               </div>
             </motion.div>
@@ -1187,16 +1289,16 @@ export function HomeServices() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-6"
+          className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-6"
         >
           <p className="text-xs text-white/20">
-            +6 more services including HRMS, data tracking, migrations, API integrations & deployment.
+            Plus HR management portals, data analytics, third-party integrations, migrations, and deployment — all on the pricing page.
           </p>
           <Link
             href="/pricing"
             className="text-xs font-medium text-white/35 underline-offset-2 transition-colors hover:text-white/60 hover:underline"
           >
-            View full pricing →
+            View full pricing
           </Link>
         </motion.div>
       </div>
@@ -1328,19 +1430,17 @@ export function CosmicCTA() {
               className="mb-8 text-5xl font-normal leading-tight text-white sm:text-7xl"
               style={{ fontFamily: "'Instrument Serif', serif" }}
             >
-              Ready to bring your <br />
-              <em className="text-muted-foreground not-italic">vision to life?</em>
+              Let&apos;s <em className="text-muted-foreground not-italic">build it.</em>
             </h2>
             <p className="mx-auto mb-12 max-w-xl text-lg text-white/50 leading-relaxed">
-              We&apos;re currently accepting new projects. Whether you have a full spec or just a rough idea, 
-              let&apos;s talk and see how we can help you build something remarkable.
+              Tell us what you need. We&apos;ll scope it, document it, and ship it — without the wait.
             </p>
             <div className="flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-8">
               <Link
                 href="/contact"
                 className="group inline-flex items-center gap-3 rounded-full bg-white px-10 py-5 text-sm font-bold text-black transition-all hover:scale-105 active:scale-95"
               >
-                Start Your Journey <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                Start a Project <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="#work"

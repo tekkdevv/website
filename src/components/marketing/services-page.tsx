@@ -10,7 +10,6 @@ import {
   Chrome,
   Wrench,
   Server,
-  Check,
   ArrowUpRight,
 } from "lucide-react";
 import { MarketingNavigation } from "@/components/marketing/navigation";
@@ -20,86 +19,107 @@ import { CosmicBackground } from "@/components/marketing/home-sections";
 const services = [
   {
     icon: Globe,
-    title: "Full Stack Web Apps",
+    accentColor: "#3b82f6",
+    from: "₹5,000",
+    timeline: "2–20 days",
+    title: "Full Stack Web Applications",
     description:
-      "From landing pages to complex SaaS — built on Next.js, React, and TypeScript. We architect for performance, scalability, and long-term maintainability from day one.",
+      "From landing pages to complex software platforms — built on Next.js, React, and TypeScript. We architect for performance, scalability, and long-term maintainability from day one.",
     specifics: [
-      "Custom web applications",
-      "Admin dashboards",
-      "SaaS platforms",
-      "Landing pages & marketing sites",
+      "Custom web applications and portals",
+      "Admin dashboards and control panels",
+      "Software platforms with billing and teams",
+      "Landing pages and marketing websites",
     ],
   },
   {
     icon: Brain,
-    title: "AI / ML Projects",
+    accentColor: "#8b5cf6",
+    from: "₹8,000",
+    timeline: "3–60+ days",
+    title: "Artificial Intelligence and Machine Learning",
     description:
-      "Custom models, LLM integrations, and intelligent features that go beyond surface-level chatbot wrappers. We build AI that actually does something useful in your product.",
+      "Custom models, large language model integrations, and intelligent features that go beyond surface-level chatbot wrappers. We build artificial intelligence that actually does something useful in your product.",
     specifics: [
-      "LLM-powered features",
-      "Custom ML models",
-      "AI chatbots & assistants",
-      "Data pipelines",
+      "Large language model-powered product features",
+      "Custom machine learning model development",
+      "AI chatbots and intelligent assistants",
+      "Data retrieval pipelines and processing",
     ],
   },
   {
     icon: Smartphone,
-    title: "Android Applications",
+    accentColor: "#10b981",
+    from: "₹25,000",
+    timeline: "20–60+ days",
+    title: "Android Mobile Applications",
     description:
-      "Native and cross-platform mobile apps that feel like they belong on the device. From Play Store submission to ongoing performance optimisation — we handle it all.",
+      "Native and cross-platform mobile apps that feel like they belong on the device. From Google Play Store submission to ongoing performance optimisation — we handle it all.",
     specifics: [
-      "Native Android apps",
-      "React Native cross-platform",
-      "Play Store deployment",
-      "Performance optimization",
+      "Native Android application development",
+      "React Native cross-platform builds",
+      "Google Play Store deployment and listing",
+      "Performance optimisation and updates",
     ],
   },
   {
     icon: Users,
-    title: "HRMS & Portals",
+    accentColor: "#f59e0b",
+    from: "₹25,000",
+    timeline: "15–75 days",
+    title: "HR Management Systems and Internal Portals",
     description:
-      "Internal tools that actually work. We build HR management systems and employee portals that scale with your team, with proper access control and clean audit trails.",
+      "Internal tools that actually work. We build human resource management systems and employee portals that scale with your team, with proper access control and clean audit trails.",
     specifics: [
-      "HR management systems",
-      "Employee portals",
-      "Payroll & attendance",
-      "Role-based access control",
+      "Human resource management systems",
+      "Employee self-service portals",
+      "Payroll processing and attendance tracking",
+      "Role-based access control and audit logs",
     ],
   },
   {
     icon: Chrome,
-    title: "Chrome Extensions",
+    accentColor: "#06b6d4",
+    from: "₹5,000",
+    timeline: "2–30 days",
+    title: "Google Chrome Browser Extensions",
     description:
-      "Browser tools that fit seamlessly into daily workflows. Whether it's productivity automation, intelligent web assistance, or data capture — we ship extensions that people actually keep.",
+      "Browser tools that fit seamlessly into daily workflows. Whether it is productivity automation, intelligent web assistance, or data capture — we ship extensions that people actually keep installed.",
     specifics: [
-      "Productivity tools",
-      "Web scrapers",
-      "AI-powered assistants",
-      "Tab & session managers",
+      "Productivity and workflow automation tools",
+      "Web scraping and data capture extensions",
+      "Artificial intelligence-powered browser assistants",
+      "Tab management and session tools",
     ],
   },
   {
     icon: Wrench,
-    title: "Bug Fixing & Optimization",
+    accentColor: "#f43f5e",
+    from: "₹2,000",
+    timeline: "1–10 days",
+    title: "Bug Fixing and Performance Optimisation",
     description:
-      "Struggling with a codebase that someone else left behind? We triage, fix, and optimise. Slower loads, mysterious crashes, and years of tech debt — all fair game.",
+      "Struggling with a codebase that someone else left behind? We triage, fix, and optimise. Slower load times, mysterious crashes, and years of accumulated technical debt — all fair game.",
     specifics: [
-      "Bug triage & fixes",
-      "Performance audits",
-      "Code refactoring",
-      "Load time optimization",
+      "Bug triage, root cause analysis, and documented fixes",
+      "Performance profiling and load time audits",
+      "Code refactoring and technical debt reduction",
+      "Regression testing after every fix",
     ],
   },
   {
     icon: Server,
-    title: "Domain & Deployment",
+    accentColor: "#64748b",
+    from: "₹2,000",
+    timeline: "1–3 days",
+    title: "Domain Setup, Hosting, and Deployment",
     description:
-      "Everything from DNS setup to production CI/CD. We get your project live securely and reliably, and make sure it stays that way with proper SSL and monitoring in place.",
+      "Everything from domain name server setup to production deployment pipelines. We get your project live securely and reliably, and make sure it stays that way with proper security certificates and monitoring.",
     specifics: [
-      "Domain purchase & DNS setup",
-      "Hosting configuration",
-      "CI/CD pipelines",
-      "SSL & security setup",
+      "Domain purchase and name server configuration",
+      "Hosting setup on Vercel, Amazon Web Services, or your choice",
+      "Automated deployment pipelines for every push",
+      "Security certificate and environment secrets management",
     ],
   },
 ];
@@ -130,8 +150,8 @@ export function ServicesPageContent() {
               <span className="text-foreground/50">of what we do.</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Whatever you&apos;re building — web, mobile, AI, internal tools —
-              we&apos;ve done it. We take on projects of any size without bias.
+              Whatever you are building — web, mobile, artificial intelligence, internal tools —
+              we have done it. We take on projects of any size without bias.
             </p>
           </motion.div>
         </div>
@@ -140,7 +160,7 @@ export function ServicesPageContent() {
       {/* Services Grid */}
       <section className="relative z-10 pb-24 sm:pb-32">
         <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {services.map((service, i) => {
               const Icon = service.icon;
               return (
@@ -149,35 +169,74 @@ export function ServicesPageContent() {
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: (i % 2) * 0.1 }}
-                  className="rounded-2xl border border-white/[0.06] bg-white/[0.015] p-8"
+                  transition={{ duration: 0.6, delay: (i % 2) * 0.1 }}
+                  className="relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.015] p-7 transition-all duration-300 hover:bg-white/[0.025] group"
                 >
-                  <div className="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.04]">
-                    <Icon className="h-5 w-5 text-foreground/70" />
+                  {/* Colored top accent line */}
+                  <div
+                    className="absolute inset-x-0 top-0 h-[2px]"
+                    style={{
+                      background: `linear-gradient(90deg, ${service.accentColor}70, transparent)`,
+                    }}
+                  />
+
+                  {/* Icon + pricing header */}
+                  <div className="mb-6 flex items-start justify-between gap-4">
+                    <div
+                      className="flex h-12 w-12 items-center justify-center rounded-xl border"
+                      style={{
+                        backgroundColor: `${service.accentColor}15`,
+                        borderColor: `${service.accentColor}30`,
+                      }}
+                    >
+                      <Icon
+                        className="h-5 w-5"
+                        style={{ color: `${service.accentColor}cc` }}
+                      />
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[9px] font-mono uppercase tracking-widest text-white/20">
+                        starting from
+                      </p>
+                      <p className="font-mono text-lg font-semibold text-white/75">
+                        {service.from}
+                      </p>
+                      <p className="mt-0.5 font-mono text-[10px] text-white/20">
+                        {service.timeline}
+                      </p>
+                    </div>
                   </div>
+
                   <h2
                     className="mb-3 text-xl font-normal text-foreground sm:text-2xl"
                     style={{ fontFamily: "'Instrument Serif', serif" }}
                   >
                     {service.title}
                   </h2>
-                  <p className="mb-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
+
+                  <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {service.description}
                   </p>
-                  <ul className="mb-6 space-y-2">
+
+                  <ul className="mb-7 space-y-2.5">
                     {service.specifics.map((item) => (
                       <li
                         key={item}
-                        className="flex items-center gap-2 text-sm text-foreground/60"
+                        className="flex items-center gap-2.5 text-[13px] text-foreground/55"
                       >
-                        <Check className="h-3.5 w-3.5 flex-shrink-0 text-foreground/40" />
+                        <div
+                          className="h-1.5 w-1.5 rounded-full flex-shrink-0"
+                          style={{ backgroundColor: `${service.accentColor}70` }}
+                        />
                         {item}
                       </li>
                     ))}
                   </ul>
+
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-1.5 text-sm text-foreground/60 transition-colors hover:text-foreground"
+                    className="mt-auto inline-flex items-center gap-1.5 text-sm transition-colors group-hover:opacity-90"
+                    style={{ color: `${service.accentColor}aa` }}
                   >
                     Start a Project
                     <ArrowUpRight className="h-3.5 w-3.5" />
@@ -205,7 +264,7 @@ export function ServicesPageContent() {
               Not sure which service you need?
             </h2>
             <p className="mt-4 text-base text-muted-foreground sm:text-lg">
-              Describe your problem and we&apos;ll figure it out together.
+              Describe your problem and we will figure it out together.
             </p>
             <div className="mt-8">
               <Link
