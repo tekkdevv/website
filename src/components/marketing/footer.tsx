@@ -19,7 +19,7 @@ export function MarketingFooter() {
             className="text-2xl tracking-tight text-white/60 transition-colors hover:text-white"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
-            TekDev<sup className="text-[9px]">&reg;</sup>
+            TekkDevv<sup className="text-[9px]">&reg;</sup>
           </Link>
 
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
@@ -34,7 +34,7 @@ export function MarketingFooter() {
             ))}
           </nav>
 
-          <p className="text-sm text-white/25">© 2026 TekDev.</p>
+          <p className="text-sm text-white/25">© 2026 TekkDevv.</p>
         </div>
       </div>
     </footer>

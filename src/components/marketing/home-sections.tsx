@@ -103,7 +103,7 @@ export function OurStory() {
       text: "Why do people wait weeks just to get a website built? And when it finally arrives, it's bloated, slow, or clearly AI-generated slop. The market had a gap — and we stepped into it.",
     },
     {
-      label: "Why TekDev?",
+      label: "Why TekkDevv?",
       text: "We stopped freelancing and built a team that obsesses over craft. Fast means experienced — not careless. Every project we touch has to genuinely work for the user. That's the only bar we know.",
     },
   ];
@@ -172,9 +172,9 @@ export function OurStory() {
             <span className="text-muted-foreground">
               Why settle for AI slop?
             </span>{" "}
-            There&apos;s a better way — and that&apos;s exactly what we built TekDev to be.&rdquo;
+            There&apos;s a better way — and that&apos;s exactly what we built TekkDevv to be.&rdquo;
           </p>
-          <p className="mt-5 text-sm text-muted-foreground sm:mt-6 sm:text-base">— The TekDev Team</p>
+          <p className="mt-5 text-sm text-muted-foreground sm:mt-6 sm:text-base">— The TekkDevv Team</p>
         </motion.div>
       </div>
     </section>
@@ -1056,7 +1056,7 @@ export function CosmicFAQ() {
 /* ─────────────── Testimonials ─────────────── */
 const testimonials = [
   {
-    quote: "TekDev stepped into a messy codebase, fixed the performance issues, and got our release back on track in days.",
+    quote: "TekkDevv stepped into a messy codebase, fixed the performance issues, and got our release back on track in days.",
     author: "Sarah Johnson",
     role: "Founder, HealthStack",
     avatar: "S"
@@ -1068,7 +1068,7 @@ const testimonials = [
     avatar: "M"
   },
   {
-    quote: "We hired TekDev for bug fixes and ended up trusting them with a full rebuild. The quality was consistently strong.",
+    quote: "We hired TekkDevv for bug fixes and ended up trusting them with a full rebuild. The quality was consistently strong.",
     author: "Emily Rodriguez",
     role: "CTO, Northlane",
     avatar: "E"

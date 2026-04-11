@@ -31,7 +31,7 @@ export function HowItWorksSection() {
       <div className="flex flex-col gap-10 sm:gap-12">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-semibold tracking-tight text-foreground">
-            How TekDev works
+            How TekkDevv works
           </h2>
           <p className="mt-4 text-base text-muted">
             A straight line from “problem found” to “code merged”. No endless

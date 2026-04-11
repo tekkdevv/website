@@ -40,7 +40,7 @@ export function ServicesPreviewSection() {
           Services built for ambitious product teams
         </h2>
         <p className="mt-4 text-slate-500">
-          TekDev works as an extension of your team to deliver high-impact
+          TekkDevv works as an extension of your team to deliver high-impact
           engineering across web, mobile, and backend systems.
         </p>
       </div>

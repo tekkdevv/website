@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'TekDev — Software Development Agency',
-    short_name: 'TekDev',
+    name: 'TekkDevv — Software Development Agency',
+    short_name: 'TekkDevv',
     description: 'Full stack web apps, AI/ML, Android apps, HRMS portals, Chrome extensions. Fast delivery. Real quality.',
     start_url: '/',
     display: 'standalone',

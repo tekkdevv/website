@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'TekDev — Software Development Agency'
+export const alt = 'TekkDevv — Software Development Agency'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -25,7 +25,7 @@ export default async function Image() {
           Software Development Studio
         </div>
         <div style={{ fontSize: 96, color: 'white', fontWeight: 300, lineHeight: 1, marginBottom: 28 }}>
-          TekDev
+          TekkDevv
         </div>
         <div style={{ fontSize: 36, color: 'rgba(255,255,255,0.55)', marginBottom: 56, lineHeight: 1.3 }}>
           Your dream idea. Shipped fast.
@@ -42,7 +42,7 @@ export default async function Image() {
           ))}
         </div>
         <div style={{ position: 'absolute', bottom: 60, right: 80, fontSize: 20, color: 'rgba(255,255,255,0.25)' }}>
-          tekdev.in
+          tekkdevv.com
         </div>
       </div>
     ),

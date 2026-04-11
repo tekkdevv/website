@@ -91,7 +91,7 @@ export function MultiStepForm() {
 
   const onSubmit: SubmitHandler<SubmitRequestFormValues> = (data) => {
     // eslint-disable-next-line no-console
-    console.log("TekDev submit request:", data);
+    console.log("TekkDevv submit request:", data);
     setSubmitted(true);
   };
 

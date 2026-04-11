@@ -37,7 +37,7 @@ const services = [
 ];
 
 const experience = [
-  { company: "TekDev Studio", role: "Product Engineering Partner", years: "2021-Now" },
+  { company: "TekkDevv Studio", role: "Product Engineering Partner", years: "2021-Now" },
   { company: "Nexus Technology", role: "Lead Product Designer", years: "2018-2021" },
   { company: "Quantum Labs", role: "Senior UI Engineer", years: "2015-2018" },
   { company: "Zazzle Commerce", role: "Digital Designer", years: "2012-2015" },
@@ -100,7 +100,7 @@ const testimonials = [
   },
   {
     quote:
-      "TekDev paired strong product instincts with clean delivery. The result wasn’t just a nicer interface, it was a better business tool.",
+      "TekkDevv paired strong product instincts with clean delivery. The result wasn’t just a nicer interface, it was a better business tool.",
     name: "Thomas Weber",
     title: "Co-founder, Zazzle",
   },
@@ -132,7 +132,7 @@ const faqs = [
   {
     question: "Do you only design, or do you also build?",
     answer:
-      "TekDev handles both. The goal is to move from concept to working product without the usual handoff friction.",
+      "TekkDevv handles both. The goal is to move from concept to working product without the usual handoff friction.",
   },
   {
     question: "Can we pause an ongoing engagement?",
@@ -183,7 +183,7 @@ export function PortfolioHome() {
               Product design and engineering that actually moves the business.
             </h1>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-[#b7bcc6]">
-              TekDev helps brands and product teams launch premium websites,
+              TekkDevv helps brands and product teams launch premium websites,
               conversion-focused experiences, and polished digital products with
               strategy, design, and implementation under one roof.
             </p>
@@ -287,7 +287,7 @@ export function PortfolioHome() {
         <div className="mx-auto max-w-6xl px-6 lg:px-10">
           <div className="rounded-[32px] border border-white/10 bg-[#101113] p-8 md:p-10">
             <p className="max-w-4xl text-2xl leading-relaxed tracking-[-0.03em] text-[#f5f5f2] md:text-4xl">
-              “Working with TekDev felt like bringing in a senior design and
+              “Working with TekkDevv felt like bringing in a senior design and
               engineering partner who understood the business case, not just the
               interface.”
             </p>
@@ -355,7 +355,7 @@ export function PortfolioHome() {
         <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
           <div className="rounded-[32px] border border-white/10 bg-[#111214] p-8">
             <p className="text-sm uppercase tracking-[0.24em] text-[#8d929b]">
-              About TekDev
+              About TekkDevv
             </p>
             <h2 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-white md:text-5xl">
               Designing and building experiences that solve real product problems.
@@ -376,7 +376,7 @@ export function PortfolioHome() {
               <div className="flex items-center gap-3">
                 <div className="h-14 w-14 rounded-full bg-gradient-to-br from-[#efe4cf] to-[#9d7c4b]" />
                 <div>
-                  <p className="text-xl font-semibold text-white">TekDev</p>
+                  <p className="text-xl font-semibold text-white">TekkDevv</p>
                   <p className="text-sm text-[#9ea4ae]">Design-led product engineering</p>
                 </div>
               </div>
@@ -412,7 +412,7 @@ export function PortfolioHome() {
               <div className="inline-flex items-center rounded-full border border-[#d5b06a]/30 bg-[#d5b06a]/10 px-4 py-2 text-sm text-[#f2dec2]">
                 Slots available
               </div>
-              <h3 className="mt-6 text-3xl font-semibold text-white">Hire TekDev today</h3>
+              <h3 className="mt-6 text-3xl font-semibold text-white">Hire TekkDevv today</h3>
               <p className="mt-4 text-base leading-8 text-[#d9dde3]">
                 Skip the agency bloat and work directly with a team focused on
                 product clarity, premium frontend execution, and fast iteration.
@@ -579,7 +579,7 @@ export function PortfolioHome() {
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-full border border-white/12 bg-black/20 px-7 py-4 text-sm font-medium text-white transition hover:bg-white/[0.08]"
               >
-                Contact TekDev
+                Contact TekkDevv
               </Link>
             </div>
           </div>

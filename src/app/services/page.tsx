@@ -4,13 +4,13 @@ import { ServicesJsonLd } from '@/components/marketing/json-ld'
 
 export const metadata: Metadata = {
   title: 'Services',
-  description: 'TekDev builds full stack web apps, AI/ML systems, Android applications, HRMS portals, Chrome extensions, and handles domain & deployment. Fast delivery, crafted quality.',
-  alternates: { canonical: 'https://tekdev.in/services' },
+  description: 'TekkDevv builds full stack web apps, AI/ML systems, Android applications, HRMS portals, Chrome extensions, and handles domain & deployment. Fast delivery, crafted quality.',
+  alternates: { canonical: 'https://tekkdevv.com/services' },
   openGraph: {
-    title: 'Services | TekDev',
+    title: 'Services | TekkDevv',
     description: 'Full stack, AI/ML, Android, HRMS, Chrome extensions and more.',
-    url: 'https://tekdev.in/services',
-    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'TekDev Services' }],
+    url: 'https://tekkdevv.com/services',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'TekkDevv Services' }],
   },
 }
 

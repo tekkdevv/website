@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 const INDEXNOW_KEY = 'tekdev2024indexnow'
-const SITE_URL = 'https://tekdev.in'
+const SITE_URL = 'https://tekkdevv.com'
 
 const URLS_TO_INDEX = [
   SITE_URL,
@@ -17,7 +17,7 @@ export async function GET() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify({
-        host: 'tekdev.in',
+        host: 'tekkdevv.com',
         key: INDEXNOW_KEY,
         keyLocation: `${SITE_URL}/tekdev-indexnow.txt`,
         urlList: URLS_TO_INDEX,

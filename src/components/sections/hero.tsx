@@ -27,7 +27,7 @@ export function HeroSection() {
               <span className="text-[#FF6A3D]">Products</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-slate-500">
-              TekDev partners with ambitious teams to design and ship high-impact
+              TekkDevv partners with ambitious teams to design and ship high-impact
               digital products with clear delivery and premium engineering quality.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">

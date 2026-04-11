@@ -54,7 +54,7 @@ export function ServicesSection() {
               Services built for shipping
             </h2>
             <p className="mt-4 text-base text-muted">
-              From “quick fix” to “greenfield build”, TekDev slots into your
+              From “quick fix” to “greenfield build”, TekkDevv slots into your
               existing stack with senior-level execution.
             </p>
           </div>

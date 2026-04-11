@@ -36,7 +36,7 @@ const homeStats = [
 const homeTestimonials = [
   {
     quote:
-      "TekDev stepped into a messy codebase, fixed the performance issues, and got our release back on track in days.",
+      "TekkDevv stepped into a messy codebase, fixed the performance issues, and got our release back on track in days.",
     author: "Sarah Johnson",
     role: "Founder, HealthStack",
   },
@@ -48,7 +48,7 @@ const homeTestimonials = [
   },
   {
     quote:
-      "We hired TekDev for bug fixes and ended up trusting them with a full rebuild. The quality was consistently strong.",
+      "We hired TekkDevv for bug fixes and ended up trusting them with a full rebuild. The quality was consistently strong.",
     author: "Emily Rodriguez",
     role: "CTO, Northlane",
   },

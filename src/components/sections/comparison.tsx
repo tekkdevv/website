@@ -26,11 +26,11 @@ export function ComparisonSection() {
       <div className="grid gap-8 lg:grid-cols-[1.1fr,1.1fr]">
         <div className="mx-auto max-w-3xl text-center lg:col-span-2">
           <h2 className="text-3xl font-semibold tracking-tight text-foreground">
-            Why TekDev beats freelance roulette
+            Why TekkDevv beats freelance roulette
           </h2>
           <p className="mt-4 text-base text-muted">
             Traditional platforms make you manage sourcing, vetting, and
-            delivery. TekDev handles the entire pipeline so you can stay focused
+            delivery. TekkDevv handles the entire pipeline so you can stay focused
             on the roadmap.
           </p>
         </div>
@@ -62,7 +62,7 @@ export function ComparisonSection() {
             className="soft-card p-6"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-              TekDev
+              TekkDevv
             </p>
             <ul className="mt-3 space-y-2.5 text-sm text-foreground">
               {tekdev.map((item) => (

@@ -30,7 +30,7 @@ export default function TrackPage() {
               Track request
             </p>
             <h1 className="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-              Check your TekDev request status
+              Check your TekkDevv request status
             </h1>
             <p className="mt-3 text-sm text-muted sm:text-base">
               Paste your request ID to view a live status timeline, activity log,

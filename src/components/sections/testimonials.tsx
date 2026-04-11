@@ -8,13 +8,13 @@ const testimonials = [
     name: "Maya Patel",
     company: "RelayOps",
     quote:
-      "TekDev shipped our internal platform in weeks, not months. Their code quality and delivery discipline gave us confidence immediately."
+      "TekkDevv shipped our internal platform in weeks, not months. Their code quality and delivery discipline gave us confidence immediately."
   },
   {
     name: "Daniel Kim",
     company: "FinTrack",
     quote:
-      "We brought TekDev in for backend modernization and ended up with a stable platform we could scale without firefighting."
+      "We brought TekkDevv in for backend modernization and ended up with a stable platform we could scale without firefighting."
   },
   {
     name: "Alicia Gomez",
@@ -30,7 +30,7 @@ export function TestimonialsSection() {
       <div className="flex flex-col gap-10 sm:gap-12">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
-            Teams trust TekDev to deliver
+            Teams trust TekkDevv to deliver
           </h2>
           <p className="mt-4 text-base text-slate-500">
             Our clients choose us for product thinking, technical depth, and

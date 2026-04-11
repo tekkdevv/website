@@ -24,7 +24,7 @@ export function Navbar() {
               TD
             </div>
             <span className="text-sm font-semibold tracking-wide text-white sm:text-base">
-              TekDev
+              TekkDevv
             </span>
           </Link>
           <nav className="hidden items-center justify-center gap-8 text-xs font-medium text-[#a4a9b3] sm:flex sm:text-sm">

@@ -10,7 +10,7 @@ export default function ProjectsPage() {
           Project Case Studies
         </h1>
         <p className="mt-4 text-muted">
-          A snapshot of how TekDev solves real product and engineering problems
+          A snapshot of how TekkDevv solves real product and engineering problems
           for growing companies.
         </p>
       </header>

@@ -11,7 +11,7 @@ const storyBeats = [
   {
     label: "Where we started",
     heading: "Freelancers who were good at what they did.",
-    body: "TekDev started as a small group of independent developers building things for clients. The work was going well — clients were happy, projects shipped, and quality was solid. But we kept hitting the same ceiling: we could only reach so many people. Every inquiry that came in while we were heads-down on something else was a missed opportunity. There had to be a better way to scale without losing the craft.",
+    body: "TekkDevv started as a small group of independent developers building things for clients. The work was going well — clients were happy, projects shipped, and quality was solid. But we kept hitting the same ceiling: we could only reach so many people. Every inquiry that came in while we were heads-down on something else was a missed opportunity. There had to be a better way to scale without losing the craft.",
   },
   {
     label: "What we saw",
@@ -21,12 +21,12 @@ const storyBeats = [
   {
     label: "What we built",
     heading: "An agency built on a different obsession.",
-    body: "TekDev became the answer to that gap. We built the agency around one core obsession: the balance between speed and craft. Fast, because we are experienced — not because we cut corners or outsource to tools that don't care about the outcome. Every line of code is written with intent. Every design decision is made with the user in mind. We don't ship until we're proud of it, and we don't stop until you are too.",
+    body: "TekkDevv became the answer to that gap. We built the agency around one core obsession: the balance between speed and craft. Fast, because we are experienced — not because we cut corners or outsource to tools that don't care about the outcome. Every line of code is written with intent. Every design decision is made with the user in mind. We don't ship until we're proud of it, and we don't stop until you are too.",
   },
   {
     label: "Our standard",
     heading: "Fast because we've done it before.",
-    body: "Speed at TekDev comes from experience, not shortcuts. We've built enough applications across enough domains to move quickly without compromising. We know the patterns, we anticipate the edge cases, and we execute with precision. The work is only done when the user is satisfied — not when the invoice is sent, not when the deadline passes, but when the thing actually works the way it should.",
+    body: "Speed at TekkDevv comes from experience, not shortcuts. We've built enough applications across enough domains to move quickly without compromising. We know the patterns, we anticipate the edge cases, and we execute with precision. The work is only done when the user is satisfied — not when the invoice is sent, not when the deadline passes, but when the thing actually works the way it should.",
   },
 ];
 

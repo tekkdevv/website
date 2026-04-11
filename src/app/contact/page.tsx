@@ -6,13 +6,13 @@ import { CosmicBackground } from '@/components/marketing/home-sections'
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Get in touch with TekDev. Tell us what you need to build — web app, mobile, AI, HRMS, or anything else. We respond fast.',
-  alternates: { canonical: 'https://tekdev.in/contact' },
+  description: 'Get in touch with TekkDevv. Tell us what you need to build — web app, mobile, AI, HRMS, or anything else. We respond fast.',
+  alternates: { canonical: 'https://tekkdevv.com/contact' },
   openGraph: {
-    title: 'Contact TekDev',
+    title: 'Contact TekkDevv',
     description: 'Tell us what you need. We respond fast.',
-    url: 'https://tekdev.in/contact',
-    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Contact TekDev' }],
+    url: 'https://tekkdevv.com/contact',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Contact TekkDevv' }],
   },
 }
 

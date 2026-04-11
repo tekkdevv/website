@@ -47,7 +47,7 @@ export function MarketingNavigation() {
           className="pl-3 text-xl tracking-tight text-white"
           style={{ fontFamily: "'Instrument Serif', serif" }}
         >
-          TekDev<sup className="text-[8px] opacity-70">&reg;</sup>
+          TekkDevv<sup className="text-[8px] opacity-70">&reg;</sup>
         </Link>
 
         {/* Center: Menu Button */}
@@ -90,7 +90,7 @@ export function MarketingNavigation() {
               className="text-3xl tracking-tight text-foreground"
               style={{ fontFamily: "'Instrument Serif', serif" }}
             >
-              TekDev<sup className="text-[10px]">&reg;</sup>
+              TekkDevv<sup className="text-[10px]">&reg;</sup>
             </Link>
           </Magnetic>
 

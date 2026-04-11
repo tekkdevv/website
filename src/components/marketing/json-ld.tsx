@@ -2,10 +2,10 @@ export function OrganizationJsonLd() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'TekDev',
-    url: 'https://tekdev.in',
-    logo: 'https://tekdev.in/logo.png',
-    description: 'TekDev is a software development agency building full stack web apps, AI/ML systems, Android apps, HRMS portals, and Chrome extensions.',
+    name: 'TekkDevv',
+    url: 'https://tekkdevv.com',
+    logo: 'https://tekkdevv.com/logo.png',
+    description: 'TekkDevv is a software development agency building full stack web apps, AI/ML systems, Android apps, HRMS portals, and Chrome extensions.',
     foundingDate: '2024',
     sameAs: [],
     contactPoint: {
@@ -38,14 +38,14 @@ export function WebSiteJsonLd() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'TekDev',
-    url: 'https://tekdev.in',
+    name: 'TekkDevv',
+    url: 'https://tekkdevv.com',
     description: 'Software development agency — full stack web apps, AI/ML, Android, HRMS portals.',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://tekdev.in/?q={search_term_string}',
+        urlTemplate: 'https://tekkdevv.com/?q={search_term_string}',
       },
       'query-input': 'required name=search_term_string',
     },
@@ -63,8 +63,8 @@ export function ServicesJsonLd() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'TekDev Services',
-    description: 'Software development services offered by TekDev',
+    name: 'TekkDevv Services',
+    description: 'Software development services offered by TekkDevv',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Full Stack Web Development', description: 'Next.js, React, TypeScript web applications from landing pages to complex SaaS platforms.' },
       { '@type': 'ListItem', position: 2, name: 'AI / ML Development', description: 'Custom AI models, LLM integrations, and intelligent product features.' },

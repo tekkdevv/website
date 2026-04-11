@@ -7,7 +7,7 @@ export function Footer() {
       <Container>
         <div className="flex flex-col gap-6 py-12 text-sm text-[#9fa5af] md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="font-semibold tracking-wide text-white">TekDev</p>
+            <p className="font-semibold tracking-wide text-white">TekkDevv</p>
             <p className="mt-2 max-w-md leading-7">
               Premium websites and product experiences shaped with strategy,
               design clarity, and strong frontend execution.
@@ -27,7 +27,7 @@ export function Footer() {
               Contact
             </Link>
           </div>
-          <p className="text-xs">© {new Date().getFullYear()} TekDev. All rights reserved.</p>
+          <p className="text-xs">© {new Date().getFullYear()} TekkDevv. All rights reserved.</p>
         </div>
       </Container>
     </footer>
