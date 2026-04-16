@@ -23,6 +23,7 @@ const services = [
     from: "₹5,000",
     timeline: "2–20 days",
     title: "Full Stack Web Applications",
+    hook: "Need a site or app that actually works and brings in business — not just looks the part?",
     description:
       "From landing pages to complex software platforms — built on Next.js, React, and TypeScript. We architect for performance, scalability, and long-term maintainability from day one.",
     specifics: [
@@ -38,6 +39,7 @@ const services = [
     from: "₹8,000",
     timeline: "3–60+ days",
     title: "Artificial Intelligence and Machine Learning",
+    hook: "Want to actually use AI in your product — not just slap a chatbot on top of it?",
     description:
       "Custom models, large language model integrations, and intelligent features that go beyond surface-level chatbot wrappers. We build artificial intelligence that actually does something useful in your product.",
     specifics: [
@@ -53,6 +55,7 @@ const services = [
     from: "₹25,000",
     timeline: "20–60+ days",
     title: "Android Mobile Applications",
+    hook: "Your customers are on their phones. Your business should be there too.",
     description:
       "Native and cross-platform mobile apps that feel like they belong on the device. From Google Play Store submission to ongoing performance optimisation — we handle it all.",
     specifics: [
@@ -68,6 +71,7 @@ const services = [
     from: "₹25,000",
     timeline: "15–75 days",
     title: "HR Management Systems and Internal Portals",
+    hook: "Still managing payroll, leaves, and attendance on Excel and WhatsApp groups? Let's end that.",
     description:
       "Internal tools that actually work. We build human resource management systems and employee portals that scale with your team, with proper access control and clean audit trails.",
     specifics: [
@@ -83,6 +87,7 @@ const services = [
     from: "₹5,000",
     timeline: "2–30 days",
     title: "Google Chrome Browser Extensions",
+    hook: "Got a repetitive task you do in your browser every day? We can automate it.",
     description:
       "Browser tools that fit seamlessly into daily workflows. Whether it is productivity automation, intelligent web assistance, or data capture — we ship extensions that people actually keep installed.",
     specifics: [
@@ -98,6 +103,7 @@ const services = [
     from: "₹2,000",
     timeline: "1–10 days",
     title: "Bug Fixing and Performance Optimisation",
+    hook: "Inherited a broken app or hit a wall with your own code? Send it over — we'll fix it.",
     description:
       "Struggling with a codebase that someone else left behind? We triage, fix, and optimise. Slower load times, mysterious crashes, and years of accumulated technical debt — all fair game.",
     specifics: [
@@ -113,6 +119,7 @@ const services = [
     from: "₹2,000",
     timeline: "1–3 days",
     title: "Domain Setup, Hosting, and Deployment",
+    hook: "Built something but have no idea how to get it live and keep it running? We've got it.",
     description:
       "Everything from domain name server setup to production deployment pipelines. We get your project live securely and reliably, and make sure it stays that way with proper security certificates and monitoring.",
     specifics: [
@@ -208,11 +215,19 @@ export function ServicesPageContent() {
                   </div>
 
                   <h2
-                    className="mb-3 text-xl font-normal text-foreground sm:text-2xl"
+                    className="mb-2 text-xl font-normal text-foreground sm:text-2xl"
                     style={{ fontFamily: "'Instrument Serif', serif" }}
                   >
                     {service.title}
                   </h2>
+
+                  {/* Hook — client pain point */}
+                  <p
+                    className="mb-4 text-[12px] font-medium italic leading-snug"
+                    style={{ color: `${service.accentColor}99` }}
+                  >
+                    {service.hook}
+                  </p>
 
                   <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {service.description}

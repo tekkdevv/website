@@ -10,7 +10,7 @@ export function OrganizationJsonLd() {
     sameAs: [],
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'contact@tekdev.dev',
+      email: 'tekkdevv@gmail.com',
       contactType: 'customer service',
     },
     areaServed: 'Worldwide',

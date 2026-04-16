@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence, type MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, AnimatePresence, type MotionValue } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowRight, FileSearch, MessageSquare, Rocket,
@@ -9,6 +9,7 @@ import {
   ChevronLeft, ChevronRight, ExternalLink,
   FileText, Shield, Clock, ChevronDown, Zap, Code2,
   RefreshCw, Package, IndianRupee, BarChart3, Cpu, Wrench,
+  Star, Quote,
 } from "lucide-react";
 import { ScrollSplitText } from "@/components/marketing/scroll-split-text";
 import { Magnetic } from "@/components/marketing/magnetic";
@@ -57,10 +58,9 @@ export function CosmicBackground() {
 /* ─────────────── Trust Strip ─────────────── */
 const trustItems = [
   { label: "Written Scope on Every Project", detail: "No work starts without sign-off" },
-  { label: "Starting from ₹5,000", detail: "Transparent, no hidden fees" },
+  { label: "Stop Waiting 6 Weeks for a Site", detail: "2 days to 60 days depending on scope" },
   { label: "2 Months Post-Launch Support", detail: "Free bug fixes after delivery" },
-  { label: "Fast Turnaround", detail: "2 days to 60 days depending on scope" },
-  { label: "No Outsourcing", detail: "Built in-house, start to finish" },
+  { label: "Zero Outsourcing, Zero AI Slop", detail: "Built in-house, start to finish" },
 ];
 
 export function TrustStrip() {
@@ -192,6 +192,11 @@ const showcaseProjects = [
     result: "Live at cybersecuritytrain.com",
     url: "https://www.cybersecuritytrain.com/",
     image: "/images/project-cst.jpg",
+    pitch: [
+      "Running a training or coaching business? We'll build you a platform like this — courses, payments, and a dashboard, all in one.",
+      "No more Teachable fees. Own your platform, your data, and your brand outright.",
+      "We can add quizzes, certificates, progress tracking, and student dashboards for your specific curriculum.",
+    ],
   },
   {
     id: 2,
@@ -202,6 +207,11 @@ const showcaseProjects = [
     result: "Live at thecyberseal.com",
     url: "https://www.thecyberseal.com/",
     image: "/images/project-cyberseal.jpg",
+    pitch: [
+      "Running an agency, consultancy, or service business? We'll build you a site that commands trust and turns visitors into paying clients.",
+      "Most agency websites look generic. Yours won't — every section is written and designed to convert.",
+      "We handle the full thing: copy direction, design, dev, and deployment. You just show up with your brand.",
+    ],
   },
   {
     id: 3,
@@ -212,6 +222,11 @@ const showcaseProjects = [
     result: "Live at coconut-beta.vercel.app",
     url: "https://coconut-beta.vercel.app/",
     image: "/images/project-coconut.jpg",
+    pitch: [
+      "Selling locally or online? We'll build you a storefront that looks premium and drives orders — no template, no fuss.",
+      "Add WhatsApp ordering, bulk enquiry forms, and Google Maps — everything a local business actually needs.",
+      "Stop losing customers to competitors with better-looking websites. We'll fix that in days, not weeks.",
+    ],
   },
 ];
 
@@ -278,221 +293,366 @@ function ProjectCard({ project, index }: { project: typeof showcaseProjects[0]; 
             </span>
           ))}
         </div>
+        {/* Pitch — client hook */}
+        <div className="mt-4 rounded-xl border border-blue-500/[0.12] bg-blue-500/[0.04] p-3.5">
+          <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-blue-400/50">We can do this for you</p>
+          <ul className="flex flex-col gap-1.5">
+            {project.pitch.map((point, i) => (
+              <li key={i} className="flex items-start gap-1.5 text-[11px] leading-snug text-white/45">
+                <span className="mt-[3px] h-1 w-1 shrink-0 rounded-full bg-blue-400/40" />
+                {point}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </motion.a>
   );
 }
 
-/* ─────────────── 3D Sticky Stack Card ─────────────── */
+/* ─────────────── 3D Spotlight Carousel ─────────────── */
 export function CosmicProjects() {
   const containerRef = useRef<HTMLDivElement>(null);
-  /* Added an extra 'n' to the scroll length to let the last card breathe and transition out */
   const n = showcaseProjects.length;
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start start", "end end"],
   });
+
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  // Track which card is in the spotlight — active region 0.12 → 0.90
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const region = Math.min(Math.max((v - 0.12) / 0.78, 0), 0.999);
+    setActiveIdx(Math.min(n - 1, Math.floor(region * n)));
+  });
+
+  const introOpacity  = useTransform(scrollYProgress, [0, 0.09, 0.14], [1, 1, 0]);
+  const introY        = useTransform(scrollYProgress, [0, 0.14], [0, -50]);
+  const uiOpacity     = useTransform(scrollYProgress, [0.10, 0.16], [0, 1]);
 
   return (
     <section id="work" className="relative z-10 w-full" ref={containerRef}>
-      {/* Container height is now total projects + 1 extra 'page' for the intro and 1 for the exit */}
-      <div className="relative" style={{ height: `${(n + 1.2) * 100}vh` }}>
-        
-        {/* Section Heading — stays sticky for the first 'scene' */}
-        <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6 lg:px-12 pointer-events-none overflow-hidden">
-          <div className="absolute inset-0 z-0 opacity-10">
-            <div className="absolute left-[10%] top-[20%] h-[400px] w-[400px] rounded-full bg-blue-500 blur-[150px]" />
-          </div>
 
-          <motion.div
-            style={{
-              opacity: useTransform(scrollYProgress, [0, 0.12], [1, 0]),
-              y: useTransform(scrollYProgress, [0, 0.12], [0, -80]),
-              scale: useTransform(scrollYProgress, [0, 0.12], [1, 0.9]),
-            }}
-            className="relative z-10 text-center max-w-4xl"
-          >
-            <span className="liquid-glass mb-8 inline-flex rounded-full px-5 py-2 text-[10px] font-medium tracking-[0.25em] text-foreground/70 uppercase">
+      {/* ══════════════════════════════════════════
+          MOBILE / TABLET  (< lg) — plain list
+         ══════════════════════════════════════════ */}
+      <div className="block lg:hidden py-20 sm:py-28">
+        <div className="mx-auto max-w-2xl px-5 sm:px-8">
+          <div className="mb-12 text-center sm:mb-16">
+            <span className="liquid-glass mb-5 inline-flex rounded-full px-4 py-2 text-[10px] font-medium tracking-[0.2em] uppercase text-white/70">
               Our Work
             </span>
             <h2
-              className="mb-8 text-5xl font-normal leading-[0.95] text-foreground sm:text-7xl md:text-8xl"
+              className="mt-5 text-4xl font-normal leading-[0.95] text-white sm:text-5xl"
+              style={{ fontFamily: "'Instrument Serif', serif" }}
+            >
+              Work we&apos;ve <em className="not-italic text-white/50">shipped.</em>
+            </h2>
+            <p className="mx-auto mt-4 max-w-sm text-sm text-white/40">
+              Real clients. Real results. All live.
+            </p>
+          </div>
+          <div className="flex flex-col gap-6">
+            {showcaseProjects.map((p, i) => (
+              <ProjectCard key={p.id} project={p} index={i} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════
+          DESKTOP  (lg+) — 3-D spotlight ring
+          Section is tall enough for one full scroll
+          per card plus an intro + outro beat.
+         ══════════════════════════════════════════ */}
+      <div
+        className="relative hidden lg:block"
+        style={{ height: `${(n + 2.5) * 100}vh` }}
+      >
+        {/* ── sticky viewport ── */}
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+
+          {/* Spotlight glow — dead centre of the stage */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 flex items-center justify-center"
+          >
+            <div className="h-[560px] w-[900px] rounded-full bg-blue-500/[0.09] blur-[130px]" />
+          </div>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 flex items-center justify-center"
+          >
+            <div className="h-[320px] w-[560px] rounded-full bg-indigo-400/[0.07] blur-[90px]" />
+          </div>
+
+          {/* Intro title — visible at top, fades as first card arrives */}
+          <motion.div
+            style={{ opacity: introOpacity, y: introY }}
+            className="pointer-events-none absolute inset-x-0 top-[15%] z-30 text-center"
+          >
+            <span className="liquid-glass inline-flex rounded-full px-5 py-2 text-[10px] font-medium tracking-[0.25em] uppercase text-white/65">
+              Our Work
+            </span>
+            <h2
+              className="mt-6 text-6xl font-normal leading-[0.95] text-white md:text-7xl xl:text-8xl"
               style={{ fontFamily: "'Instrument Serif', serif" }}
             >
               Work we&apos;ve<br />
-              <em className="not-italic text-muted-foreground">shipped.</em>
+              <em className="not-italic text-white/45">shipped.</em>
             </h2>
-            <p className="mx-auto max-w-lg text-base leading-relaxed text-muted-foreground/60 sm:text-lg">
-              Real clients, real results. Scroll through what we&apos;ve built.
+            <p className="mx-auto mt-6 max-w-sm text-sm text-white/35">
+              Scroll — each project steps into the spotlight.
             </p>
-            <div className="mt-12 flex flex-col items-center gap-4">
-               <motion.span 
-                 animate={{ opacity: [0.2, 0.5, 0.2] }}
-                 transition={{ duration: 2, repeat: Infinity }}
-                 className="text-[10px] font-medium tracking-[0.5em] uppercase text-white/20"
-               >
-                 Scroll to Explore
-               </motion.span>
-               <motion.div 
-                 animate={{ scaleY: [0.5, 1, 0.5], originY: 0 }}
-                 transition={{ duration: 2, repeat: Infinity }}
-                 className="h-12 w-[1px] bg-gradient-to-b from-white/20 to-transparent" 
-               />
-            </div>
           </motion.div>
-        </div>
 
-        {/* The Stacked Cards */}
-        <div className="relative">
-          {showcaseProjects.map((project, i) => {
-            // Adjust start/end to account for the intro and exit padding
-            const cardStart = (i + 1) / (n + 1.2);
-            const cardEnd = (i + 2) / (n + 1.2);
-            
-            return (
-              <StickyStackCard 
-                key={project.id} 
-                project={project} 
-                index={i} 
-                progress={scrollYProgress}
-                customRange={[cardStart, cardEnd]}
+          {/* Counter — top centre, appears once cards start */}
+          <motion.p
+            style={{ opacity: uiOpacity }}
+            className="absolute inset-x-0 top-9 z-30 text-center font-mono text-[11px] tracking-[0.4em] uppercase text-white/40"
+          >
+            {String(activeIdx + 1).padStart(2, "0")}
+            <span className="mx-2 opacity-30">/</span>
+            {String(n).padStart(2, "0")}
+          </motion.p>
+
+          {/* ── 3-D stage ──
+              perspective sits here; each card's wrapper is
+              absolute inset-0 so they all share the same
+              centre origin. The motion.div then displaces
+              from that shared centre via x / z / rotateY.   */}
+          <div
+            className="absolute inset-0"
+            style={{ perspective: "2000px", perspectiveOrigin: "50% 50%" }}
+          >
+            <div
+              className="relative h-full w-full"
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              {showcaseProjects.map((p, i) => (
+                <SpotlightCard
+                  key={p.id}
+                  project={p}
+                  index={i}
+                  n={n}
+                  progress={scrollYProgress}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Progress dots — bottom centre */}
+          <motion.div
+            style={{ opacity: uiOpacity }}
+            className="absolute inset-x-0 bottom-9 z-30 flex items-center justify-center gap-2"
+          >
+            {showcaseProjects.map((_, i) => (
+              <div
+                key={i}
+                className={`h-[3px] rounded-full transition-all duration-500 ${
+                  i === activeIdx ? "w-9 bg-white/70" : "w-2 bg-white/18"
+                }`}
               />
-            );
-          })}
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
   );
 }
 
-/* ─── Redesigned StickyStackCard — full-bleed image, no browser chrome ─── */
-function StickyStackCard({
+/* ─── SpotlightCard ───────────────────────────────────────────────────────────
+   Each card shares the SAME absolute inset-0 parent, giving them all an
+   identical centre origin.  The motion transforms (x, z, rotateY, scale)
+   then move the card away from / back to that centre as scroll progresses.
+   ─────────────────────────────────────────────────────────────────────────── */
+function SpotlightCard({
   project,
   index,
+  n,
   progress,
-  customRange
 }: {
-  project: typeof showcaseProjects[number],
-  index: number,
-  progress: MotionValue<number>,
-  customRange: [number, number]
+  project: (typeof showcaseProjects)[number];
+  index: number;
+  n: number;
+  progress: MotionValue<number>;
 }) {
-  const [startAt, endAt] = customRange;
-  const n = showcaseProjects.length;
+  // Active region 0.12 → 0.90; peak is the centre of this card's slice
+  const sliceW = 0.78 / n;
+  const peak = 0.12 + sliceW * (index + 0.5);
+  const hw = sliceW * 1.05;
 
-  const y = useTransform(progress, [startAt - 0.1, startAt], ["100vh", "0vh"]);
-  const scale = useTransform(progress, [endAt, endAt + 0.1], [1, 0.94]);
-  const opacity = useTransform(progress, [endAt, endAt + 0.1], [1, 0]);
-  const imgScale = useTransform(progress, [startAt, endAt], [1.07, 1.0]);
+  const pts = [peak - 2.5 * hw, peak - hw, peak, peak + hw, peak + 2.5 * hw];
 
-  const springConfig = { stiffness: 50, damping: 25, mass: 1 };
-  const smoothY = useSpring(y, springConfig);
-  const smoothScale = useSpring(scale, springConfig);
-  const smoothOpacity = useSpring(opacity, springConfig);
+  // Transforms relative to the shared centre
+  const x = useTransform(progress, pts, [1800, 1150, 0, -1150, -1800]);
+  const tz = useTransform(progress, pts, [-2000, -1200, 0, -1200, -2000]);
+  const rotY = useTransform(progress, pts, [55, 35, 0, -35, -55]);
+  const scale = useTransform(progress, pts, [0.25, 0.7, 1, 0.7, 0.25]);
+  const opacity = useTransform(progress, pts, [0, 0.06, 1, 0.06, 0]);
+  const blurPx = useTransform(progress, pts, [24, 6, 0, 6, 24]);
+
+  // Explicit Z-index to force stacking order
+  const zi = useTransform(progress, pts, [0, 10, 50, 10, 0]);
+
+  const spring = { stiffness: 55, damping: 26, mass: 1 };
+  const sx = useSpring(x, spring);
+  const sz = useSpring(tz, spring);
+  const sry = useSpring(rotY, spring);
+  const ss = useSpring(scale, spring);
+  const so = useSpring(opacity, spring);
+  const sb = useSpring(blurPx, spring);
+
+  const filter = useTransform(sb, (v) => (v > 0.3 ? `blur(${v}px)` : "none"));
+  // Only the active (visible) card should receive pointer events.
+  // Off-screen cards with near-zero opacity would otherwise swallow clicks.
+  const pointerEvts = useTransform(so, (v) => (v > 0.5 ? "auto" : "none"));
 
   const num = String(index + 1).padStart(2, "0");
-  const domain = project.url.replace(/^https?:\/\/(www\.)?/, "").split('/')[0];
+  const domain = project.url.replace(/^https?:\/\/(www\.)?/, "").split("/")[0];
 
   return (
-    <motion.div
-      style={{ y: smoothY, scale: smoothScale, opacity: smoothOpacity, zIndex: index + 10 }}
-      className="sticky top-0 h-screen w-full flex items-center justify-center px-4 sm:px-6 lg:px-12"
+    /* Outer wrapper: fills the stage, centres with flex.
+       This is the stable origin every transform is relative to. */
+    <div 
+      className="absolute inset-0 flex items-center justify-center pointer-events-none"
+      style={{ transformStyle: "preserve-3d" }}
     >
-      <div
-        className="group relative w-full max-w-6xl overflow-hidden rounded-3xl border border-white/[0.08] bg-[#09090e] shadow-[0_40px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.025)_inset]"
-        style={{ height: "clamp(460px, 74vh, 680px)" }}
+      {/* Inner motion div: carries all 3-D transforms */}
+      <motion.div
+        style={{
+          x: sx,
+          z: sz,
+          rotateY: sry,
+          scale: ss,
+          opacity: so,
+          filter,
+          zIndex: zi,
+          transformStyle: "preserve-3d",
+          willChange: "transform, opacity",
+          pointerEvents: pointerEvts,
+        }}
+        /* Fixed pixel width so Framer's x has a concrete reference point */
+        className="w-[min(92vw,1080px)]"
       >
-        <div className="flex h-full flex-col lg:flex-row">
+        {/* ── Card shell ── */}
+        <div
+          className="group relative w-full overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-white/[0.09]
+                     bg-[#08080f]
+                     shadow-[0_50px_100px_-10px_rgba(0,0,0,0.8),
+                             0_0_0_1px_rgba(255,255,255,0.04)_inset,
+                             0_0_80px_-20px_rgba(59,130,246,0.3)]"
+          style={{ height: "clamp(480px, 75vh, 640px)" }}
+        >
+          <div className="flex h-full flex-col md:flex-row">
 
-          {/* ── Left: Content ── */}
-          <div className="relative z-10 flex flex-col justify-between p-7 sm:p-10 lg:w-[44%] lg:p-14">
+            {/* ── TOP on mobile / LEFT on desktop: content ── */}
+            <div className="relative z-10 flex flex-col justify-between p-6 sm:p-8 md:w-[46%] md:p-10 xl:p-14">
+              {/* header row */}
+              <div>
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="font-mono text-[11px] tracking-[0.22em] text-white/20">
+                    {num}&thinsp;/&thinsp;{String(n).padStart(2, "0")}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400/80" />
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-400/55">
+                      Live
+                    </span>
+                  </span>
+                </div>
 
-            {/* Counter + live badge */}
-            <div>
-              <div className="mb-7 flex items-center justify-between">
-                <span className="font-mono text-[11px] tracking-[0.22em] text-white/15">
-                  {num}&thinsp;/&thinsp;{String(n).padStart(2, "0")}
+                <span className="inline-flex rounded-full border border-white/[0.07] bg-white/[0.03]
+                                 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-white/40">
+                  {project.category}
                 </span>
-                <div className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80 animate-pulse" />
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-400/50">Live</span>
+
+                <h3
+                  className="mb-3 mt-4 text-2xl font-normal leading-[1.05] text-white sm:text-3xl md:text-4xl xl:text-5xl"
+                  style={{ fontFamily: "'Instrument Serif', serif" }}
+                >
+                  {project.title}
+                </h3>
+
+                <p className="mb-4 text-[13px] leading-relaxed text-white/45 md:text-[14px]">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-1.5">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-white/[0.06] bg-white/[0.02]
+                                 px-2.5 py-0.5 text-[10px] text-white/30 md:px-3 md:py-1 md:text-[11px]"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Pitch — client hook */}
+                <div className="mt-5 rounded-xl border border-blue-400/[0.15] bg-blue-500/[0.05] p-4">
+                  <p className="mb-2.5 text-[9px] font-semibold uppercase tracking-[0.2em] text-blue-400/55">
+                    We can do this for you
+                  </p>
+                  <ul className="flex flex-col gap-2">
+                    {project.pitch.map((point, i) => (
+                      <li key={i} className="flex items-start gap-2 text-[12px] leading-snug text-white/45">
+                        <span className="mt-[5px] h-1 w-1 shrink-0 rounded-full bg-blue-400/50" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
 
-              {/* Category pill */}
-              <span className="mb-5 inline-flex rounded-full border border-white/[0.07] bg-white/[0.03] px-3.5 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-white/40">
-                {project.category}
-              </span>
-
-              {/* Title */}
-              <h3
-                className="mb-5 mt-4 text-3xl font-normal leading-tight text-white sm:text-4xl lg:text-[2.5rem] xl:text-5xl"
-                style={{ fontFamily: "'Instrument Serif', serif" }}
-              >
-                {project.title}
-              </h3>
-
-              {/* Description */}
-              <p className="mb-7 max-w-sm text-sm leading-relaxed text-white/42 sm:text-[15px]">
-                {project.description}
-              </p>
-
-              {/* Tech tags */}
-              <div className="flex flex-wrap gap-2">
-                {project.tech.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full border border-white/[0.07] bg-white/[0.03] px-3 py-1 text-[11px] text-white/30 transition-colors hover:border-white/15 hover:text-white/55"
-                  >
-                    {t}
-                  </span>
-                ))}
+              {/* CTA */}
+              <div className="mt-5 flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => window.open(project.url, "_blank", "noopener,noreferrer")}
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 md:px-7 md:py-3
+                             text-sm font-semibold text-black cursor-pointer
+                             shadow-[0_8px_24px_-8px_rgba(255,255,255,0.5)]
+                             transition-all hover:scale-[1.03] hover:bg-white/95 active:scale-[0.97]"
+                >
+                  Visit Live Site
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </button>
+                <span className="hidden truncate font-mono text-[10px] uppercase tracking-widest text-white/20 md:inline max-w-[160px]">
+                  {domain}
+                </span>
               </div>
             </div>
 
-            {/* CTA row */}
-            <div className="flex items-center gap-4 pt-8">
-              <Magnetic>
-                <Link
-                  href={project.url}
-                  target="_blank"
-                  className="relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition-all hover:bg-white/90 active:scale-95"
-                >
-                  <div className="absolute -inset-full top-0 h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer" />
-                  <span className="relative">Visit Live Site</span>
-                  <ExternalLink className="relative h-3.5 w-3.5" />
-                </Link>
-              </Magnetic>
-              <span className="max-w-[160px] truncate font-mono text-[10px] uppercase tracking-widest text-white/18">
-                {domain}
-              </span>
+            {/* ── BOTTOM on mobile / RIGHT on desktop: screenshot ── */}
+            <div className="relative flex-1 overflow-hidden border-t border-white/[0.05] md:border-t-0 md:border-l bg-[#0a0a14]">
+              {/* blend edges into dark bg */}
+              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-16
+                              bg-gradient-to-r from-[#08080f] to-transparent md:block" />
+              <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-8
+                              bg-gradient-to-b from-[#08080f] to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-8
+                              bg-gradient-to-t from-[#08080f] to-transparent" />
+              {/* Screenshot displayed as a browser preview — scaled to fit, showing full page */}
+              <div className="absolute inset-0 flex items-start justify-center p-4 md:p-6 pt-6">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full rounded-lg shadow-2xl object-cover object-top"
+                  style={{ maxHeight: "100%", objectFit: "cover", objectPosition: "top" }}
+                />
+              </div>
             </div>
-          </div>
 
-          {/* ── Right: Full-bleed screenshot — desktop only ── */}
-          <div className="hidden lg:flex relative flex-1 overflow-hidden lg:border-l">
-            {/* Left blend: content panel fades into image */}
-            <div className="absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[#09090e] to-transparent pointer-events-none" />
-            {/* Top vignette */}
-            <div className="absolute inset-x-0 top-0 z-10 h-10 bg-gradient-to-b from-[#09090e] to-transparent pointer-events-none" />
-            {/* Bottom vignette */}
-            <div className="absolute inset-x-0 bottom-0 z-10 h-10 bg-gradient-to-t from-[#09090e] to-transparent pointer-events-none" />
-            {/* Right edge */}
-            <div className="absolute inset-y-0 right-0 z-10 w-4 bg-gradient-to-l from-[#09090e] to-transparent pointer-events-none" />
-
-            <motion.img
-              src={project.image}
-              alt={project.title}
-              loading="lazy"
-              decoding="async"
-              style={{ scale: imgScale }}
-              className="h-full w-full object-cover object-top"
-            />
           </div>
 
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
 
@@ -501,6 +661,7 @@ function StickyStackCard({
 const agencyServices = [
   {
     title: "Websites & Landing Pages",
+    hook: "Need a site that actually brings in customers — not just looks pretty?",
     description: "Responsive, fast, SEO-ready websites. From single landing pages to multi-page business sites — built with Next.js, React, or whatever your project needs.",
     icon: Globe,
     from: "₹5,000",
@@ -515,6 +676,7 @@ const agencyServices = [
   },
   {
     title: "Web Apps & Admin Panels",
+    hook: "Managing your business through spreadsheets and WhatsApp? There's a better way.",
     description: "Full-featured web applications with dashboards, authentication, databases, and role-based access. Built to scale from day one.",
     icon: Code2,
     from: "₹8,000",
@@ -529,6 +691,7 @@ const agencyServices = [
   },
   {
     title: "Full-Stack SaaS & Platforms",
+    hook: "Got a product idea but no tech team to build it? That's exactly what we're here for.",
     description: "End-to-end products — from MVP to scale-ready SaaS. Payments, multi-tenancy, APIs, CI/CD, and everything in between.",
     icon: Rocket,
     from: "₹18,000",
@@ -543,6 +706,7 @@ const agencyServices = [
   },
   {
     title: "Mobile Apps",
+    hook: "Your customers are on their phones. Your business should be there too.",
     description: "Android and cross-platform apps built with React Native. Play Store deployment, push notifications, and a backend that holds up.",
     icon: Smartphone,
     from: "₹25,000",
@@ -557,6 +721,7 @@ const agencyServices = [
   },
   {
     title: "Chrome Extensions",
+    hook: "Want to automate something you do in your browser every single day?",
     description: "Custom browser extensions for productivity, automation, AI assistance, scraping, or team tooling. We handle everything including Chrome Web Store submission.",
     icon: Zap,
     from: "₹5,000",
@@ -571,6 +736,7 @@ const agencyServices = [
   },
   {
     title: "AI / ML Projects",
+    hook: "Want to actually use AI in your product — not just slap a chatbot on it?",
     description: "Chatbots, RAG pipelines, LLM integrations, custom model workflows — real AI that does something useful, not just a GPT wrapper.",
     icon: Brain,
     from: "₹8,000",
@@ -585,6 +751,7 @@ const agencyServices = [
   },
   {
     title: "HRMS, Payroll & Portals",
+    hook: "Still running payroll and leave tracking on Excel? Let's fix that permanently.",
     description: "Employee management systems, payroll with tax compliance, leave tracking, attendance, reporting — built to your exact internal workflow.",
     icon: Users,
     from: "₹25,000",
@@ -599,6 +766,7 @@ const agencyServices = [
   },
   {
     title: "Data Tracking & Analytics",
+    hook: "Flying blind on your business numbers? Get a live dashboard that actually tells you what's happening.",
     description: "Custom dashboards, real-time analytics, data ingestion pipelines, and reporting platforms — unified visibility for your operations.",
     icon: BarChart3,
     from: "₹30,000",
@@ -613,6 +781,7 @@ const agencyServices = [
   },
   {
     title: "Bug Fixing & Optimization",
+    hook: "Inherited a broken app or hit a wall with your own code? Send it to us.",
     description: "Inherited a broken codebase? We triage, fix, and optimize. Performance issues, crashes, tech debt — we'll hand it back better than we found it.",
     icon: Wrench,
     from: "₹2,000",
@@ -627,6 +796,7 @@ const agencyServices = [
   },
   {
     title: "API & Integrations",
+    hook: "Need Stripe, WhatsApp, a CRM, or any third-party service wired into your app?",
     description: "Stripe, Razorpay, CRMs, third-party services, AI APIs — connected cleanly into your existing or new stack.",
     icon: Cpu,
     from: "₹10,000",
@@ -641,6 +811,7 @@ const agencyServices = [
   },
   {
     title: "Migrations",
+    hook: "Still on WordPress or a legacy stack that's slowing you down? Let's move you out.",
     description: "Moving from WordPress to Next.js, legacy PHP to modern stack, or consolidating services — we've done it before. Clean, zero data loss.",
     icon: RefreshCw,
     from: "₹10,000",
@@ -655,6 +826,7 @@ const agencyServices = [
   },
   {
     title: "Domain, Hosting & Deployment",
+    hook: "Built something but have no idea how to get it live? We'll handle every step.",
     description: "DNS setup, hosting config, SSL, CI/CD pipelines, Vercel, AWS — we get your product live and keep it running.",
     icon: Package,
     from: "₹2,000",
@@ -725,11 +897,16 @@ export function CosmicServices() {
 
               {/* Title */}
               <h3
-                className="mb-2 text-lg font-medium text-foreground/90 sm:text-xl"
+                className="mb-1.5 text-lg font-medium text-foreground/90 sm:text-xl"
                 style={{ fontFamily: "'Instrument Serif', serif" }}
               >
                 {service.title}
               </h3>
+
+              {/* Hook — speaks to client pain point */}
+              <p className="mb-3 text-[12px] leading-snug text-amber-300/55 italic">
+                {service.hook}
+              </p>
 
               {/* Description */}
               <p className="mb-4 text-[13px] leading-relaxed text-muted-foreground/70">
@@ -1194,9 +1371,9 @@ export function HomeServices() {
               className="mt-5 text-4xl font-normal leading-[1.05] text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
               style={{ fontFamily: "'Instrument Serif', serif" }}
             >
-              <ScrollSplitText text="We make your" delay={0} />{" "}
+              <ScrollSplitText text="Stop shipping AI-slop." delay={0} />{" "}
               <em className="not-italic text-muted-foreground inline-block">
-                <ScrollSplitText text="dream ideas real." delay={0.3} />
+                <ScrollSplitText text="Ship real software." delay={0.3} />
               </em>
             </h2>
           </div>
@@ -1433,7 +1610,7 @@ export function CosmicCTA() {
               Let&apos;s <em className="text-muted-foreground not-italic">build it.</em>
             </h2>
             <p className="mx-auto mb-12 max-w-xl text-lg text-white/50 leading-relaxed">
-              Tell us what you need. We&apos;ll scope it, document it, and ship it — without the wait.
+              Stop losing weeks to slow agencies. Tell us what you need — we&apos;ll scope it, document it, and ship it.
             </p>
             <div className="flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-8">
               <Link
@@ -1455,3 +1632,48 @@ export function CosmicCTA() {
     </section>
   );
 }
+
+/* ─────────────── Client Logos Strip (social proof layer 1) ─────────────── */
+const clientLogos = [
+  { name: "CyberSecurity Train", sub: "Learning Platform" },
+  { name: "The Cyber Seal", sub: "Agency" },
+  { name: "Fresh Coconuts", sub: "Vendor" },
+];
+
+export function ClientLogos() {
+  return (
+    <section className="relative z-10 border-y border-white/[0.04] bg-white/[0.008] py-10 sm:py-14">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mb-7 text-center text-[10px] font-medium tracking-[0.3em] uppercase text-white/35"
+        >
+          Trusted by founders across India &amp; the US
+        </motion.p>
+        <div className="grid grid-cols-1 gap-x-4 gap-y-7 sm:grid-cols-3">
+          {clientLogos.map((c, i) => (
+            <motion.div
+              key={c.name}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}
+              className="flex flex-col items-center justify-center text-center"
+            >
+              <span
+                className="text-lg font-medium text-white/50 transition-colors hover:text-white/80"
+                style={{ fontFamily: "'Instrument Serif', serif" }}
+              >
+                {c.name}
+              </span>
+              <span className="mt-1 text-[10px] tracking-[0.25em] uppercase text-white/20">{c.sub}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+

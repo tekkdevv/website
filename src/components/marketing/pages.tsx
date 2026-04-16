@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   Cloud,
   Clock,
+  Code2,
   FileSearch,
   Lock,
   MessageSquare,
@@ -23,71 +24,17 @@ import { BlurIn } from "@/components/marketing/blur-in";
 import { ContactSection } from "@/components/marketing/contact-section";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { StoryHero } from "@/components/marketing/story-hero";
-import { CosmicBackground, TrustStrip, OurStory, CosmicProjects, HomeServices, HomeProcess, CosmicCTA } from "./home-sections";
+import { CosmicBackground, TrustStrip, OurStory, CosmicProjects, HomeServices, HomeProcess, CosmicCTA, ClientLogos } from "./home-sections";
 
 import { MarketingNavigation } from "@/components/marketing/navigation";
 
 const homeStats = [
-  { icon: Target, value: "50+", label: "Projects Delivered" },
-  { icon: Rocket, value: "Fast Delivery", label: "Quick turnaround on client work" },
-  { icon: Users, value: "Ongoing Support", label: "Reliable help after launch" },
+  { icon: Target, value: "Real Deliveries", label: "Focused on business outcomes" },
+  { icon: Rocket, value: "Full Stack", label: "Web, Mobile & Extensions" },
+  { icon: Users, value: "Direct Dev", label: "Talk to the engineers, no middleman" },
 ];
 
-const homeTestimonials = [
-  {
-    quote:
-      "TekkDevv stepped into a messy codebase, fixed the performance issues, and got our release back on track in days.",
-    author: "Sarah Johnson",
-    role: "Founder, HealthStack",
-  },
-  {
-    quote:
-      "They felt like a true product partner, not just a dev shop. Clear communication, strong execution, and zero drama.",
-    author: "Michael Chen",
-    role: "COO, BrightFlow",
-  },
-  {
-    quote:
-      "We hired TekkDevv for bug fixes and ended up trusting them with a full rebuild. The quality was consistently strong.",
-    author: "Emily Rodriguez",
-    role: "CTO, Northlane",
-  },
-];
 
-const showcaseProjects = [
-  {
-    id: 1,
-    title: "KYMA",
-    description: "AI agency website and lead funnel rebuilt for faster conversion and sharper premium positioning.",
-    tech: "Next.js · TypeScript · Framer Motion",
-    result: "Increased qualified inbound by 32%",
-    image: "/images/p1.svg",
-  },
-  {
-    id: 2,
-    title: "Mugen Studio",
-    description: "Portfolio experience refined with better storytelling, motion, and a cleaner service journey.",
-    tech: "React · Tailwind · Motion Design",
-    result: "Reduced bounce rate by 27%",
-    image: "/images/p2.svg",
-  },
-  {
-    id: 3,
-    title: "Essentia",
-    description: "Ecommerce storefront optimized for performance, merchandising clarity, and mobile conversion.",
-    tech: "Next.js · Shopify · UI Engineering",
-    result: "Cut load time by 40%",
-    image: "/images/p3.svg",
-  },
-  {
-    id: 4,
-    title: "Axiom",
-    description: "High-impact landing experience for a performance brand with stronger visual hierarchy and launch polish.",
-    tech: "React · CMS Integration · Tailwind",
-    result: "Lifted engagement by 24%",
-    image: "/images/p4.svg",
-  },
-];
 
 const agencyServices = [
   {
@@ -133,187 +80,86 @@ const processSteps = [
 const features = [
   {
     icon: Workflow,
-    title: "Workflow Automation",
-    description:
-      "Create custom workflows that automate your business processes from start to finish. Reduce manual work and eliminate errors.",
-    details: [
-      "Visual workflow builder",
-      "Conditional logic and branching",
-      "Multi-step automation chains",
-      "Real-time monitoring and alerts",
-    ],
+    title: "Full-Stack Development",
+    description: "We build tailored web and mobile applications with a focus on clean architecture and performance.",
+    details: ["Next.js & React expert builds", "TypeScript for reliability", "Scalable backend architecture", "Clean, modern UI/UX"],
   },
   {
     icon: MessageSquare,
-    title: "AI Chat Assistant",
-    description:
-      "Deploy intelligent chatbots that understand context and provide human-like responses to customer queries.",
-    details: [
-      "Natural language processing",
-      "Multi-language support",
-      "Custom training on your data",
-      "24/7 availability",
-    ],
-  },
-  {
-    icon: FileSearch,
-    title: "Document Intelligence",
-    description:
-      "Extract insights from documents automatically. Process invoices, contracts, and reports with AI-powered OCR.",
-    details: [
-      "Automatic data extraction",
-      "Smart categorization",
-      "Compliance checking",
-      "Bulk processing",
-    ],
-  },
-  {
-    icon: BarChart3,
-    title: "Advanced Analytics",
-    description:
-      "Get deep insights into your data with AI-powered analytics that identify patterns and predict trends.",
-    details: [
-      "Predictive modeling",
-      "Real-time dashboards",
-      "Custom reports",
-      "Anomaly detection",
-    ],
-  },
-  {
-    icon: Lock,
-    title: "Enterprise Security",
-    description:
-      "Bank-grade security with end-to-end encryption, role-based access control, and compliance certifications.",
-    details: [
-      "SOC 2 Type II certified",
-      "GDPR compliant",
-      "Single sign-on (SSO)",
-      "Audit logs",
-    ],
-  },
-  {
-    icon: Cloud,
-    title: "Cloud Integration",
-    description:
-      "Seamlessly connect with your existing tools and platforms through our extensive integration library.",
-    details: [
-      "100+ pre-built integrations",
-      "REST API access",
-      "Webhook support",
-      "Custom connectors",
-    ],
+    title: "Project Takeovers",
+    description: "Inherited a messy codebase? We audit, debug, and stabilize projects in any state.",
+    details: ["Comprehensive code audits", "Critical bug fixing", "Performance optimization", "Technical debt reduction"],
   },
 ];
 
 const learnFeatures = [
   {
-    icon: Brain,
-    title: "Intelligent Automation",
+    icon: Code2,
+    title: "Clean Codebase",
     description:
-      "Leverage advanced AI algorithms to automate repetitive tasks and streamline your workflows with precision and reliability.",
+      "We build with TypeScript and modern frameworks to ensure your codebase is readable, maintainable, and bug-resistant.",
   },
   {
     icon: Sparkles,
-    title: "Lightning Fast Processing",
+    title: "Performance First",
     description:
-      "Process thousands of data points in seconds, enabling real-time decision making and rapid business insights.",
+      "Every project is optimized for Core Web Vitals, ensuring lightning-fast load times and a smooth user experience.",
   },
   {
     icon: Shield,
-    title: "Enterprise Security",
+    title: "Secure by Design",
     description:
-      "Bank-grade encryption and compliance with international data protection standards to keep your information safe.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Predictive Analytics",
-    description:
-      "Harness the power of machine learning to forecast trends and make data-driven decisions with confidence.",
-  },
-  {
-    icon: Users,
-    title: "Seamless Integration",
-    description:
-      "Connect with your existing tools and platforms through our robust API and pre-built integrations.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Smart Assistants",
-    description:
-      "Deploy AI-powered assistants that understand context and provide intelligent responses to complex queries.",
+      "From authentication to data storage, we follow industry best practices to keep your application and users safe.",
   },
 ];
 
 const benefits = [
   {
-    stat: "90%",
-    label: "Time Saved",
-    description: "On average, our clients save 90% of time on manual tasks",
+    stat: "No AI Slop",
+    label: "Hand-Crafted Code",
+    description: "Every line is written with intent and precision, not generated blindly.",
   },
   {
-    stat: "5x",
-    label: "Faster Insights",
-    description: "Get actionable insights 5 times faster than traditional methods",
+    stat: "Direct Access",
+    label: "Zero Bureaucracy",
+    description: "Talk directly to the devs building your product, not an account manager.",
   },
   {
-    stat: "99.9%",
-    label: "Uptime",
-    description: "Enterprise-grade reliability you can count on",
+    stat: "Documentation",
+    label: "Always in Writing",
+    description: "Scope, features, and pricing are locked before work begins.",
   },
 ];
 
 const pricingPlans = [
   {
-    name: "Starter",
-    price: "$99",
-    period: "/month",
-    description: "Perfect for small teams getting started with AI automation.",
+    name: "Consultation & Scope",
+    price: "Free",
+    period: "",
+    description: "We review your requirements, audit the codebase, and provide a clear roadmap.",
     features: [
-      "Up to 10,000 API calls/month",
-      "5 automated workflows",
-      "Basic analytics dashboard",
-      "Email support",
-      "1 team member",
-      "Standard integrations",
+      "Codebase audit",
+      "Technical feasibility check",
+      "Project scoping",
+      "Timeline estimation",
+      "Budget breakdown",
     ],
-    cta: "Start Free Trial",
-    highlighted: false,
-  },
-  {
-    name: "Professional",
-    price: "$299",
-    period: "/month",
-    description: "For growing businesses ready to scale their operations.",
-    features: [
-      "Up to 100,000 API calls/month",
-      "Unlimited workflows",
-      "Advanced analytics & reporting",
-      "Priority support",
-      "Up to 10 team members",
-      "All integrations",
-      "Custom AI training",
-      "Dedicated account manager",
-    ],
-    cta: "Start Free Trial",
+    cta: "Book a Free Call",
     highlighted: true,
   },
   {
-    name: "Enterprise",
+    name: "Project Based",
     price: "Custom",
     period: "",
-    description: "Tailored solutions for large organizations with complex needs.",
+    description: "Fixed-price or milestone-based development for specific features or full builds.",
     features: [
-      "Unlimited API calls",
-      "Unlimited workflows",
-      "Enterprise analytics suite",
-      "24/7 phone & email support",
-      "Unlimited team members",
-      "Custom integrations",
-      "Advanced security features",
-      "SLA guarantee",
-      "On-premise deployment",
+      "Dedicated development",
+      "Clear milestones & sign-offs",
+      "Weekly progress updates",
+      "Staging environments",
+      "Post-launch support",
     ],
-    cta: "Contact Sales",
+    cta: "Get a Quote",
     highlighted: false,
   },
 ];
@@ -339,6 +185,7 @@ export function MarketingHomePage() {
       <StoryHero />
       <div className="relative z-10 pb-24">
         <TrustStrip />
+        <ClientLogos />
         <OurStory />
         <CosmicProjects />
         <HomeServices />

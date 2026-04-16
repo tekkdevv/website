@@ -9,19 +9,19 @@ import { Magnetic } from "@/components/marketing/magnetic";
 const chapters = [
   {
     titleParts: [
-      { text: "We build software", muted: false },
-      { text: " that actually works.", muted: true },
+      { text: "Built right.", muted: false },
+      { text: " Shipped on time. Every time.", muted: true },
     ],
     subtitle:
-      "Websites, web applications, Artificial Intelligence systems, Android mobile apps, Human Resource management portals, Chrome browser extensions — fully built by experienced developers, shipped fast, zero generated filler.",
+      "Websites, web applications, AI systems, mobile apps, HR portals, Chrome extensions — fully built by experienced developers, shipped fast, zero generated filler. Trusted by founders across India and the US.",
   },
   {
     titleParts: [
-      { text: "From ₹5,000 websites", muted: true },
-      { text: " to ₹25,000+ platforms.", muted: false },
+      { text: "Stop waiting weeks", muted: false },
+      { text: " for a website that still doesn't work.", muted: true },
     ],
     subtitle:
-      "Transparent pricing, written scope confirmed before a single line of code is written, and 2 months of free post-launch support on every project. You know exactly what you are getting before we begin.",
+      "Every week your launch slips, leads go to competitors. We scope, document, and ship — while the agency you almost hired is still writing proposals. Transparent pricing, written sign-off before a single line of code.",
   },
   {
     titleParts: [
@@ -30,7 +30,7 @@ const chapters = [
       { text: " No excuses.", muted: false },
     ],
     subtitle:
-      "We move fast because we are experienced — not because we cut corners. Every project ships on schedule, works properly for real users, and comes with documentation so you are never left guessing.",
+      "We move fast because we are experienced — not because we cut corners. Every project ships on schedule, works properly for real users, and comes with 2 months of free post-launch support.",
   },
 ];
 
@@ -129,18 +129,18 @@ export function StoryHero() {
                 <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-4">
                   <Magnetic>
                     <Link
-                      href="/#work"
-                      className="liquid-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-medium text-foreground transition-transform hover:scale-[1.03] sm:w-auto sm:px-12 sm:py-5 sm:text-base"
+                      href="/#contact"
+                      className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-[0_10px_40px_-10px_rgba(255,255,255,0.4)] transition-all hover:scale-[1.03] hover:bg-white/95 active:scale-[0.98] sm:w-auto sm:px-12 sm:py-5 sm:text-base"
                     >
-                      See Our Work <ArrowRight className="h-4 w-4" />
+                      Start a Project <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                     </Link>
                   </Magnetic>
                   <Magnetic>
                     <Link
-                      href="/#contact"
-                      className="liquid-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-medium text-foreground transition-transform hover:scale-[1.03] sm:w-auto sm:px-12 sm:py-5 sm:text-base"
+                      href="/#work"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-medium text-white/55 transition-colors hover:text-white sm:w-auto sm:px-12 sm:py-5 sm:text-base"
                     >
-                      Start a Project
+                      See Our Work
                     </Link>
                   </Magnetic>
                 </div>

@@ -73,7 +73,7 @@ export function ContactSection() {
 
               <div className="mt-12 space-y-4">
                 <Link
-                  href="mailto:contact@tekdev.dev"
+                  href="mailto:tekkdevv@gmail.com"
                   className="group flex items-center justify-between rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 transition-all hover:bg-white/[0.04] hover:border-white/20"
                 >
                   <div className="flex items-center gap-4">
@@ -82,7 +82,7 @@ export function ContactSection() {
                     </div>
                     <div className="flex flex-col">
                       <span className="text-[10px] font-medium uppercase tracking-widest text-white/30">Email Us</span>
-                      <span className="text-sm font-medium text-white/80 group-hover:text-white">contact@tekdev.dev</span>
+                      <span className="text-sm font-medium text-white/80 group-hover:text-white">tekkdevv@gmail.com</span>
                     </div>
                   </div>
                   <ArrowRight className="h-4 w-4 text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all" />
