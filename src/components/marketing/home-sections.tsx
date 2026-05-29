@@ -537,9 +537,12 @@ function SpotlightCard({
         className="w-[min(92vw,1080px)]"
       >
         {/* ── Card shell ── */}
-        <div
-          className="group relative w-full overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-white/[0.09]
-                     bg-[#08080f]
+        <a
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative block w-full overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-white/[0.09]
+                     bg-[#08080f] cursor-pointer
                      shadow-[0_50px_100px_-10px_rgba(0,0,0,0.8),
                              0_0_0_1px_rgba(255,255,255,0.04)_inset,
                              0_0_80px_-20px_rgba(59,130,246,0.3)]"
@@ -609,17 +612,15 @@ function SpotlightCard({
 
               {/* CTA */}
               <div className="mt-5 flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => window.open(project.url, "_blank", "noopener,noreferrer")}
+                <span
                   className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 md:px-7 md:py-3
-                             text-sm font-semibold text-black cursor-pointer
+                             text-sm font-semibold text-black
                              shadow-[0_8px_24px_-8px_rgba(255,255,255,0.5)]
-                             transition-all hover:scale-[1.03] hover:bg-white/95 active:scale-[0.97]"
+                             transition-all group-hover:scale-[1.03] group-hover:bg-white/95"
                 >
                   Visit Live Site
                   <ExternalLink className="h-3.5 w-3.5" />
-                </button>
+                </span>
                 <span className="hidden truncate font-mono text-[10px] uppercase tracking-widest text-white/20 md:inline max-w-[160px]">
                   {domain}
                 </span>
@@ -650,7 +651,7 @@ function SpotlightCard({
 
           </div>
 
-        </div>
+        </a>
       </motion.div>
     </div>
   );
