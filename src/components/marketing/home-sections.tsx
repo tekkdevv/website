@@ -437,6 +437,7 @@ export function CosmicProjects() {
                   index={i}
                   n={n}
                   progress={scrollYProgress}
+                  isActive={i === activeIdx}
                 />
               ))}
             </div>
@@ -472,11 +473,13 @@ function SpotlightCard({
   index,
   n,
   progress,
+  isActive,
 }: {
   project: (typeof showcaseProjects)[number];
   index: number;
   n: number;
   progress: MotionValue<number>;
+  isActive: boolean;
 }) {
   // Active region 0.12 → 0.90; peak is the centre of this card's slice
   const sliceW = 0.78 / n;
@@ -505,9 +508,6 @@ function SpotlightCard({
   const sb = useSpring(blurPx, spring);
 
   const filter = useTransform(sb, (v) => (v > 0.3 ? `blur(${v}px)` : "none"));
-  // Only the active (visible) card should receive pointer events.
-  // Off-screen cards with near-zero opacity would otherwise swallow clicks.
-  const pointerEvts = useTransform(so, (v) => (v > 0.5 ? "auto" : "none"));
 
   const num = String(index + 1).padStart(2, "0");
   const domain = project.url.replace(/^https?:\/\/(www\.)?/, "").split("/")[0];
@@ -531,10 +531,9 @@ function SpotlightCard({
           zIndex: zi,
           transformStyle: "preserve-3d",
           willChange: "transform, opacity",
-          pointerEvents: pointerEvts,
         }}
         /* Fixed pixel width so Framer's x has a concrete reference point */
-        className="w-[min(92vw,1080px)]"
+        className={`w-[min(92vw,1080px)] ${isActive ? "pointer-events-auto" : "pointer-events-none"}`}
       >
         {/* ── Card shell ── */}
         <a
